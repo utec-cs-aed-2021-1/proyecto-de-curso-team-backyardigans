@@ -36,8 +36,9 @@ struct Vertex {
     string id;
     std::list<Edge<TV, TE>*> edges;
     Vertex()= default;
-    explicit Vertex(TV data_){
+    explicit Vertex(TV data_, string id_){
         data = data_;
+        id = id_;
     }
 };
 

@@ -22,12 +22,9 @@ void test_undirected_graph(){
     graph_u1.createEdge("D","B", 4);
     graph_u1.createEdge("A","D", 1);
     graph_u1.display();
-    cout << "ga"<<endl;
     graph_u1.deleteVertex("A");
     graph_u1.display();
-    cout<< "ge"<<endl;
     graph_u1.deleteEdge("C","B");
-
     graph_u1.display(); };
 
 
