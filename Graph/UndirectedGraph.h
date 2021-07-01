@@ -12,6 +12,8 @@ private:
 public:
     bool insertVertex(string id, TV vertex) override;
 
+    int getNumberOfVertices();
+
     bool createEdge(string id1, string id2, TE w) override;
 
     bool deleteVertex(string id) override;
@@ -40,6 +42,11 @@ public:
 
     void findbyId(string id);
 };
+
+template<typename TV, typename TE>
+int UnDirectedGraph<TV, TE>::getNumberOfVertices() {
+  return vertexes.size();
+}
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
