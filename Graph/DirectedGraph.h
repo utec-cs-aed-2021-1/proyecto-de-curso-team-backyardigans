@@ -7,6 +7,7 @@ template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
 private:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
+    int nedge;
 public:
     DirectedGraph(){}
 
@@ -19,7 +20,7 @@ public:
     bool deleteEdge(string id, string id2) override;
 
     TE &operator()(string start, string end) override;
-    float density() override{};
+    float density() override;
     bool isDense(float threshold = 0.5) override{};
     bool isConnected() override{};
     bool isStronglyConnected() throw() override{};
@@ -38,10 +39,15 @@ bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
-    auto v1 = vertexes[id1];
-    auto v2 = vertexes[id2];
-    auto edge = new Edge<TV, TE>(v1, v2, w);
-    vertexes[id1]->edges.push_back(edge);
+    if (vertexes.find(id1)==vertexes.end() || vertexes.find(id2) == vertexes.end() || id1 == id2){
+        auto v1 = vertexes[id1];
+        auto v2 = vertexes[id2];
+        auto edge = new Edge<TV, TE>(v1, v2, w);
+        vertexes[id1]->edges.push_back(edge);
+        nedge++;
+        return true;
+    }
+    return false;
 }
 
 template<typename TV, typename TE>
@@ -81,6 +87,12 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
         it++;
     }
     cout << "NOT FOUND"<<endl;
+}
+
+template<typename TV, typename TE>
+float DirectedGraph<TV, TE>::density() {
+    float s_v = vertexes.size();
+    return (float)nedge/((s_v)*(s_v-1));
 }
 
 template<typename TV, typename TE>
