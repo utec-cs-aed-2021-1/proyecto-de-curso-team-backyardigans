@@ -45,11 +45,24 @@ public:
     void findbyId(string id);
 };
 
+
+/**
+ *
+ * @return The number of vertices in the graph
+ *
+ */
+
 template<typename TV, typename TE>
 int UnDirectedGraph<TV, TE>::getNumberOfVertices() {
   return vertexes.size();
 }
 
+
+/**
+ *
+ * @return The number of edges in the graph
+ *
+ */
 
 template<typename TV, typename TE>
 int UnDirectedGraph<TV, TE>::getNumberOfEdges() {
