@@ -14,6 +14,8 @@ public:
 
     int getNumberOfVertices();
 
+    int getNumberOfEdges();
+
     bool createEdge(string id1, string id2, TE w) override;
 
     bool deleteVertex(string id) override;
@@ -46,6 +48,12 @@ public:
 template<typename TV, typename TE>
 int UnDirectedGraph<TV, TE>::getNumberOfVertices() {
   return vertexes.size();
+}
+
+
+template<typename TV, typename TE>
+int UnDirectedGraph<TV, TE>::getNumberOfEdges() {
+    return nedge;
 }
 
 template<typename TV, typename TE>
