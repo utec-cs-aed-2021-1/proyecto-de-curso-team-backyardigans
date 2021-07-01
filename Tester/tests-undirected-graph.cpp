@@ -19,7 +19,7 @@ TEST_CASE( "Inserting vertices in an undirected graph", "[UnDirectedGraph]" ) {
 	SECTION( "All characters in the alphabet" ) {
 	    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 	    for(char i='a'; i<='z'; ++i)
-		g.insertVertex(i, 10);
+		g.insertVertex(std::string(1, i), 10);
 	    REQUIRE( g.getNumberOfVertices() == ('z' - 'a' + 1) );
 	}
 	
