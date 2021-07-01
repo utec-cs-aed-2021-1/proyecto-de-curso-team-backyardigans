@@ -25,7 +25,7 @@ void test_undirected_graph(){
     graph_u1.deleteVertex("A");
     graph_u1.display();
     graph_u1.deleteEdge("C","B");
-    graph_u1.display(); };
+    graph_u1.display(); }
 
 
 #endif //PROYECTO_DE_CURSO_TEAM_BACKYARDIGANS_TESTER_H

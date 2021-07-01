@@ -7,6 +7,7 @@ template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE>{
 private:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
+    int nedge;
 public:
     bool insertVertex(string id, TV vertex) override;
 
@@ -16,23 +17,23 @@ public:
 
     bool deleteEdge(string id, string id2) override;
 
-    TE &operator()(string start, string end) override{};
+    TE &operator()(string start, string end) override;
 
-    float density() override{};
+    float density() override;
 
-    bool isDense(float threshold = 0.5) override{};
+    bool isDense(float threshold = 0.5) override;
 
-    bool isConnected() override{};
+    bool isConnected() override;
 
     bool isStronglyConnected() throw() override{};
 
-    bool empty() override{};
+    bool empty() override;
 
-    void clear() override{};
+    void clear() override;
 
-    void displayVertex(string id) override{};
+    void displayVertex(string id) override;
 
-    bool findById(string id) override{};
+    bool findById(string id) override;
 
     void display() override;
 };
@@ -50,14 +51,14 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     auto edge = new Edge<TV, TE>(v1, v2, w);
     vertexes[id1]->edges.push_back(edge);
     vertexes[id2]->edges.push_back(edge);
+    nedge++;
 }
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
     auto v1 = vertexes[id];
     vector<string> vertices;
-    auto it = v1->edges.begin();
-    while (it != v1->edges.end()){
+    auto it = v1->edges.begin();while (it != v1->edges.end()){
         auto v2 = (*it)->vertexes[0] == v1? (*it)->vertexes[1] : (*it)->vertexes[0];
         auto it2 = v2->edges.begin();
         while (*it != *it2) it2++;
@@ -84,11 +85,66 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     while (it2 != v2->edges.end()){
         if (((*it2)->vertexes[0] == v1 && (*it2)->vertexes[1]==v2) || ((*it2)->vertexes[0] == v2 && (*it2)->vertexes[1] == v1)){
             v2->edges.remove(*it2);
+            nedge--;
             break;
         }
         it2++;
     }
 }
+template<typename TV, typename TE>
+TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
+    auto v1 = vertexes[start];
+    auto v2 = vertexes[end];
+    auto it = v1->edges.begin();
+    while (it != v1->edges.end()){
+        if ((*it)->vertexes[0]==v1 && (*it)->vertexes[1]==v2 || ((*it)->vertexes[0] == v2 && (*it)->vertexes[1] == v1)){
+            return (*it)->weight;
+        }
+        it++;
+    }
+
+}
+
+template<typename TV, typename TE>
+float UnDirectedGraph<TV, TE>::density() {
+    float s_v = vertexes.size();
+    return (float)nedge/((s_v)*(s_v-1));
+}
+
+template<typename TV, typename TE>
+bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
+    if (density()>threshold) return true;
+    return false;
+}
+
+template<typename TV, typename TE>
+bool UnDirectedGraph<TV, TE>::isConnected() {
+    //Hacer recorrido DFS O BFS, con un size
+}
+template<typename TV, typename TE>
+bool UnDirectedGraph<TV, TE>::empty() {
+    return vertexes.size()==0;
+}
+
+template<typename TV, typename TE>
+void UnDirectedGraph<TV, TE>::clear() {
+    auto it = vertexes.begin();
+    while (it != vertexes.end()){
+        (*it).second->edges.clear();
+        vertexes.erase((*it).first);
+        it++;
+    }
+}
+
+template<typename TV, typename TE>
+void UnDirectedGraph<TV, TE>::displayVertex(string id) {
+    if (vertexes.find(id) != vertexes.end())
+        cout <<id<<": " <<vertexes[id]->data<<endl;
+    else cout << "Not found"<<endl;
+}
+
+template<typename TV, typename TE>
+void findbyID()
 
 template<typename TV, typename TE>
 void UnDirectedGraph<TV, TE>::display(){
