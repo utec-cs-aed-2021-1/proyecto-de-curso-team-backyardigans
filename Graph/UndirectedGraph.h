@@ -4,6 +4,12 @@
 #include <iostream>
 #include "graph.h"
 
+/**
+ *
+ * @brief Implementation of an undirected graph
+ *
+ */
+
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE>{
 private:
@@ -12,8 +18,20 @@ private:
 public:
     bool insertVertex(string id, TV vertex) override;
 
+    /**
+     *
+     * @return The number of vertices in the graph
+     *
+     */
+
     int getNumberOfVertices();
 
+    /**
+     *
+     * @return The number of edges in the graph
+     *
+     */
+    
     int getNumberOfEdges();
 
     bool createEdge(string id1, string id2, TE w) override;
@@ -26,9 +44,30 @@ public:
 
     float density() override;
 
+    /**
+     *
+     * @return true if the graph is dense
+     * @return false if the graph isn't dense
+     *
+     */
+
     bool isDense(float threshold = 0.5) override;
 
+    /**
+     *
+     * @return true if the graph is connected
+     * @return false if the graph isn't connected
+     *
+     */
+    
     bool isConnected() override;
+
+    /**
+     *
+     * @return true if the graph is strongly connected
+     * @return false if the graph isn't strongly connected
+     *
+     */
 
     bool isStronglyConnected() throw() override{};
 
@@ -46,23 +85,12 @@ public:
 };
 
 
-/**
- *
- * @return The number of vertices in the graph
- *
- */
 
 template<typename TV, typename TE>
 int UnDirectedGraph<TV, TE>::getNumberOfVertices() {
   return vertexes.size();
 }
 
-
-/**
- *
- * @return The number of edges in the graph
- *
- */
 
 template<typename TV, typename TE>
 int UnDirectedGraph<TV, TE>::getNumberOfEdges() {
