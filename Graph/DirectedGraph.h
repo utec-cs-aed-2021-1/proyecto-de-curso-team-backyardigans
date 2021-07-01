@@ -61,9 +61,9 @@ template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     if (vertexes.find(id)==vertexes.end() || vertexes.find(id2)==vertexes.end()) return false;
     auto v1 = vertexes[id];
-    for (auto it = v1.edges.begin(); it != it.edges.end();it++)
+    for (auto it = v1->edges.begin(); it != v1->edges.end();it++)
         if ((*it)->vertexes[1]->id == id2){
-            v1.edges.remove(*it);
+            v1->edges.remove(*it);
             return true;
         }
     return false;
