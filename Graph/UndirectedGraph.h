@@ -36,26 +36,35 @@ public:
     bool findById(string id) override;
 
     void display() override;
+
+    void findbyId(string id);
 };
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
-    auto vertex_ = new Vertex<TV, TE>(vertex, id);
-    vertexes[id] = vertex_;
+    if (vertexes.find(id)==vertexes.end()) {
+        auto vertex_ = new Vertex<TV, TE>(vertex, id);
+        vertexes[id] = vertex_;
+        return true;
+    }
+    else return false;
 }
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
+    if (vertexes.find(id1) == vertexes.end() || vertexes.find(id2) == vertexes.end() || id1 == id2) return false;
     auto v1 = vertexes[id1];
     auto v2 = vertexes[id2];
     auto edge = new Edge<TV, TE>(v1, v2, w);
     vertexes[id1]->edges.push_back(edge);
     vertexes[id2]->edges.push_back(edge);
     nedge++;
+    return true;
 }
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
+    if (vertexes.find(id)==vertexes.end()) return false;
     auto v1 = vertexes[id];
     vector<string> vertices;
     auto it = v1->edges.begin();while (it != v1->edges.end()){
@@ -67,10 +76,12 @@ bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
     }
     v1->edges.clear();
     vertexes.erase(id);
+    return true;
 }
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
+    if (vertexes.find(id) == vertexes.end() || vertexes.find(id2) == vertexes.end() || id == id2) return false;
     auto v1 = vertexes[id];
     auto v2 = vertexes[id2];
     auto it = v1->edges.begin();
@@ -90,6 +101,7 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
         }
         it2++;
     }
+    return true;
 }
 template<typename TV, typename TE>
 TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
@@ -102,7 +114,7 @@ TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
         }
         it++;
     }
-
+    cout << "NOT FOUND"<<endl;
 }
 
 template<typename TV, typename TE>
@@ -131,9 +143,10 @@ void UnDirectedGraph<TV, TE>::clear() {
     auto it = vertexes.begin();
     while (it != vertexes.end()){
         (*it).second->edges.clear();
-        vertexes.erase((*it).first);
         it++;
     }
+    nedge = 0;
+    vertexes.clear();
 }
 
 template<typename TV, typename TE>
@@ -144,23 +157,32 @@ void UnDirectedGraph<TV, TE>::displayVertex(string id) {
 }
 
 template<typename TV, typename TE>
-void findbyID()
+bool UnDirectedGraph<TV, TE>::findById(string id){
+    if (vertexes.find(id) != vertexes.end())
+        return true;
+    return false;
+}
 
 template<typename TV, typename TE>
 void UnDirectedGraph<TV, TE>::display(){
-    auto it = vertexes.begin();
-    while (it != vertexes.end()){
-        cout <<"size: " << (it->second)->edges.size() << endl;
-        cout <<"V origen: " <<(it->second)->data <<"-"<<(it->second)->id << endl;
-        auto edge_it = (it->second)->edges.begin();
-        while(edge_it != (it->second)->edges.end()){
-            cout << "arista: " <<(*edge_it)->weight << " ";
-            auto data_ = (*edge_it)->vertexes[0]==it->second ? (*edge_it)->vertexes[1]: (*edge_it)->vertexes[0];
-            cout << "V fin: "<<data_->data <<"-"<<data_->id << endl;
-            edge_it++;
-        }
-        it++;
+    if (vertexes.size() == 0){
+        cout << "NOT FOUND"<<endl;
     }
-    cout << endl;
+    else {
+        auto it = vertexes.begin();
+        while (it != vertexes.end()) {
+            cout << "size: " << (it->second)->edges.size() << endl;
+            cout << "V origen: " << (it->second)->data << "-" << (it->second)->id << endl;
+            auto edge_it = (it->second)->edges.begin();
+            while (edge_it != (it->second)->edges.end()) {
+                cout << "arista: " << (*edge_it)->weight << " ";
+                auto data_ = (*edge_it)->vertexes[0] == it->second ? (*edge_it)->vertexes[1] : (*edge_it)->vertexes[0];
+                cout << "V fin: " << data_->data << "-" << data_->id << endl;
+                edge_it++;
+            }
+            it++;
+        }
+        cout << endl;
+    }
 }
 #endif

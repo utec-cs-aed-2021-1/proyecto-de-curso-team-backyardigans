@@ -16,7 +16,7 @@ public:
 
     bool deleteVertex(string id) override;
 
-    bool deleteEdge(string id, string id2) override;
+    bool deleteEdge(string id, string id2       ) override;
 
     TE &operator()(string start, string end) override{};
     float density() override{};
