@@ -1,6 +1,7 @@
 #ifndef UNDIRECTEDGRAPH_H
 #define UNDIRECTEDGRAPH_H
 
+#include <iostream>
 #include "graph.h"
 
 template<typename TV, typename TE>
