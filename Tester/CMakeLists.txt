@@ -2,6 +2,7 @@ set(TARGET_NAME tests)
 
 set(UNIT_TEST_LIST
   main
+  Graph
   UndirectedGraph
   DirectedGraph
   AStar
