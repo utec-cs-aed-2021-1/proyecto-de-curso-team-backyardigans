@@ -15,6 +15,14 @@ public:
 
     bool insertVertex(string id, TV vertex) override;
 
+    /**
+     *
+     * @return The number of vertices in the graph
+     *
+     */
+
+    int getNumberOfVertices();
+
     bool createEdge(string id1, string id2, TE w) override;
 
     bool deleteVertex(string id) override;
@@ -33,6 +41,11 @@ public:
     void display() override;
 
 };
+
+template<typename TV, typename TE>
+int DirectedGraph<TV, TE>::getNumberOfVertices() {
+  return vertexes.size();
+}
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
