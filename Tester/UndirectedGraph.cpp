@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "UndirectedGraph.h"
-#include "Algorithms/dfs.h"
+#include "Algorithms/DFS.h"
+
 TEST_CASE( "Inserting vertices in an undirected graph", "[UnDirectedGraph]" ) {
   
     SECTION( "Minimal tests" ) {
