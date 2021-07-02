@@ -2,27 +2,6 @@
 #include "UndirectedGraph.h"
 #include "Algorithms/DFS.h"
 
-TEST_CASE( "Inserting vertices in an undirected graph", "[UnDirectedGraph]" ) {
-  
-    SECTION( "Minimal tests" ) {
-        UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
-        SECTION( "No vertices" ) {
-            REQUIRE( g.getNumberOfVertices() == 0 );
-        }
-    
-        SECTION( "A single vertex" ) {
-            g.insertVertex("A", 1);
-            REQUIRE( g.getNumberOfVertices() == 1 );
-        }
-	
-        SECTION( "All characters in the alphabet" ) {
-            for(char i='a'; i<='z'; ++i)
-                g.insertVertex(std::string(1, i), 10);
-            REQUIRE( g.getNumberOfVertices() == ('z' - 'a' + 1) );
-        }
-    }
-}
-
 TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
   
     SECTION( "Minimal tests" ) {
