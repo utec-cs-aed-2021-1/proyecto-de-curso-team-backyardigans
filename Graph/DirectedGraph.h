@@ -3,6 +3,7 @@
 
 #include "graph.h"
 #include "Structs.h"
+
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
 private:
@@ -29,6 +30,7 @@ public:
     void displayVertex(string id) override;
     bool findById(string id) override;
     void display() override;
+
 };
 
 template<typename TV, typename TE>
@@ -63,6 +65,7 @@ bool DirectedGraph<TV, TE>::deleteVertex(string id){
     vertexes.erase(id);
     return true;
 }
+
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     if (vertexes.find(id)==vertexes.end() || vertexes.find(id2)==vertexes.end()) return false;
