@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by EDGAR on 29/06/2021.
 //
@@ -38,7 +40,7 @@ struct Vertex {
     Vertex()= default;
     explicit Vertex(TV data_, string id_){
         data = data_;
-        id = id_;
+        id = std::move(id_);
     }
 };
 
