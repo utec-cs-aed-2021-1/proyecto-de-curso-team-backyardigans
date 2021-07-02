@@ -1,6 +1,7 @@
 #ifndef NONDIRECTEDGRAPH_H
 #define NONDIRECTEDGRAPH_H
 
+#include <iostream>
 #include "graph.h"
 #include "Structs.h"
 
