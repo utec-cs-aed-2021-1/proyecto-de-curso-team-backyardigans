@@ -6,7 +6,7 @@ TEST_CASE( "Inserting vertices in an undirected graph", "[UnDirectedGraph]" ) {
     SECTION( "Minimal tests" ) {
         UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
         SECTION( "No vertices" ) {
-            REQUIRE( g.getNumberOfVertices() == 100 );
+            REQUIRE( g.getNumberOfVertices() == 0 );
         }
     
         SECTION( "A single vertex" ) {
