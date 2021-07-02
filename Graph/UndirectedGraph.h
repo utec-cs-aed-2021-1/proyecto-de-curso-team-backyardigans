@@ -179,7 +179,7 @@ TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
 template<typename TV, typename TE>
 float UnDirectedGraph<TV, TE>::density() {
     float s_v = vertexes.size();
-    return (float)nedge/((s_v)*(s_v-1));
+    return 2*(float)nedge/((s_v)*(s_v-1));
 }
 
 template<typename TV, typename TE>
@@ -192,6 +192,7 @@ template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isConnected() {
     //Hacer recorrido DFS O BFS, con un size
 }
+
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::empty() {
     return vertexes.size()==0;
