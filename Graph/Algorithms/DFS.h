@@ -24,7 +24,6 @@ DirectedGraph<TV, TE>* DFS<TV, TE>::apply(){
     stack<string> stack_;
     unordered_map<string, bool> map;
     auto map1 = graph->getMap();
-    cout <<"mapsize: " <<map1.size()<<endl;
     stack_.push(map1[vertex]->id);
     map[vertex] = true;
     Rgraph->insertVertex(vertex, map1[vertex]->data);
