@@ -198,6 +198,7 @@ void UnDirectedGraph<TV, TE>::display(){
             it++;
         }
         cout << endl;
+        cout << endl;
     }
 }
 #endif

@@ -37,7 +37,6 @@ DirectedGraph<TV, TE>* DFS<TV, TE>::apply(){
                 map[(*itr)->vertexes[1]->id] = true;
                 stack_.push((*itr)->vertexes[1]->id);
                 Rgraph->createEdge(actual, stack_.top(), (*itr)->weight);
-                cout<< "actual: " << actual<<"  stack top: "<<stack_.top()<<endl;
                 break;
             }
         }

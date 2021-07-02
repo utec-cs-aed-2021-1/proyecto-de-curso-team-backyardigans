@@ -35,13 +35,10 @@ DirectedGraph<TV, TE>* BFS<TV, TE>::apply(){
                 Rgraph->insertVertex((*itr)->vertexes[1]->id, (*itr)->vertexes[1]->data);
                 map[(*itr)->vertexes[1]->id] = true;
                 queue_.push((*itr)->vertexes[1]->id);
-                Rgraph->createEdge(actual, queue_.front(), (*itr)->weight);
-                break;
+                Rgraph->createEdge(actual, queue_.back(), (*itr)->weight);
             }
         }
-        if (queue_.front() == actual)
-            queue_.pop();
+        queue_.pop();
     }
-    Rgraph->display();
     return Rgraph;
 }
