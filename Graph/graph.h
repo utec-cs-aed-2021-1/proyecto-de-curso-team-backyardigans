@@ -11,7 +11,7 @@ template<typename TV, typename TE>
 class Graph{
 private:    
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
-    
+    int nedge;
 public:
     virtual bool insertVertex(string id, TV vertex) = 0;
     virtual bool createEdge(string id1, string id2, TE w) = 0;

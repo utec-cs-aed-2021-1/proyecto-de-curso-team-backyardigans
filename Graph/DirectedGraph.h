@@ -21,13 +21,13 @@ public:
 
     TE &operator()(string start, string end) override;
     float density() override;
-    bool isDense(float threshold = 0.5) override{};
+    bool isDense(float threshold = 0.5) override;
     bool isConnected() override{};
     bool isStronglyConnected() throw() override{};
-    bool empty() override{};
-    void clear() override{};
-    void displayVertex(string id) override{};
-    bool findById(string id) override{};
+    bool empty() override;
+    void clear() override;
+    void displayVertex(string id) override;
+    bool findById(string id) override;
     void display() override;
 };
 
@@ -93,6 +93,41 @@ template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
     float s_v = vertexes.size();
     return (float)nedge/((s_v)*(s_v-1));
+}
+
+template<typename TV, typename TE>
+bool DirectedGraph<TV, TE>::isDense(float threshold){
+    if (density()>threshold) return true;
+    return false;
+}
+
+template<typename TV, typename TE>
+bool DirectedGraph<TV, TE>::empty(){
+    return vertexes.size()==0;
+}
+
+template<typename TV, typename TE>
+void DirectedGraph<TV, TE>::clear(){
+    auto it = vertexes.begin();
+    while (it != vertexes.end()){
+        (*it).second->edges.clear();
+        it++;
+    }
+    nedge = 0;
+    vertexes.clear();
+}
+template<typename TV, typename TE>
+void DirectedGraph<TV, TE>::displayVertex(string id){
+    if (vertexes.find(id) != vertexes.end())
+        cout <<id<<": " <<vertexes[id]->data<<endl;
+    else cout << "Not found"<<endl;
+}
+
+template<typename TV, typename TE>
+bool DirectedGraph<TV, TE>::findById(string id){
+    if (vertexes.find(id) != vertexes.end())
+        return true;
+    return false;
 }
 
 template<typename TV, typename TE>
