@@ -166,28 +166,6 @@ void test_directed_graph(){
     else{
         cout<<"An error has occurred"<<endl;
     }
-    graph_u1.displayVertex("F");
-
-    if(graph_u1.findById("B")){
-        cout<<"Found"<<endl;
-    }
-    else{
-        cout<<"Not Found"<<endl;
-    }
-
-    graph_u1.display();
-
-    graph_u1.clear();
-
-    if(graph_u1.empty()){
-        cout<<"The graph is empty"<<endl;
-    }
-    else{
-        cout<<"An error has occurred"<<endl;
-    }
-
-    cout<<"graph_u1:\n";
-    graph_u1.display();
 
 };
 
