@@ -1,6 +1,11 @@
 *.out
 *.o
 
+# Doxygen
+
+/Docs/html/
+/Docs/latex/
+
 # CMake
 
 *.a
