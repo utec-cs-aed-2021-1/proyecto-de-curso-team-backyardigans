@@ -9,10 +9,19 @@
 
 template<typename TV, typename TE>
 class Graph{
-private:    
+protected:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
     int nedge=0;
 public:
+
+    /**
+     *
+     * @return The number of vertices in the graph
+     *
+     */
+
+    int getNumberOfVertices();
+    
     virtual bool insertVertex(string id, TV vertex) = 0;
     virtual bool createEdge(string id1, string id2, TE w) = 0;
     virtual bool deleteVertex(string id) = 0;
@@ -29,5 +38,10 @@ public:
     virtual bool findById(string id) = 0;
     virtual void display() = 0;
 };
+
+template<typename TV, typename TE>
+int Graph<TV, TE>::getNumberOfVertices() {
+  return vertexes.size();
+}
 
 #endif
