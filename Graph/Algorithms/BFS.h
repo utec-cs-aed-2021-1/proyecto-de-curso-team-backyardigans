@@ -23,7 +23,7 @@ DirectedGraph<TV, TE>* BFS<TV, TE>::apply(){
     auto* Rgraph = new DirectedGraph<TV,TE>();
     queue<string> queue_;
     unordered_map<string, bool> map;
-    auto map1 = graph->get_map();
+    auto map1 = graph->getMap();
     queue_.push(map1[vertex]->id);
     map[vertex] = true;
     Rgraph->insertVertex(vertex, map1[vertex]->data);

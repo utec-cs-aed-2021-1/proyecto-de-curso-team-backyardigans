@@ -11,9 +11,29 @@ template<typename TV, typename TE>
 class Graph{
 protected:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
-    int nedge=0;
+    int nedge;
 public:
+    /**
+     *
+     * @return The number of vertices in the graph
+     *
+     */
     int getNumberOfVertices();
+
+    /**
+     *
+     * @return The number of edges in the graph
+     *
+     */
+    int getNumberOfEdges();
+
+    /**
+     *
+     * @return The unordenered map of the graph
+     *
+     */
+    unordered_map<string, Vertex<TV, TE>*> getMap();
+
     bool insertVertex(string id, TV vertex);
     virtual bool createEdge(string id1, string id2, TE w) = 0;
     virtual bool deleteVertex(string id) = 0;
@@ -31,15 +51,19 @@ public:
     virtual void display() = 0;
 };
 
-/**
- *
- * @return The number of vertices in the graph
- *
- */
-
 template<typename TV, typename TE>
 int Graph<TV, TE>::getNumberOfVertices() {
-  return vertexes.size();
+  return this->vertexes.size();
+}
+
+template<typename TV, typename TE>
+int Graph<TV, TE>::getNumberOfEdges() {
+    return this->nedge;
+}
+
+template<typename TV, typename TE>
+unordered_map<string, Vertex<TV, TE>*> Graph<TV, TE>::getMap() {
+    return this->vertexes;
 }
 
 /**

@@ -7,8 +7,6 @@
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
-private:
-    int nedge;
 public:
     DirectedGraph(){}
 
@@ -33,15 +31,13 @@ public:
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
-    if ((this -> vertexes).find(id1)==(this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2){
-        auto v1 = (this -> vertexes)[id1];
-        auto v2 = (this -> vertexes)[id2];
-        auto edge = new Edge<TV, TE>(v1, v2, w);
-        (this -> vertexes)[id1]->edges.push_back(edge);
-        nedge++;
-        return true;
-    }
-    return false;
+    if ((this -> vertexes).find(id1)==(this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2) return false;
+    auto v1 = (this -> vertexes)[id1];
+    auto v2 = (this -> vertexes)[id2];
+    auto edge = new Edge<TV, TE>(v1, v2, w);
+    (this -> vertexes)[id1]->edges.push_back(edge);
+    Graph<TV, TE>::nedge++;
+    return true;
 }
 
 template<typename TV, typename TE>
@@ -87,7 +83,7 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
 template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
-    return (float)nedge/((s_v)*(s_v-1));
+    return (float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
 }
 
 template<typename TV, typename TE>
@@ -108,7 +104,7 @@ void DirectedGraph<TV, TE>::clear(){
         (*it).second->edges.clear();
         it++;
     }
-    nedge = 0;
+    Graph<TV, TE>::nedge = 0;
     (this -> vertexes).clear();
 }
 template<typename TV, typename TE>

@@ -30,6 +30,7 @@ TEST_CASE( "A simple test for DFS" ) {
         g1->display();
         DFS<double ,int> dfs(g1, "A");
         DirectedGraph<double , int>* gr = dfs.apply();
+        cout << "GR: "<<endl;
         gr->display();
         REQUIRE( g1->getNumberOfEdges() == 7);
     }

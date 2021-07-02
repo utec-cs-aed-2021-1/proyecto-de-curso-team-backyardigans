@@ -12,17 +12,7 @@
 
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE>{
-private:
-    int nedge;
 public:
-    /**
-     *
-     * @return The number of edges in the graph
-     *
-     */
-    
-    int getNumberOfEdges();
-
     bool createEdge(string id1, string id2, TE w) override;
 
     bool deleteVertex(string id) override;
@@ -69,15 +59,7 @@ public:
     bool findById(string id) override;
 
     void display() override;
-
-    void findbyId(string id);
 };
-
-template<typename TV, typename TE>
-int UnDirectedGraph<TV, TE>::getNumberOfEdges() {
-    return nedge;
-}
-
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
@@ -85,9 +67,10 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
     auto edge = new Edge<TV, TE>(v1, v2, w);
+    auto edge_ = new Edge<TV, TE>(v2, v1, w);
     (this -> vertexes)[id1]->edges.push_back(edge);
-    (this -> vertexes)[id2]->edges.push_back(edge);
-    nedge++;
+    (this -> vertexes)[id2]->edges.push_back(edge_);
+    Graph<TV, TE>::nedge++;
     return true;
 }
 
@@ -101,7 +84,7 @@ bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
         auto it2 = v2->edges.begin();
         while (*it != *it2) it2++;
         v2->edges.erase(it2);
-        nedge--;
+        Graph<TV, TE>::nedge++;
         it++;
     }
     v1->edges.clear();
@@ -119,7 +102,7 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     while (it != v1->edges.end()){
         if (((*it)->vertexes[0] == v1 && (*it)->vertexes[1]==v2) || ((*it)->vertexes[0] == v2 && (*it)->vertexes[1] == v1)){
             v1->edges.remove(*it);
-            nedge--;
+            Graph<TV, TE>::nedge++;
             break;
         }
         it++;
@@ -127,7 +110,7 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     while (it2 != v2->edges.end()){
         if (((*it2)->vertexes[0] == v1 && (*it2)->vertexes[1]==v2) || ((*it2)->vertexes[0] == v2 && (*it2)->vertexes[1] == v1)){
             v2->edges.remove(*it2);
-            nedge--;
+            Graph<TV, TE>::nedge++;
             break;
         }
         it2++;
@@ -151,7 +134,7 @@ TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
 template<typename TV, typename TE>
 float UnDirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
-    return 2*(float)nedge/((s_v)*(s_v-1));
+    return 2*(float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
 }
 
 template<typename TV, typename TE>
@@ -177,7 +160,7 @@ void UnDirectedGraph<TV, TE>::clear() {
         (*it).second->edges.clear();
         it++;
     }
-    nedge = 0;
+    Graph<TV, TE>::nedge = 0;
     (this -> vertexes).clear();
 }
 

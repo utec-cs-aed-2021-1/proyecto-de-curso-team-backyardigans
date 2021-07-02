@@ -10,7 +10,7 @@ protected:
     Graph<TV, TE>* graph;
     string vertex;
 public:
-    DFS();
+    DFS(){};
     DFS(Graph<TV, TE>* graph_, string vertex_){
         graph = graph_;
         vertex = std::move(vertex_);
@@ -23,7 +23,8 @@ DirectedGraph<TV, TE>* DFS<TV, TE>::apply(){
     auto* Rgraph = new DirectedGraph<TV,TE>();
     stack<string> stack_;
     unordered_map<string, bool> map;
-    auto map1 = graph->get_map();
+    auto map1 = graph->getMap();
+    cout <<"mapsize: " <<map1.size()<<endl;
     stack_.push(map1[vertex]->id);
     map[vertex] = true;
     Rgraph->insertVertex(vertex, map1[vertex]->data);
@@ -36,6 +37,7 @@ DirectedGraph<TV, TE>* DFS<TV, TE>::apply(){
                 map[(*itr)->vertexes[1]->id] = true;
                 stack_.push((*itr)->vertexes[1]->id);
                 Rgraph->createEdge(actual, stack_.top(), (*itr)->weight);
+                cout<< "actual: " << actual<<"  stack top: "<<stack_.top()<<endl;
                 break;
             }
         }
