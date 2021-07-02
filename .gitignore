@@ -1,6 +1,10 @@
 *.out
 *.o
 
+# Project-dependent files
+
+/Tester/tests
+
 # Doxygen
 
 /Docs/html/
