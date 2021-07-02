@@ -15,8 +15,6 @@ class UnDirectedGraph : public Graph<TV, TE>{
 private:
     int nedge;
 public:
-    bool insertVertex(string id, TV vertex) override;
-
     /**
      *
      * @return The number of edges in the graph
@@ -80,15 +78,6 @@ int UnDirectedGraph<TV, TE>::getNumberOfEdges() {
     return nedge;
 }
 
-template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
-    if ((this -> vertexes).find(id) == (this -> vertexes).end()) {
-        auto vertex_ = new Vertex<TV, TE>(vertex, id);
-        (this -> vertexes)[id] = vertex_;
-        return true;
-    }
-    else return false;
-}
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){

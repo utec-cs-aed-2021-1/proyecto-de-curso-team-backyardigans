@@ -13,16 +13,8 @@ protected:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
     int nedge=0;
 public:
-
-    /**
-     *
-     * @return The number of vertices in the graph
-     *
-     */
-
     int getNumberOfVertices();
-    
-    virtual bool insertVertex(string id, TV vertex) = 0;
+    bool insertVertex(string id, TV vertex);
     virtual bool createEdge(string id1, string id2, TE w) = 0;
     virtual bool deleteVertex(string id) = 0;
     virtual bool deleteEdge(string id, string id2) = 0;
@@ -39,9 +31,37 @@ public:
     virtual void display() = 0;
 };
 
+/**
+ *
+ * @return The number of vertices in the graph
+ *
+ */
+
 template<typename TV, typename TE>
 int Graph<TV, TE>::getNumberOfVertices() {
   return vertexes.size();
+}
+
+/**
+ *
+ * @brief Add a new vertex to the graph
+ *
+ * @warning The vertex will not be added if there already exists a
+ * vertex with the same id as the one being inserted.
+ * 
+ * @return true if the vertex was added
+ * @return false if the vertex wasn't added
+ *
+ */
+
+template<typename TV, typename TE>
+bool Graph<TV, TE>::insertVertex(string id, TV vertex) {
+    if ((this -> vertexes).find(id) == (this -> vertexes).end()) {
+        auto vertex_ = new Vertex<TV, TE>(vertex, id);
+        (this -> vertexes)[id] = vertex_;
+        return true;
+    }
+    else return false;
 }
 
 #endif

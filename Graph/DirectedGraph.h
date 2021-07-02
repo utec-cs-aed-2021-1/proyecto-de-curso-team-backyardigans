@@ -12,8 +12,6 @@ private:
 public:
     DirectedGraph(){}
 
-    bool insertVertex(string id, TV vertex) override;
-
     bool createEdge(string id1, string id2, TE w) override;
 
     bool deleteVertex(string id) override;
@@ -32,12 +30,6 @@ public:
     void display() override;
 
 };
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
-    auto vertex_ = new Vertex<TV, TE>(vertex, id);
-    (this -> vertexes)[id] = vertex_;
-}
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
