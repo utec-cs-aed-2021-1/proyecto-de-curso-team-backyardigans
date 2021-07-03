@@ -5,7 +5,7 @@
 #include "helpclass/priorityqueue.h"
 
 template<typename TV, typename TE>
-class PRIM{
+class Prim{
 
 protected:
 
@@ -14,8 +14,8 @@ protected:
 
 public:
 
-    PRIM();
-    PRIM(UnDirectedGraph<TV, TE>* graph_,string vertex_){
+    Prim();
+    Prim(UnDirectedGraph<TV, TE>* graph_,string vertex_){
         graph = graph_;
         vertex = std::move(vertex_);
     }
@@ -41,7 +41,7 @@ public:
         // push al priority inf,vertice
             //min para pares
         //sobrecargar corchete de la cola, clase priority queue, cuando le paso string me devuelve el pair dentro de la cola
-        /*while(!cola.empty()){
+        while(!cola.empty()){
            string min = cola.top().second;
            cola.pop();
            for(auto it=map1[min].edges.begin();it!=map1[min].edges.end();it++){
@@ -52,10 +52,9 @@ public:
            }
        }
 
+    return Ud_1;
 
-
-
-    }*/
+    }
 
 
 };

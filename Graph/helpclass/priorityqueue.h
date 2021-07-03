@@ -41,7 +41,7 @@ public:
     {
         if(n_pairs==capacity){
             auto* pairs2 = new pair <T,string>[capacity*2];
-            for(int i=0;i<n;i++){
+            for(int i=0;i<n_pairs;i++){
                 pairs2[i]=pairs[i];
             }
             delete[] pairs;
