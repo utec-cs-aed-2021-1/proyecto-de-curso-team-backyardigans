@@ -6,148 +6,79 @@
 
 #define GRAPHS_PRIORITYQUEUE_H
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <unordered_map>
 #include <stdexcept>
 
 using namespace std;
 
 template <typename T>
-class Heap
+class priority_
 {
 private:
-    T *elements;
-    int capacity;
-    int n;
-    //pair <T,string> p;
+    pair <T,string>* pairs;
+    int n_pairs;
+    int capacity = 10;
+    unordered_map<string , T> distance;
 
 public:
-    Heap(T *elements, int n) : elements(elements), n(n)
-    {
-        this->capacity=n;
-        for(int i=(n/2) -1;i>=0; --i){
-            heapify_down(i);
-        }
-
-    }
-
-    Heap(int capacity) : capacity(capacity){
-        elements = new T[capacity];
-        n=0;
-
-    }
-
-    ~Heap(){
-        delete [] elements;
-    }
-
-    void buildFromArray(T *arr, int m){
-        elements=arr;
-        n=m;
-        capacity=m;
-        for(int i=(n/2) -1;i>=0; --i){
-            heapify_down(i);
-        }
+    ~priority_(){
+        delete [] pairs;
     }
 
     int size()
     {
-        return n;
+        return n_pairs;
     }
 
     bool is_empty()
     {
-        if(n==0) return true;
+        if(n_pairs==0) return true;
         return false;
     }
 
-    void push(T value)
+    void push(pair<T, string> vertex)
     {
-        if(n==capacity){
-
-
-            T* e2 = new int[capacity*2];
+        if(n_pairs==capacity){
+            auto* pairs2 = new pair <T,string>[capacity*2];
             for(int i=0;i<n;i++){
-                e2[i]=elements[i];
+                pairs2[i]=pairs[i];
             }
-            delete[] elements;
-            elements = e2;
+            delete[] pairs;
+            pairs = pairs2;
             capacity = capacity*2;
         }
-
-        elements[n]= value;
-        heapify_up(n);
-        n = n+1 ;
-        cout<<value<<endl;
-
-
-
+        pairs[n_pairs] = vertex;
+        distance[vertex.second] = n_pairs;
+        heapify_up(n_pairs);
+        n_pairs = n_pairs+1;
     }
 
-    T pop()
+    void pop()
     {
-        T temp=elements[0];
-        elements[0]=elements[n-1];
-        elements[n-1]=temp;
-        elements[n-1]= T(NULL);
+        auto temp = pairs[0];
+        pairs[0]=pairs[n_pairs-1];
+        pairs[n_pairs-1]=temp;
+        pairs[n_pairs-1]= NULL;
         heapify_down(0);
-        n = n-1 ;
-        return temp;
-
+        n_pairs = n_pairs-1;
+        distance.erase(temp.second);
     }
 
-    T top()
-    {
-        for(int i=0;i<n; i++){
-            cout<<elements[i]<<",";
-        }
-        cout<<endl;
-        return elements[0];
-
+    pair <T,string> top(){
+        return pairs[0];
     }
 
-    vector<T> extractTheTopK(int k){
-        vector<T> v;
-        for(int i=0; i<k;i++){
-            T temp=top();
-            v.push_back(temp);
-            pop();
-        }
-        return v;
+    bool find(string str){
+        if (distance.find(str) == distance.end()) return false;
+        return true;
     }
 
-    static void sortAsc(T* arr, int m){
-
-
-        Heap <T>* H1 = new Heap<T>(arr,m, Heap<T>::MAX_HEAP);
-        for(int i=0; i<m;i++){
-            arr[m-1-i]= H1->pop();
-        }
-
+    pair<T,string>& operator[](string str){
+        if (distance.find(str) == distance.end())
+            return pairs[distance[str]];
     }
 
-    static void sortDesc(T* arr, int m){
-        Heap<T>*H2 = new Heap<T>(arr,m, Heap<T>::MIN_HEAP);
-        //for(int i=0; i<m;i++){
-        //  arr[m-1-i]= H2->pop();
-        //  }/*
-        H2->buildFromArray(arr, m);
-        cout<<"inicio1"<<endl;
-        T min=arr[0];
-        while(min==arr[0]){
-            T temp=arr[0];
-
-            for(int i=0;i<m;i++) {
-                arr[i] = arr[i + 1];
-            }
-            arr[m]=temp;
-        }
-        cout<<"des"<<endl;
-        for(int i=0;i<m;i++){
-            cout<<arr[i]<<",";
-        }
-
-    }
 
 private:
     int Parent(int i)
@@ -165,86 +96,54 @@ private:
         return (2 * i + 2);
     }
 
-    void heapify_down(int i)
-    {
-        if(type==0){
-            T imax;
-            bool val=true;
-            T c_r = Right(i);
-            T c_l = Left(i);
-            if(c_r >= size()) imax=c_l;
-            else if(elements[c_r]> elements[c_l]) imax= c_r;
-            else imax=c_l;
+    void heapify_down(int i, string str){
+        auto child_r = Right(i);
+        auto child_l = Left(i);
 
-            if(Left(i)<size()){
-                val=true;
-            }
+        if (size()-1 == child_l){
+            if (pairs[i].first <= pairs[child_l].first) return;
             else{
-                val=false;
+                auto temp = pairs[i];
+                pairs[i] = pairs[child_l];
+                pairs[child_l] = temp;
+                return;
             }
-
-            if(val==false)return;
-            if(elements[i]>=elements[imax])return;
-
-            T t=elements[i];
-            elements[i]= elements[imax];
-            elements[imax]=t;
-            heapify_down(imax);
         }
-        else{
-            T imin;
-            bool val=true;
-            T c_r = Right(i);
-            T c_l = Left(i);
-            if(c_r >= size()) imin=c_l;
-            else if(elements[c_r]< elements[c_l]) imin= c_r;
-            else imin=c_l;
+        if (size()-1>=child_r){
+            if (pairs[i].first <= pairs[child_l].first && pairs[i].first <= pairs[child_r].first) return;
 
-            if(Left(i)<size()){
-                val=true;
-            }
             else{
-                val=false;
+                auto temp = pairs[i];
+                if (pairs[child_l].first < pairs[child_r].first){
+                    pairs[i] = pairs[child_l];
+                    pairs[child_l] = temp;
+                    distance[pairs[child_l].second] = child_l;
+                    distance[pairs[i].second] = i;
+                    heapify_down(child_l, str);
+                }
+                else{
+                    pairs[i] = pairs[child_r];
+                    pairs[child_r] = temp;
+                    distance[pairs[child_r].second] = child_r;
+                    distance[pairs[i].second] = i;
+                    heapify_down(child_r, str);
+                }
             }
-
-            if(val==false)return;
-            if(elements[i]<=elements[imin])return;
-
-            T t=elements[i];
-            elements[i]= elements[imin];
-            elements[imin]=t;
-            heapify_down(imin);
         }
-
     }
 
-    void heapify_up(int i)
-    {
-        if(type==0){
-            T Pi= Parent(i);
-            if(i == 0) return;
-            if(elements[i]<= elements[Pi]) return;
+    void heapify_up(int i, string str){
+        auto parent = Parent(i);
+        if (i == 0) return;
 
-            T temp= elements[i];
-            elements[i]= elements[Pi];
-            elements[Pi]= temp;
+        if (pairs[i].first >= pairs[parent].first) return;
 
-            heapify_up(Pi);
-        }
-        else{
-            T Pi= Parent(i);
-            if(i == 0) return;
-            if(elements[i]>= elements[Pi]) return;
-
-            T temp= elements[i];
-            elements[i]= elements[Pi];
-            elements[Pi]= temp;
-
-            heapify_up(Pi);
-        }
-
+        auto temp = pairs[i];
+        pairs[i] = pairs[parent];
+        pairs[parent] = temp;
+        distance[pairs[parent].second]=parent;
+        distance[pairs[i].second]=i;
+        heapify_up(parent, str);
     }
-
-
 };
 #endif //GRAPHS_PRIORITYQUEUE_H
