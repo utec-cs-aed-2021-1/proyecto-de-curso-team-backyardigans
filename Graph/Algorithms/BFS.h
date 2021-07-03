@@ -27,6 +27,7 @@ DirectedGraph<TV, TE>* BFS<TV, TE>::apply(){
     queue_.push(map1[vertex]->id);
     map[vertex] = true;
     Rgraph->insertVertex(vertex, map1[vertex]->data);
+
     while(!queue_.empty()){
         string actual = queue_.front();
         auto it = map1[queue_.front()]->edges;

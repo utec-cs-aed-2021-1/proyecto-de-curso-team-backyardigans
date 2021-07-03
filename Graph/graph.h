@@ -13,6 +13,7 @@ protected:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
     int nedge;
 public:
+
     /**
      *
      * @return The number of vertices in the graph
@@ -50,16 +51,15 @@ public:
     virtual bool createEdge(string id1, string id2, TE w) = 0;
     virtual bool deleteVertex(string id) = 0;
     virtual bool deleteEdge(string id, string id2) = 0;
-    virtual TE &operator()(string start, string end)= 0;
+    virtual TE &operator()(string start, string end)= 0; // es igual para ambas
     virtual float density() = 0;
-    virtual bool isDense(float threshold = 0.5) = 0;
+    virtual bool isDense(float threshold = 0.5) = 0; // es igual para ambas
     virtual bool isConnected()= 0;
     virtual bool isStronglyConnected() throw() = 0;
-    virtual bool empty() = 0;
-    virtual void clear()= 0;
-      
-    virtual void displayVertex(string id)= 0;
-    virtual bool findById(string id) = 0;
+    virtual bool empty() = 0; // es igual en ambas
+    virtual void clear()= 0; // es igual para ambas
+    virtual void displayVertex(string id)= 0; // es igual para ambas
+    virtual bool findById(string id) = 0; // es igual para ambas
     virtual void display() = 0;
 };
 
