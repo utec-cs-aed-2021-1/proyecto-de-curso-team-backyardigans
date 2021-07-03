@@ -147,9 +147,6 @@ void test_directed_graph(){
         cout<<"An error has occurred"<<endl;
     }
 
-    cout<<"*graph_u1:\n";
-    graph_d1.display();
-
     graph_d1.clear();
 
 
@@ -303,7 +300,6 @@ void test_undirected_graph(){
         cout<<"An error has occurred"<<endl;
     }
 
-    graph_u1.displayVertex("B");
 
 
     if(graph_u1.findById("E")){
@@ -314,7 +310,6 @@ void test_undirected_graph(){
     }
 
     cout<<"*graph_u1:\n";
-    graph_u1.display();
 
     graph_u1.clear();
 
@@ -332,7 +327,6 @@ void test_undirected_graph(){
     else{
         cout<<"An error has occurred"<<endl;
     }
-    graph_u1.displayVertex("F");
 
     if(graph_u1.findById("B")){
         cout<<"Found"<<endl;
@@ -341,7 +335,6 @@ void test_undirected_graph(){
         cout<<"Not Found"<<endl;
     }
 
-    graph_u1.display();
 
     graph_u1.clear();
 
@@ -353,7 +346,6 @@ void test_undirected_graph(){
     }
 
     cout<<"graph_u1:\n";
-    graph_u1.display();
 
 };                   
 

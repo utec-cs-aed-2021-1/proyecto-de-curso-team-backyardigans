@@ -2,7 +2,6 @@
 #include "Algorithms/BFS.h"
 
 TEST_CASE( "A simple test for BFS" ) {
-    REQUIRE( 1 == 1 );
     SECTION( "Edges creation" ) {
         Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
         g1->insertVertex("A", 1);
@@ -18,11 +17,9 @@ TEST_CASE( "A simple test for BFS" ) {
         g1->createEdge("B", "F", 2);
         g1->createEdge("F", "C", 2);
         g1->createEdge("C", "E", 2);
-        g1->display();
         BFS<double ,int> bfs(g1, "A");
         DirectedGraph<double , int>* gr = bfs.apply();
         cout << "BFS: "<<endl;
-        gr->display();
-        cout << endl;
+        g1->display();
     }
 }
