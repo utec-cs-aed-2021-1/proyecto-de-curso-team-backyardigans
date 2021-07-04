@@ -40,24 +40,28 @@ public:
         }
         while(!cola.is_empty()){
            string min = cola.top().second;
+           cout << "MIN: "<< min<<endl;
            cola.pop();
-           cout <<"min: " <<min << endl;
 
            for(auto it=map1[min]->edges.begin();it!=map1[min]->edges.end();it++){
-               if(cola.find((*it)->vertexes[1]->id) and (*it)->weight< cola[(*it)->vertexes[1]->id].first){
-                    mp[(*it)->vertexes[1]->id]={min, (*it)->weight};
-                    cola[(*it)->vertexes[1]->id].first=(*it)->weight;
+               if (cola.find((*it)->vertexes[1]->id)){
+                   cout << "MINTEST: "<<min << " YES"<<endl;
+               }
+               else {
+                   cout << "MINTEST: "<<min << " NO "<< (*it)->vertexes[1]->id <<endl;
+               }
+               if(cola.find((*it)->vertexes[1]->id) && (*it)->weight< cola[(*it)->vertexes[1]->id].first) {
+                   mp[(*it)->vertexes[1]->id] = {min, (*it)->weight};
+                   cout <<"actual: "<< min <<" to "<<(*it)->vertexes[1]->id <<"- peso before delete: " << cola[(*it)->vertexes[1]->id].first << endl;
+                   cola[(*it)->vertexes[1]->id].first = (*it)->weight;
+                   cout << "peso then delete " << cola[(*it)->vertexes[1]->id].first << endl;
                }
            }
-
         }
-
         for(auto it=mp.begin();it!=mp.end();it++){
+            cout << (*it).first << " - " << (*it).second.first <<" - "<<(*it).second.second;
             Ud_1.createEdge((*it).first, (*it).second.first, (*it).second.second);
         }
-
     return Ud_1;
     }
-
-
 };

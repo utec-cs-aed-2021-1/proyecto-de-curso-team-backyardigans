@@ -141,14 +141,15 @@ public:
 
     void pop()
     {
+        position.erase(pairs[0].second);
         auto temp = pairs[0];
         pairs[0]=pairs[n_pairs-1];
         n_pairs = n_pairs-1;
+        position[pairs[0].second] = 0;
         heapify_down(0, temp.second);
-        position.erase(temp.second);
     }
 
-    pair <T,string> top(){
+    pair<T,string> top(){
         return pairs[0];
     }
 
@@ -157,10 +158,16 @@ public:
         return true;
     }
 
-    pair<T,string>& operator[](string str){
-        if (position.find(str) == position.end())
-            return pairs[position[str]];
+    void actualizar(string str){
+
     }
+
+    pair<T,string>& operator[](string str){
+        return pairs[position[str]];
+    }
+
+
+
 
 };
 #endif //GRAPHS_PRIORITYQUEUE_H
