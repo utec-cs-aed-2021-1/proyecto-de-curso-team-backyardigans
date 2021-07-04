@@ -1,6 +1,6 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-
+#include <iostream>
 #include <list>
 #include <vector>
 #include <unordered_map>
@@ -11,7 +11,7 @@ template<typename TV, typename TE>
 class Graph{
 protected:
     unordered_map<string, Vertex<TV, TE>*>  vertexes;
-    int nedge;
+    int nedge=0;
 public:
 
     /**
@@ -56,11 +56,11 @@ public:
     virtual bool isDense(float threshold = 0.5) = 0; // es igual para ambas
     virtual bool isConnected()= 0;
     virtual bool isStronglyConnected() throw() = 0;
-    virtual bool empty() = 0; // es igual en ambas
-    virtual void clear()= 0; // es igual para ambas
-    virtual void displayVertex(string id)= 0; // es igual para ambas
-    virtual bool findById(string id) = 0; // es igual para ambas
-    virtual void display() = 0;
+    bool empty(); // es igual en ambas
+    void clear(); // es igual para ambas
+    virtual void displayVertex(string id)= 0;
+    virtual bool findById(string id) = 0;
+    void display();
 };
 
 template<typename TV, typename TE>
@@ -87,5 +87,46 @@ bool Graph<TV, TE>::insertVertex(string id, TV vertex) {
     }
     return false;
 }
+
+template<typename TV, typename TE>
+bool Graph<TV, TE>::empty() {
+    return (this -> vertexes).size()==0;
+}
+
+template<typename TV, typename TE>
+void Graph<TV, TE>::clear(){
+    auto it = (this -> vertexes).begin();
+    while (it != (this -> vertexes).end()){
+        (*it).second->edges.clear();
+        it++;
+    }
+    Graph<TV, TE>::nedge = 0;
+    (this -> vertexes).clear();
+}
+
+template<typename TV, typename TE>
+void Graph<TV, TE>::display(){
+    if ((this -> vertexes).size() == 0){
+        cout << "NOT FOUND"<<endl;
+    }
+    else {
+        cout << endl;
+        auto it = (this -> vertexes).begin();
+        while (it != (this -> vertexes).end()) {
+            cout << "size: " << (it->second)->edges.size() << endl;
+            auto edge_it = (it->second)->edges.begin();
+            while (edge_it != (it->second)->edges.end()) {
+                cout << (it->second)->id <<" (" <<(it->second)->data << ")" ;
+                cout <<"---- " <<(*edge_it)->weight <<" ----" ;
+                auto data_ = (*edge_it)->vertexes[0] == it->second ? (*edge_it)->vertexes[1] : (*edge_it)->vertexes[0];
+                cout << data_->id << data_->data << " (" << data_->id <<")" <<endl;
+                edge_it++;
+            }
+            it++;
+        }
+        cout << endl;
+    }
+}
+
 
 #endif

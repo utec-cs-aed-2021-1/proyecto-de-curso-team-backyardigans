@@ -20,22 +20,19 @@ private:
     int n_pairs = 0;
     pair <T,string>* pairs = new pair <T,string>[capacity];;
     unordered_map<string , T> position;
-    int Parent(int i)
-    {
+    int Parent(int i){
         return (i - 1) / 2;
     }
 
-    int Left(int i)
-    {
+    int Left(int i){
         return (2 * i + 1);
     }
 
-    int Right(int i)
-    {
+    int Right(int i){
         return (2 * i + 2);
     }
 
-    void heapify_down(int i, string str){
+    void heapify_down(int i ){
         auto child_r = Right(i);
         auto child_l = Left(i);
 
@@ -62,20 +59,20 @@ private:
                     pairs[child_l] = temp;
                     position[pairs[child_l].second] = child_l;
                     position[pairs[i].second] = i;
-                    heapify_down(child_l, str);
+                    heapify_down(child_l);
                 }
                 else{
                     pairs[i] = pairs[child_r];
                     pairs[child_r] = temp;
                     position[pairs[child_r].second] = child_r;
                     position[pairs[i].second] = i;
-                    heapify_down(child_r, str);
+                    heapify_down(child_r);
                 }
             }
         }
     }
 
-    void heapify_up(int i, string str){
+    void heapify_up(int i){
         auto parent = Parent(i);
         if (i == 0) return;
 
@@ -86,7 +83,7 @@ private:
         pairs[parent] = temp;
         position[pairs[parent].second]=parent;
         position[pairs[i].second]=i;
-        heapify_up(parent, str);
+        heapify_up(parent);
     }
 public:
     priority_(){};
@@ -94,19 +91,16 @@ public:
         delete [] pairs;
     }
 
-    int size()
-    {
+    int size(){
         return n_pairs;
     }
 
-    bool is_empty()
-    {
+    bool is_empty(){
         if(n_pairs==0) return true;
         return false;
     }
 
-    void push(pair<T, string> vertex)
-    {
+    void push(pair<T, string> vertex){
         if(n_pairs==capacity){
             auto* pairs2 = new pair <T,string>[capacity*2];
             for(int i=0;i<n_pairs;i++){
@@ -119,11 +113,10 @@ public:
 
         pairs[n_pairs] = vertex;
         position[vertex.second] = n_pairs;
-        heapify_up(n_pairs, vertex.second);
+        heapify_up(n_pairs);
         n_pairs = n_pairs+1;
     }
-    void push(const string& vertex)
-    {
+    void push(const string& vertex){
         if(n_pairs==capacity){
             auto* pairs2 = new pair <T,string>[capacity*2];
             for(int i=0;i<n_pairs;i++){
@@ -135,20 +128,20 @@ public:
         }
         pairs[n_pairs] = {(int)INFINITY, vertex};
         position[vertex] = n_pairs;
-        heapify_up(n_pairs, vertex);
+        heapify_up(n_pairs);
         n_pairs = n_pairs+1;
     }
 
-    void pop()
-    {
+    void pop(){
+        position.erase(pairs[0].second);
         auto temp = pairs[0];
         pairs[0]=pairs[n_pairs-1];
         n_pairs = n_pairs-1;
-        heapify_down(0, temp.second);
-        position.erase(temp.second);
+        position[pairs[0].second] = 0;
+        heapify_down(0);
     }
 
-    pair <T,string> top(){
+    pair<T,string> top(){
         return pairs[0];
     }
 
@@ -157,10 +150,23 @@ public:
         return true;
     }
 
-    pair<T,string>& operator[](string str){
-        if (position.find(str) == position.end())
-            return pairs[position[str]];
+    void actualizar(string str, T vertex){
+        auto temp = pairs[position[str]];
+        auto temp2 = pairs[n_pairs-1];
+        pairs[position[str]] = pairs[n_pairs-1];
+        n_pairs = n_pairs-1;
+        position[temp2.second] = position[str];
+        position.erase(str);
+        heapify_down(position[temp2.second]);
+        push({vertex, str});
     }
+
+    pair<T,string>& operator[](string str){
+        return pairs[position[str]];
+    }
+
+
+
 
 };
 #endif //GRAPHS_PRIORITYQUEUE_H

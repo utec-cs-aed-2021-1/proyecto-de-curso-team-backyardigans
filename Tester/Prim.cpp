@@ -18,5 +18,6 @@ TEST_CASE( "A simple test for Prim" ) {
     g1.createEdge("C", "E", 5);
     Prim<char, int> prim(&g1, "A");
     UnDirectedGraph<char, int> result = prim.apply();
+    result.display();
     REQUIRE( 1 == 1 );
 }

@@ -1,12 +1,7 @@
-#include <utility>
-
-//
-// Created by EDGAR on 29/06/2021.
-//
-
 #ifndef PROYECTO_DE_CURSO_TEAM_BACKYARDIGANS_STRUCTS_H
 #define PROYECTO_DE_CURSO_TEAM_BACKYARDIGANS_STRUCTS_H
 
+#include <utility>
 using namespace std;
 
 template<typename TV, typename TE>
