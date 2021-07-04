@@ -1,4 +1,5 @@
 #include "catch.hpp"
+#include <math.h>
 #include "UndirectedGraph.h"
 TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
   
@@ -140,7 +141,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             g.createEdge("D", "C", 2);
             g.createEdge("E", "D", 2);
 
-            REQUIRE( g.density() == 0.7 );
+            REQUIRE( roundf(g.density()) == 0.7 );
         }
     }
 }
