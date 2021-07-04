@@ -3,9 +3,9 @@
 --------
 
 ## Integrantes
-- 
-- 
-- 
+- Paulo Cuaresma (100%)
+- Edgar Chacon (10%)
+- Rodrigo Morales(100%)
 
 ----
 
