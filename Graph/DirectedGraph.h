@@ -19,7 +19,7 @@ public:
     TE &operator()(string start, string end) override;
     float density() override;
     bool isDense(float threshold = 0.5) override;
-    bool isStronglyConnected() throw() override{};
+    bool isStronglyConnected() throw() override{ return false};
     void displayVertex(string id) override;
     bool findById(string id) override;
 };
@@ -39,7 +39,7 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteVertex(string id){
     if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
-        (this -> vertexes)[id]->edges.clear();
+    (this -> vertexes)[id]->edges.clear();
     for (auto &it: (this -> vertexes))
         for (auto it2 = it.second->edges.begin(); it2 != it.second->edges.end() ;it2++)
             if ((*it2)->vertexes[1]->id == id){
@@ -77,7 +77,7 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
 }
 
 template<typename TV, typename TE>
-float DirectedGraph<TV, TE>::density() {
+ios_base DirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
     return (float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
 }

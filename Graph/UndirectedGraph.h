@@ -152,9 +152,9 @@ bool UnDirectedGraph<TV, TE>::isConnected() {
     stack<string> stack_;
     int aux = 0;
     unordered_map<string, bool> map;
-    auto it = (this->vertexes).begin();
-    stack_.push((this->vertexes)[it.first]->id);
-    map[it.first] = true;
+    auto it3 = (this->vertexes).begin();
+    stack_.push((this->vertexes)[(*it3).first]->id);
+    map[(*it3).first] = true;
     while(!stack_.empty()){
         string actual = stack_.top();
         auto it = (this->vertexes)[stack_.top()]->edges;
@@ -166,10 +166,9 @@ bool UnDirectedGraph<TV, TE>::isConnected() {
                 break;
             }
         }
-        if (stack_.top() == actual)
-            stack_.pop();
+        if (stack_.top() == actual) stack_.pop();
     }
-    if (aux == (this->vertexes))
+    if (aux == (this->vertexes).size())
         return true;
     return false;
 }
