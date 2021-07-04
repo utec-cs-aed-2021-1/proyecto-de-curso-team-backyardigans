@@ -2,27 +2,99 @@
 #include "DirectedGraph.h"
 
 TEST_CASE( "A simple test for DirectedGraph", "[DirectedGraph]" ) {
-    DirectedGraph<double,int> graph_d1;
 
-    graph_d1 = DirectedGraph<double,int>();
+    SECTION("Minimal Tests"){
+        SECTION( "No edges" ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+            REQUIRE( g.getNumberOfEdges() == 0 );
+        }
+        SECTION( " Delete vertex" ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-    REQUIRE(graph_d1.insertVertex("A",1)==true);
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
 
-    REQUIRE(graph_d1.insertVertex("B",2)==true);
+            g.createEdge("A", "B", 1);
+            g.createEdge("C", "A", 2);
+            g.createEdge("D", "C", 2);
+            g.createEdge("D", "A", 3);
 
-    REQUIRE(graph_d1.insertVertex("C",3)==true);
+            g.deleteVertex("D");
 
-    REQUIRE(graph_d1.insertVertex("D",4)==true);
+            REQUIRE( g.getNumberOfEdges() == 2 );
+        }
+        SECTION( " Find " ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-    REQUIRE(graph_d1.createEdge("A","B", 1)==true);
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
 
-    REQUIRE(graph_d1.createEdge("C","B", 1)==true);
+            g.createEdge("A", "B", 1);
+            g.createEdge("C", "A", 2);
+            g.createEdge("D", "C", 2);
+            g.createEdge("D", "A", 3);
 
-    REQUIRE(graph_d1.createEdge("D","B", 4) == true);
+            g.deleteVertex("D");
 
-    cout << endl;
-    cout << "Directed Graph: "<<endl;
-    graph_d1.display();
+            REQUIRE( g.findById("D") == false);
+        }
+        SECTION( "Clear and empty" ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-    graph_d1.displayVertex("A");
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("C", "A", 2);
+            g.createEdge("D", "C", 2);
+            g.createEdge("D", "A", 3);
+
+            g.clear();
+
+            REQUIRE( g.empty() == true );
+            REQUIRE(g.getNumberOfEdges()==0);
+        }
+
+
+        SECTION( "Is Strongly Connected" ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("C", "A", 2);
+            g.createEdge("D", "C", 2);
+            g.createEdge("D", "A", 3);
+
+            REQUIRE( g.isStronglyConnected() == false );
+        }
+
+        SECTION( "density" ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("C", "A", 2);
+            g.createEdge("D", "C", 2);
+            g.createEdge("D", "A", 3);
+
+            REQUIRE( g.density() == 0.33 );
+        }
+
+
+    }
+
 }

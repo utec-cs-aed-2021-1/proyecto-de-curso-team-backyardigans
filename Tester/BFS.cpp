@@ -22,4 +22,20 @@ TEST_CASE( "A simple test for BFS" ) {
         cout << "BFS: "<<endl;
         g1->display();
     }
+    SECTION( "Edges creation_2" ) {
+        Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
+        g1->insertVertex("A", 1);
+        g1->insertVertex("B", 1);
+        g1->insertVertex("C", 1);
+        g1->insertVertex("D", 1);
+
+        g1->createEdge("A", "C", 4);
+        g1->createEdge("C", "D", 3);
+        g1->createEdge("A", "D", 10);
+
+        BFS<double ,int> bfs(g1, "C");
+        DirectedGraph<double , int>* gr = bfs.apply();
+        cout << "BFS: "<<endl;
+        g1->display();
+    }
 }

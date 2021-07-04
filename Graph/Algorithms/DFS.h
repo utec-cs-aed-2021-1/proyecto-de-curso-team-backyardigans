@@ -43,4 +43,4 @@ DirectedGraph<TV, TE>* DFS<TV, TE>::apply(){
             stack_.pop();
     }
     return Rgraph;
-}
+};
