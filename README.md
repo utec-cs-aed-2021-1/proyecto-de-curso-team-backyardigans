@@ -3,8 +3,8 @@
 --------
 
 ## Integrantes
-- Paulo Cuaresma (100%)
-- Edgar Chacon (10%)
+- Paulo Vladimir Castillo Cuaresma (GO GO LAPIZ) (100%)
+- Edgar Chacon (100%)
 - Rodrigo Morales(100%)
 
 ----
