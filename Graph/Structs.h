@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by EDGAR on 29/06/2021.
 //
@@ -37,8 +39,8 @@ struct Vertex {
     std::list<Edge<TV, TE>*> edges;
     Vertex()= default;
     explicit Vertex(TV data_, string id_){
-        data = data_;
-        id = id_;
+        data = std::move(data_);
+        id = std::move(id_);
     }
 };
 

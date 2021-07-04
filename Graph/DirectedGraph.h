@@ -7,8 +7,6 @@
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
-private:
-    int nedge;
 public:
     DirectedGraph(){}
 
@@ -33,15 +31,14 @@ public:
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
-    if ((this -> vertexes).find(id1)==(this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2){
-        auto v1 = (this -> vertexes)[id1];
-        auto v2 = (this -> vertexes)[id2];
-        auto edge = new Edge<TV, TE>(v1, v2, w);
-        (this -> vertexes)[id1]->edges.push_back(edge);
-        nedge++;
-        return true;
-    }
-    return false;
+    if ((this -> vertexes).find(id1)==(this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2)
+        return false;
+    auto v1 = (this -> vertexes)[id1];
+    auto v2 = (this -> vertexes)[id2];
+    auto edge = new Edge<TV, TE>(v1, v2, w);
+    (this -> vertexes)[id1]->edges.push_back(edge);
+    Graph<TV, TE>::nedge++;
+    return true;
 }
 
 template<typename TV, typename TE>
@@ -87,7 +84,7 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
 template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
-    return (float)nedge/((s_v)*(s_v-1));
+    return (float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
 }
 
 template<typename TV, typename TE>
@@ -108,13 +105,17 @@ void DirectedGraph<TV, TE>::clear(){
         (*it).second->edges.clear();
         it++;
     }
-    nedge = 0;
+    Graph<TV, TE>::nedge = 0;
     (this -> vertexes).clear();
 }
 template<typename TV, typename TE>
 void DirectedGraph<TV, TE>::displayVertex(string id){
-    if ((this -> vertexes).find(id) != (this -> vertexes).end())
+    if ((this -> vertexes).find(id) != (this -> vertexes).end()){
         cout <<id<<": " <<(this -> vertexes)[id]->data<<endl;
+        for (auto it = (this->vertexes)[id]->edges.begin(); it != (this->vertexes)[id]->edges.end();it++){
+            cout <<"peso: " <<(*it)->weight <<"connecto to: "<<(*it)->vertexes[1]->id<<endl;
+        }
+    }
     else cout << "Not found"<<endl;
 }
 
@@ -131,15 +132,16 @@ void DirectedGraph<TV, TE>::display(){
         cout << "NOT FOUND"<<endl;
     }
     else {
+        cout << endl;
         auto it = (this -> vertexes).begin();
         while (it != (this -> vertexes).end()) {
             cout << "size: " << (it->second)->edges.size() << endl;
-            cout << "V origen: " << (it->second)->data << "-" << (it->second)->id << endl;
             auto edge_it = (it->second)->edges.begin();
             while (edge_it != (it->second)->edges.end()) {
-                cout << "arista: " << (*edge_it)->weight << " ";
+                cout << (it->second)->id <<" (" <<(it->second)->data << ")" ;
+                cout <<"---- " <<(*edge_it)->weight <<" ----" ;
                 auto data_ = (*edge_it)->vertexes[0] == it->second ? (*edge_it)->vertexes[1] : (*edge_it)->vertexes[0];
-                cout << "V fin: " << data_->data << "-" << data_->id << endl;
+                cout << data_->id << data_->data << " (" << data_->id <<")" <<endl;
                 edge_it++;
             }
             it++;
