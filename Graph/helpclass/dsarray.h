@@ -31,9 +31,8 @@ public:
         sets_ = size_;
         for (auto ite:data){
             this->data[ind] = data[ind];
-            parent[ind] = ind;
-            rank[ind++] = 0;
         }
+        MakeSet();
     };
     ~DisjoinSetArray() {
         delete data;
@@ -76,9 +75,9 @@ void DisjoinSetArray<T>::MakeSet(int x) {
 
 template <typename T>
 void DisjoinSetArray<T>::MakeSet() {
-    int aux = 0;
-    while (aux != size_)
-        MakeSet(aux++);
+    for (int i=0; i<size_; i++){
+        MakeSet(i);
+    }
 }
 
 template<typename T>

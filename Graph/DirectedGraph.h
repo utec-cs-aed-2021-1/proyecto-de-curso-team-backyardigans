@@ -21,12 +21,8 @@ public:
     bool isDense(float threshold = 0.5) override;
     bool isConnected() override{};
     bool isStronglyConnected() throw() override{};
-    bool empty() override;
-    void clear() override;
     void displayVertex(string id) override;
     bool findById(string id) override;
-    void display() override;
-
 };
 
 template<typename TV, typename TE>
@@ -99,16 +95,6 @@ bool DirectedGraph<TV, TE>::empty(){
 }
 
 template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::clear(){
-    auto it = (this -> vertexes).begin();
-    while (it != (this -> vertexes).end()){
-        (*it).second->edges.clear();
-        it++;
-    }
-    Graph<TV, TE>::nedge = 0;
-    (this -> vertexes).clear();
-}
-template<typename TV, typename TE>
 void DirectedGraph<TV, TE>::displayVertex(string id){
     if ((this -> vertexes).find(id) != (this -> vertexes).end()){
         cout <<id<<": " <<(this -> vertexes)[id]->data<<endl;
@@ -126,28 +112,5 @@ bool DirectedGraph<TV, TE>::findById(string id){
     return false;
 }
 
-template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::display(){
-    if ((this -> vertexes).size() == 0){
-        cout << "NOT FOUND"<<endl;
-    }
-    else {
-        cout << endl;
-        auto it = (this -> vertexes).begin();
-        while (it != (this -> vertexes).end()) {
-            cout << "size: " << (it->second)->edges.size() << endl;
-            auto edge_it = (it->second)->edges.begin();
-            while (edge_it != (it->second)->edges.end()) {
-                cout << (it->second)->id <<" (" <<(it->second)->data << ")" ;
-                cout <<"---- " <<(*edge_it)->weight <<" ----" ;
-                auto data_ = (*edge_it)->vertexes[0] == it->second ? (*edge_it)->vertexes[1] : (*edge_it)->vertexes[0];
-                cout << data_->id << data_->data << " (" << data_->id <<")" <<endl;
-                edge_it++;
-            }
-            it++;
-        }
-        cout << endl;
-    }
-}
 
 #endif

@@ -36,26 +36,24 @@ public:
             for(auto ite = ((*it).second)->edges.begin();ite!=((*it).second)->edges.end();ite++) {
                 string iu1 = (*ite)->vertexes[0]->id;
                 string iu2 = (*ite)->vertexes[1]->id;
-                if (map2.find(iu1 + iu2) == map2.end() || map2.find(iu2 + iu1) == map2.end()) {
+                if (map2.find(iu1 + iu2) == map2.end() && map2.find(iu2 + iu1) == map2.end()) {
                     pair<TE, string> p = {(*ite)->weight, iu1 + iu2};
                     map2[iu1 + iu2] = true;
                     cola.push(p);
                 }
-
             }
         }
 
         auto d = new DisjoinSetArray<string>(v);
-        d->MakeSet();
         while(!cola.is_empty()){
             string u=cola.top().second;
-
-            string u1= to_string(u[0]);
-            string u2=to_string(u[1]);
-
-            if(d->Find(mapx[u1])!=d->Find(mapx[u2])){
-                d->Union(mapx[u1],mapx[u2]);
-                Ud_1.createEdge(u1,u2,cola.top().first);
+            char u1 = u[0];
+            char u2 = u[1];
+            string a;
+            string b;
+            if(d->Find(mapx[a+u1])!=d->Find(mapx[b+u2])){
+                d->Union(mapx[a+u1],mapx[b+u2]);
+                Ud_1.createEdge(a+u1,b+u2,cola.top().first);
             }
             cola.pop();
         }
