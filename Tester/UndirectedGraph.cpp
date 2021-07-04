@@ -29,7 +29,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             for(int i=0; i<10; i++)
                 g.createEdge("A", "B", 1);
             
-            REQUIRE( g.getNumberOfEdges() == 10 );
+            REQUIRE( g.getNumberOfEdges() == 1 );
         }
         
     }

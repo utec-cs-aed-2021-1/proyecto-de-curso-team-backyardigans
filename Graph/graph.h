@@ -51,7 +51,8 @@ public:
     virtual bool createEdge(string id1, string id2, TE w) = 0;
     virtual bool deleteVertex(string id) = 0;
     virtual bool deleteEdge(string id, string id2) = 0;
-    virtual TE &operator()(string start, string end)= 0; // es igual para ambas
+    virtual TE &operator()(string start, string end) = 0; // es igual para ambas
+    bool findEdge(string start, string end);
     virtual float density() = 0;
     virtual bool isDense(float threshold = 0.5) = 0; // es igual para ambas
     virtual bool isStronglyConnected() throw() = 0;
@@ -83,6 +84,19 @@ bool Graph<TV, TE>::insertVertex(string id, TV vertex) {
         auto vertex_ = new Vertex<TV, TE>(vertex, id);
         (this -> vertexes)[id] = vertex_;
         return true;
+    }
+    return false;
+}
+
+template<typename TV, typename TE>
+bool Graph<TV, TE>::findEdge(string start, string end) {
+    auto v1 = (this -> vertexes)[start];
+    auto v2 = (this -> vertexes)[end];
+    auto it = v1->edges.begin();
+    while (it != v1->edges.end()){
+        if ((*it)->vertexes[1]==v2)
+            return true;
+        it++;
     }
     return false;
 }
