@@ -3,15 +3,6 @@
 
 TEST_CASE( "A simple test for DFS" ) {
     REQUIRE( 1 == 1 );
-    Graph<double, int>* g = new UnDirectedGraph<double, int>();
-    g->insertVertex("A", 1);
-    g->insertVertex("B", 1);
-    g->insertVertex("C", 1);
-    g->insertVertex("D", 1);
-    g->insertVertex("E", 1);
-    g->insertVertex("F", 1);
-    REQUIRE( g->getNumberOfVertices() == 6);
-
     SECTION( "Edges creation" ) {
         Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
         g1->insertVertex("A", 1);

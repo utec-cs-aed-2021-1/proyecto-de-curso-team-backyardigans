@@ -19,7 +19,6 @@ public:
     TE &operator()(string start, string end) override;
     float density() override;
     bool isDense(float threshold = 0.5) override;
-    bool isConnected() override;
     bool isStronglyConnected() throw() override{};
     void displayVertex(string id) override;
     bool findById(string id) override;

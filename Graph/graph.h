@@ -54,7 +54,6 @@ public:
     virtual TE &operator()(string start, string end)= 0; // es igual para ambas
     virtual float density() = 0;
     virtual bool isDense(float threshold = 0.5) = 0; // es igual para ambas
-    virtual bool isConnected()= 0;
     virtual bool isStronglyConnected() throw() = 0;
     bool empty(); // es igual en ambas
     void clear(); // es igual para ambas

@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "graph.h"
-#include "Algorithms/DFS.h"
 
 /**
  *
@@ -40,7 +39,7 @@ public:
      *
      */
     
-    bool isConnected() override;
+    bool isConnected();
 
     /**
      *
@@ -140,8 +139,6 @@ bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isConnected() {
     //Hacer recorrido DFS O BFS, con un size
-
-
 
 }
 
