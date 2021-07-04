@@ -31,6 +31,5 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             
             REQUIRE( g.getNumberOfEdges() == 1 );
         }
-        
     }
 }
