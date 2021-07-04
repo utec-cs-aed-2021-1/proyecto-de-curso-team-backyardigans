@@ -22,7 +22,8 @@ TEST_CASE( "A simple test for DirectedGraph", "[DirectedGraph]" ) {
             g.createEdge("D", "C", 2);
             g.createEdge("D", "A", 3);
 
-            g.deleteVertex("D");
+
+            REQUIRE(g.deleteVertex("D") == true);
 
             REQUIRE( g.getNumberOfEdges() == 2 );
         }
