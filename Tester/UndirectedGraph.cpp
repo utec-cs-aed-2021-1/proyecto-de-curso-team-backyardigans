@@ -1,7 +1,5 @@
 #include "catch.hpp"
 #include "UndirectedGraph.h"
-#include "Algorithms/DFS.h"
-
 TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
   
     SECTION( "Minimal tests" ) {
