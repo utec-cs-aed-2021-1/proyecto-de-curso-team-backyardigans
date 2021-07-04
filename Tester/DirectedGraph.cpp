@@ -1,5 +1,4 @@
 #include "catch.hpp"
-#include <math.h>
 #include "DirectedGraph.h"
 
 TEST_CASE( "A simple test for DirectedGraph", "[DirectedGraph]" ) {
@@ -93,7 +92,7 @@ TEST_CASE( "A simple test for DirectedGraph", "[DirectedGraph]" ) {
             g.createEdge("D", "C", 2);
             g.createEdge("D", "A", 3);
 
-            REQUIRE( roundf(g.density())  == 0.33 );
+            REQUIRE( g.isDense(0.33)  == true);
         }
 
 

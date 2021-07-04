@@ -4,6 +4,7 @@
 #include <iostream>
 #include "graph.h"
 #include "Structs.h"
+#include <cmath>
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
@@ -41,7 +42,6 @@ bool DirectedGraph<TV, TE>::deleteVertex(string id){
     if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
     for (auto it =(this -> vertexes).begin(); it != (this -> vertexes).end() ;it++)
         for (auto it2 = (*it).second->edges.begin(); it2 != (*it).second->edges.end() ;it2++){
-            cout << (*it2)->vertexes[1]->id;
             if ((*it2)->vertexes[1]->id == id){
                 (*it).second->edges.remove(*it2);
                 (this->nedge)--;
@@ -83,7 +83,7 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
 template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
-    return (float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
+    return (float)(Graph<TV, TE>::nedge/((s_v)*(s_v-1)));
 }
 
 template<typename TV, typename TE>
@@ -91,8 +91,6 @@ bool DirectedGraph<TV, TE>::isDense(float threshold){
     if (density()>threshold) return true;
     return false;
 }
-
-
 
 template<typename TV, typename TE>
 void DirectedGraph<TV, TE>::displayVertex(string id){
@@ -111,6 +109,5 @@ bool DirectedGraph<TV, TE>::findById(string id){
         return true;
     return false;
 }
-
 
 #endif
