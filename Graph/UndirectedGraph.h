@@ -2,6 +2,7 @@
 #define UNDIRECTEDGRAPH_H
 
 #include <iostream>
+#include <stack>
 #include "graph.h"
 
 /**
@@ -148,7 +149,29 @@ bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isConnected() {
     //Hacer recorrido DFS O BFS, con un size
-
+    stack<string> stack_;
+    int aux = 0;
+    unordered_map<string, bool> map;
+    auto it = (this->vertexes).begin();
+    stack_.push((this->vertexes)[it.first]->id);
+    map[it.first] = true;
+    while(!stack_.empty()){
+        string actual = stack_.top();
+        auto it = (this->vertexes)[stack_.top()]->edges;
+        for (auto itr = it.begin(); itr != it.end(); itr++){
+            if (map.find((*itr)->vertexes[1]->id) == map.end()){
+                aux++;
+                map[(*itr)->vertexes[1]->id] = true;
+                stack_.push((*itr)->vertexes[1]->id);
+                break;
+            }
+        }
+        if (stack_.top() == actual)
+            stack_.pop();
+    }
+    if (aux == (this->vertexes))
+        return true;
+    return false;
 }
 
 
@@ -157,7 +180,7 @@ void UnDirectedGraph<TV, TE>::displayVertex(string id) {
     if ((this -> vertexes).find(id) != (this -> vertexes).end()){
         cout <<id<<": " <<(this -> vertexes)[id]->data<<endl;
         for (auto it = (this->vertexes)[id]->edges.begin(); it != (this->vertexes)[id]->edges.end();it++){
-            cout <<"peso: " <<(*it)->weight <<"connecto to: "<<(*it)->vertexes[1]->id<<endl;
+            cout <<"peso: " <<(*it)->weight <<"  connecto to: "<<(*it)->vertexes[1]->id<<endl;
         }
     }
     else cout << "Not found"<<endl;

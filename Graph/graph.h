@@ -6,7 +6,6 @@
 #include <unordered_map>
 #include <Structs.h>
 
-
 template<typename TV, typename TE>
 class Graph{
 protected:
@@ -48,13 +47,38 @@ public:
      */
     bool insertVertex(string id, TV vertex);
 
+    /**
+     *
+     * @brief Add a new edge to the graph
+     *
+     * @warning The edge will be replace the weight if already exist
+     * a vertex than connect the two ids
+     * @warning The edge will not be added if not exists one or both
+     * ids in the graph
+     *
+     * @return true if the edge was added or was replaced
+     * @return false if one or both vertex dont exist in the graph
+     *
+     */
+
     virtual bool createEdge(string id1, string id2, TE w) = 0;
+
+    /**
+     *
+     * @brief Delete a vertex of the graph
+     * @warning The vertex and all its edges will be deleted,
+     * if it is directed, all the edges that end with that vertex will also be deleted.
+     *
+     * @return true if vertex was successfully deleted
+     * @return false if the vertex dont exist
+     */
+
     virtual bool deleteVertex(string id) = 0;
     virtual bool deleteEdge(string id, string id2) = 0;
-    virtual TE &operator()(string start, string end) = 0; // es igual para ambas
+    virtual TE &operator()(string start, string end) = 0;
     bool findEdge(string start, string end);
     virtual float density() = 0;
-    virtual bool isDense(float threshold = 0.5) = 0; // es igual para ambas
+    virtual bool isDense(float threshold = 0.5) = 0;
     virtual bool isStronglyConnected() throw() = 0;
     bool empty(); // es igual en ambas
     void clear(); // es igual para ambas
@@ -126,7 +150,7 @@ void Graph<TV, TE>::display(){
         cout << endl;
         auto it = (this -> vertexes).begin();
         while (it != (this -> vertexes).end()) {
-            cout << "size: " << (it->second)->edges.size() << endl;
+            cout << "Number of edges: " << (it->second)->edges.size() << endl;
             auto edge_it = (it->second)->edges.begin();
             while (edge_it != (it->second)->edges.end()) {
                 cout << (it->second)->id <<" (" <<(it->second)->data << ")" ;
