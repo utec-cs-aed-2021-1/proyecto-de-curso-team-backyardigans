@@ -192,6 +192,7 @@ void UnDirectedGraph<TV, TE>::display(){
         while (it != (this -> vertexes).end()) {
             cout << "size: " << (it->second)->edges.size() << endl;
             auto edge_it = (it->second)->edges.begin();
+            cout << (it->second)->id <<" (" << (this->vertexes[it->first])->data << "): "<<endl;
             while (edge_it != (it->second)->edges.end()) {
                 cout << (it->second)->id <<" (" <<(it->second)->data << ")" ;
                 cout <<"---- " <<(*edge_it)->weight <<" ----";
@@ -204,4 +205,5 @@ void UnDirectedGraph<TV, TE>::display(){
         cout << endl;
     }
 }
+
 #endif

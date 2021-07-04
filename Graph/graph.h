@@ -10,7 +10,7 @@
 template<typename TV, typename TE>
 class Graph{
 protected:
-    std::unordered_map<string, Vertex<TV, TE>*>  vertexes;
+    unordered_map<string, Vertex<TV, TE>*>  vertexes;
     int nedge;
 public:
 
@@ -85,7 +85,7 @@ bool Graph<TV, TE>::insertVertex(string id, TV vertex) {
         (this -> vertexes)[id] = vertex_;
         return true;
     }
-    else return false;
+    return false;
 }
 
 #endif

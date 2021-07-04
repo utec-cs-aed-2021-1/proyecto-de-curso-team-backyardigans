@@ -2,22 +2,21 @@
 #include "Algorithms/Prim.h"
 
 TEST_CASE( "A simple test for Prim" ) {
-    UnDirectedGraph<double, int>g1;
+    UnDirectedGraph<char, int>g1;
     g1.insertVertex("A", 1);
-    g1.insertVertex("B", 1);
-    g1.insertVertex("C", 1);
-    g1.insertVertex("D", 1);
-    g1.insertVertex("E", 1);
-    g1.insertVertex("F", 1);
+    g1.insertVertex("B", 2);
+    g1.insertVertex("C", 3);
+    g1.insertVertex("D", 4);
+    g1.insertVertex("E", 5);
+    g1.insertVertex("F", 6);
     g1.createEdge("A", "B", 2);
     g1.createEdge("A", "C", 2);
-    g1.createEdge("A", "D", 2);
-    g1.createEdge("D", "E", 2);
-    g1.createEdge("B", "F", 2);
-    g1.createEdge("F", "C", 2);
-    g1.createEdge("C", "E", 2);
-    Prim<char, int> prim(&graph, "A");
+    g1.createEdge("A", "D", 1);
+    g1.createEdge("C", "F", 1);
+    g1.createEdge("B", "F", 3);
+    g1.createEdge("A", "E", 4);
+    g1.createEdge("C", "E", 5);
+    Prim<char, int> prim(&g1, "A");
     UnDirectedGraph<char, int> result = prim.apply();
-
     REQUIRE( 1 == 1 );
 }
