@@ -11,7 +11,7 @@ template<typename TV, typename TE>
 class Graph{
 protected:
     unordered_map<string, Vertex<TV, TE>*>  vertexes;
-    int nedge;
+    int nedge=0;
 public:
 
     /**

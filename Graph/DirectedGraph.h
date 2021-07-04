@@ -19,7 +19,7 @@ public:
     TE &operator()(string start, string end) override;
     float density() override;
     bool isDense(float threshold = 0.5) override;
-    bool isConnected() override{};
+    bool isConnected() override;
     bool isStronglyConnected() throw() override{};
     void displayVertex(string id) override;
     bool findById(string id) override;
@@ -89,10 +89,7 @@ bool DirectedGraph<TV, TE>::isDense(float threshold){
     return false;
 }
 
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::empty(){
-    return (this -> vertexes).size()==0;
-}
+
 
 template<typename TV, typename TE>
 void DirectedGraph<TV, TE>::displayVertex(string id){
