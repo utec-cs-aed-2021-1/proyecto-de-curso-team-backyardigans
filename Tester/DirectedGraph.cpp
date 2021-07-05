@@ -80,7 +80,7 @@ TEST_CASE( "A simple test for DirectedGraph", "[DirectedGraph]" ) {
         }
         SECTION( "Is Strongly Connected" ) {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();
-
+//ga
             g.insertVertex("A", 1);
             g.insertVertex("B", 2);
             g.insertVertex("C", 3);
