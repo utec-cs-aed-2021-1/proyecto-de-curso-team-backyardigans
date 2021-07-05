@@ -1,16 +1,12 @@
 #include "catch.hpp"
 #include <math.h>
 #include "UndirectedGraph.h"
-TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
-  
-    SECTION( "Minimal tests" ) {
-    
-        SECTION( "No edges" ) {
+TEST_CASE( "No edges in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
             REQUIRE( g.getNumberOfEdges() == 0 );
         }
 
-        SECTION( "1 edge" ) {
+TEST_CASE( "1 edge in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -20,7 +16,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
 
             REQUIRE( g.getNumberOfEdges() == 1 );
         }
-        SECTION( "create equal edges " ) {
+TEST_CASE( "create equal edges in Undirected " ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -31,7 +27,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
 
             REQUIRE( g.getNumberOfEdges() == 1 );
         }
-        SECTION( " Delete vertex" ) {
+TEST_CASE( " Delete vertex in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -53,7 +49,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
 
             REQUIRE( g.getNumberOfEdges() == 4 );
         }
-        SECTION( " Find " ) {
+TEST_CASE( " Find  in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -76,7 +72,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             REQUIRE( g.findById("D") == false);
             g.display();
         }
-        SECTION( "Clear and empty" ) {
+TEST_CASE( "Clear and empty in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -97,10 +93,10 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             g.clear();
 
             REQUIRE( g.empty() == true );
-            REQUIRE(g.getNumberOfEdges()==0);
+
         }
 
-        SECTION( "Is connected" ) {
+TEST_CASE( "Is connected in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -124,7 +120,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             REQUIRE( g.isConnected() == false );
         }
 
-        SECTION( "density" ) {
+TEST_CASE( "density in Undirected" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -144,5 +140,4 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
 
             REQUIRE(g.isDense(g.density()) == true);
         }
-    }
-}
+
