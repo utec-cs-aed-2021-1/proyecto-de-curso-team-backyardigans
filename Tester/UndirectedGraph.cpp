@@ -142,7 +142,6 @@ TEST_CASE( "density in Undirected" ) {
     g.createEdge("A", "E", 1);
     g.createEdge("D", "C", 2);
     g.createEdge("E", "D", 2);
-
-    REQUIRE(g.isDense(g.density()) == false);
+    REQUIRE(g.isDense() == true);
 }
 
