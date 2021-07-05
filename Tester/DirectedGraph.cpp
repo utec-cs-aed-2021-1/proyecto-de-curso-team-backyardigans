@@ -6,7 +6,7 @@ TEST_CASE( "Get the number of edges in a directed graph", "[DirectedGraph][getNu
   REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
-TEST_CASE( "Delete vertex", "[DirectedGraph][ ) {
+TEST_CASE( "Delete vertex", "[DirectedGraph]") {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);
@@ -23,7 +23,7 @@ TEST_CASE( "Delete vertex", "[DirectedGraph][ ) {
   REQUIRE( g.getNumberOfEdges() == 2 );
 }
 
-SECTION( " Find " ) {
+TEST_CASE( " Find " ) {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);
@@ -40,7 +40,7 @@ SECTION( " Find " ) {
 
   REQUIRE( g.findById("D") == false);
 }
-SECTION( "Clear and empty" ) {
+TEST_CASE( "Clear and empty" ) {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);

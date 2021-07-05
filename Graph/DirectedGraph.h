@@ -8,6 +8,10 @@
 #include <cmath>
 
 template<typename TV, typename TE>
+class BFS;
+
+
+template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
 public:
     DirectedGraph(){}
