@@ -150,13 +150,13 @@ void Graph<TV, TE>::display(){
         cout << endl;
         auto it = (this -> vertexes).begin();
         while (it != (this -> vertexes).end()) {
-            cout << "Number of edges: " << (it->second)->edges.size() << endl;
+            cout << "Number of edges: " << (it->second)->edges.size() <<" -  " <<(it->second)->id << endl;
             auto edge_it = (it->second)->edges.begin();
             while (edge_it != (it->second)->edges.end()) {
-                cout << (it->second)->id <<" (" <<(it->second)->data << ")" ;
-                cout <<"---- " <<(*edge_it)->weight <<" ----" ;
+                cout << (it->second)->id <<" (" <<(it->second)->data << ")";
+                cout <<"---- " <<(*edge_it)->weight <<" ----";
                 auto data_ = (*edge_it)->vertexes[0] == it->second ? (*edge_it)->vertexes[1] : (*edge_it)->vertexes[0];
-                cout << data_->id << data_->data << " (" << data_->id <<")" <<endl;
+                cout << data_->id << " (" << data_->data <<")" <<endl;
                 edge_it++;
             }
             it++;
