@@ -2,8 +2,8 @@
 #define UNDIRECTEDGRAPH_H
 
 #include <iostream>
+#include <stack>
 #include "graph.h"
-#include "Algorithms/DFS.h"
 
 /**
  *
@@ -40,7 +40,7 @@ public:
      *
      */
     
-    bool isConnected() override;
+    bool isConnected();
 
     /**
      *
@@ -61,12 +61,22 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     if ((this -> vertexes).find(id1) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2) return false;
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
-    auto edge = new Edge<TV, TE>(v1, v2, w);
-    auto edge_ = new Edge<TV, TE>(v2, v1, w);
-    (this -> vertexes)[id1]->edges.push_back(edge);
-    (this -> vertexes)[id2]->edges.push_back(edge_);
-    Graph<TV, TE>::nedge++;
-    return true;
+    if (Graph<TV, TE>::findEdge(id1, id2)){
+        auto it = v1->edges.begin();
+        while (it != v1->edges.end()){
+            if ((*it)->vertexes[1]==v2)
+                (*it)->weight = w;
+            it++;
+        }
+    }
+    else{
+        auto edge = new Edge<TV, TE>(v1, v2, w);
+        auto edge_ = new Edge<TV, TE>(v2, v1, w);
+        (this -> vertexes)[id1]->edges.push_back(edge);
+        (this -> vertexes)[id2]->edges.push_back(edge_);
+        Graph<TV, TE>::nedge++;
+        return true;
+    }
 }
 
 template<typename TV, typename TE>
@@ -74,14 +84,15 @@ bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
     if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
     auto v1 = (this -> vertexes)[id];
     vector<string> vertices;
-    auto it = v1->edges.begin();while (it != v1->edges.end()){
+    auto it = v1->edges.begin();
+    while (it != v1->edges.end()){
         auto v2 = (*it)->vertexes[0] == v1? (*it)->vertexes[1] : (*it)->vertexes[0];
         auto it2 = v2->edges.begin();
-        while (*it != *it2) it2++;
+        while ((*it)->vertexes[0] != (*it2)->vertexes[1]) it2++;
         v2->edges.erase(it2);
-        Graph<TV, TE>::nedge++;
         it++;
     }
+    (this->nedge)-=(this->vertexes)[id]->edges.size();
     v1->edges.clear();
     (this -> vertexes).erase(id);
     return true;
@@ -122,7 +133,6 @@ TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
             return (*it)->weight;
         it++;
     }
-    cout << "NOT FOUND"<<endl;
 }
 
 template<typename TV, typename TE>
@@ -140,9 +150,28 @@ bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isConnected() {
     //Hacer recorrido DFS O BFS, con un size
-
-
-
+    stack<string> stack_;
+    int aux = 0;
+    unordered_map<string, bool> map;
+    auto it3 = (this->vertexes).begin();
+    stack_.push((this->vertexes)[(*it3).first]->id);
+    map[(*it3).first] = true;
+    while(!stack_.empty()){
+        string actual = stack_.top();
+        auto it = (this->vertexes)[stack_.top()]->edges;
+        for (auto itr = it.begin(); itr != it.end(); itr++){
+            if (map.find((*itr)->vertexes[1]->id) == map.end()){
+                aux++;
+                map[(*itr)->vertexes[1]->id] = true;
+                stack_.push((*itr)->vertexes[1]->id);
+                break;
+            }
+        }
+        if (stack_.top() == actual) stack_.pop();
+    }
+    if (aux == (this->vertexes).size())
+        return true;
+    return false;
 }
 
 
@@ -151,7 +180,7 @@ void UnDirectedGraph<TV, TE>::displayVertex(string id) {
     if ((this -> vertexes).find(id) != (this -> vertexes).end()){
         cout <<id<<": " <<(this -> vertexes)[id]->data<<endl;
         for (auto it = (this->vertexes)[id]->edges.begin(); it != (this->vertexes)[id]->edges.end();it++){
-            cout <<"peso: " <<(*it)->weight <<"connecto to: "<<(*it)->vertexes[1]->id<<endl;
+            cout <<"peso: " <<(*it)->weight <<"  connecto to: "<<(*it)->vertexes[1]->id<<endl;
         }
     }
     else cout << "Not found"<<endl;

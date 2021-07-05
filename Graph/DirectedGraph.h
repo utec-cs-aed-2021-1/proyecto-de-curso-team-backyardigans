@@ -4,6 +4,7 @@
 #include <iostream>
 #include "graph.h"
 #include "Structs.h"
+#include <cmath>
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
@@ -19,8 +20,7 @@ public:
     TE &operator()(string start, string end) override;
     float density() override;
     bool isDense(float threshold = 0.5) override;
-    bool isConnected() override;
-    bool isStronglyConnected() throw() override{};
+    bool isStronglyConnected() throw() override{ return false;};
     void displayVertex(string id) override;
     bool findById(string id) override;
 };
@@ -40,13 +40,16 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteVertex(string id){
     if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
-        (this -> vertexes)[id]->edges.clear();
-    for (auto &it: (this -> vertexes))
-        for (auto it2 = it.second->edges.begin(); it2 != it.second->edges.end() ;it2++)
+    for (auto it =(this -> vertexes).begin(); it != (this -> vertexes).end() ;it++)
+        for (auto it2 = (*it).second->edges.begin(); it2 != (*it).second->edges.end() ;it2++){
             if ((*it2)->vertexes[1]->id == id){
-                it.second->edges.remove(*it2);
+                (*it).second->edges.remove(*it2);
+                (this->nedge)--;
                 break;
             }
+        }
+    (this->nedge)-=(this->vertexes)[id]->edges.size();
+    (this -> vertexes)[id]->edges.clear();
     (this -> vertexes).erase(id);
     return true;
 }
@@ -80,7 +83,7 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
 template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
-    return (float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
+    return (float)(Graph<TV, TE>::nedge/((s_v)*(s_v-1)));
 }
 
 template<typename TV, typename TE>
@@ -88,8 +91,6 @@ bool DirectedGraph<TV, TE>::isDense(float threshold){
     if (density()>threshold) return true;
     return false;
 }
-
-
 
 template<typename TV, typename TE>
 void DirectedGraph<TV, TE>::displayVertex(string id){
@@ -108,6 +109,5 @@ bool DirectedGraph<TV, TE>::findById(string id){
         return true;
     return false;
 }
-
 
 #endif

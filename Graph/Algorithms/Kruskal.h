@@ -1,5 +1,3 @@
-#include <utility>
-
 #include "graph.h"
 #include "UndirectedGraph.h"
 #include "vector"
@@ -12,14 +10,10 @@ protected:
 
     UnDirectedGraph<TV, TE>* graph;
 public:
-    Kruskal();
+    Kruskal(){};
     Kruskal(UnDirectedGraph<TV, TE>* graph_ ){
         graph = graph_;
     }
-    Kruskal(const UnDirectedGraph<TV, TE>* graph_){
-        graph = graph_;
-    }
-
 
     UnDirectedGraph<TV, TE> apply(){
         UnDirectedGraph<TV, TE> Ud_1;
