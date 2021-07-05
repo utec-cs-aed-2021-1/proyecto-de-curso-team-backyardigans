@@ -6,7 +6,7 @@ TEST_CASE( "Get the number of edges in a directed graph", "[DirectedGraph][getNu
   REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
-TEST_CASE( "Delete vertex in directed graph", "[DirectedGraph][deleteVertex]" ) {
+TEST_CASE( "Delete vertex", "[DirectedGraph][ ) {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);
@@ -23,7 +23,7 @@ TEST_CASE( "Delete vertex in directed graph", "[DirectedGraph][deleteVertex]" ) 
   REQUIRE( g.getNumberOfEdges() == 2 );
 }
 
-TEST_CASE( "Find vertex by id in directed graph", "[DirectedGraph][findById]" ) {
+SECTION( " Find " ) {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);
@@ -40,21 +40,7 @@ TEST_CASE( "Find vertex by id in directed graph", "[DirectedGraph][findById]" ) 
 
   REQUIRE( g.findById("D") == false);
 }
-
-TEST_CASE( "Check emptiness of directed graph", "[DirectedGraph][empty]" ) {
-  DirectedGraph<double, int> g = DirectedGraph<double, int>();
-
-  SECTION("Empty graph") {
-    REQUIRE( g.empty() == true );
-  }
-  
-  SECTION("Not empty graph") {
-    g.insertVertex("A", 1);
-    REQUIRE( g.empty() == false );
-  }
-}
-
-TEST_CASE( "Clear directed graph", "[DirectedGraph][clear]" ) {
+SECTION( "Clear and empty" ) {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);
@@ -70,10 +56,11 @@ TEST_CASE( "Clear directed graph", "[DirectedGraph][clear]" ) {
   g.clear();
 
   REQUIRE( g.empty() == true );
-  REQUIRE( g.getNumberOfEdges() == 0 );
+  REQUIRE(g.getNumberOfEdges()==0);
 }
 
-TEST_CASE( "Check directed graph is dense", "[DirectedGraph][isDense]" ) {
+
+TEST_CASE( "" ) {
   DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
   g.insertVertex("A", 1);
@@ -86,13 +73,13 @@ TEST_CASE( "Check directed graph is dense", "[DirectedGraph][isDense]" ) {
   g.createEdge("D", "C", 2);
   g.createEdge("D", "A", 3);
 
-  REQUIRE( g.isDense(0.33)  == true );
+  REQUIRE( g.isDense(0.33)  == true);
 }
 
 
 TEST_CASE( "Check directed graph is strongly connected", "[DirectedGraph][isStronglyConnected]" ) {
 
-  SECTION( "Not strongly connected" ) {
+  SECTION( "Direected graph is not strongly connected" ) {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -108,7 +95,7 @@ TEST_CASE( "Check directed graph is strongly connected", "[DirectedGraph][isStro
     REQUIRE( g.isStronglyConnected() == false );
   }
   
-  SECTION( "Strongly connected" ) {
+  SECTION( "Directed graph is strongly connected" ) {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
 	    
     g.insertVertex("A", 1);
@@ -123,5 +110,44 @@ TEST_CASE( "Check directed graph is strongly connected", "[DirectedGraph][isStro
 
     REQUIRE( g.isStronglyConnected() == true);
   }
+    SECTION( "Direected graph is not strongly connected2" ) {
+        DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+        g.insertVertex("A", 1);
+        g.insertVertex("B", 2);
+        g.insertVertex("C", 3);
+        g.insertVertex("D", 4);
+        g.insertVertex("E", 5);
+        g.insertVertex("F", 6);
+
+        g.createEdge("A", "B", 1);
+        g.createEdge("A", "F", 2);
+        g.createEdge("A", "C", 2);
+        g.createEdge("F", "B", 3);
+        g.createEdge("F", "C", 1);
+        g.createEdge("B", "C", 2);
+        g.createEdge("E", "B", 2);
+        g.createEdge("E", "C", 3);
+        g.createEdge("F", "E", 1);
+        g.createEdge("E", "D", 2);
+        g.createEdge("D", "C", 2);
+
+
+        REQUIRE( g.isStronglyConnected() == false );
+    }
+    SECTION( "Directed graph is strongly connected2" ) {
+        DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+        g.insertVertex("A", 1);
+        g.insertVertex("B", 2);
+        g.insertVertex("C", 3);
+        g.insertVertex("D", 4);
+
+        g.createEdge("A", "B", 1);
+        g.createEdge("B", "C", 2);
+        g.createEdge("C", "D", 2);
+
+        REQUIRE( g.isStronglyConnected() == false);
+    }
   
 }

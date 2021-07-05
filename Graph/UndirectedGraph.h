@@ -99,7 +99,7 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     while (it != v1->edges.end()){
         if (((*it)->vertexes[0] == v1 && (*it)->vertexes[1]==v2) || ((*it)->vertexes[0] == v2 && (*it)->vertexes[1] == v1)){
             v1->edges.remove(*it);
-            Graph<TV, TE>::nedge++;
+            Graph<TV, TE>::nedge--;
             break;
         }
         it++;
@@ -107,7 +107,7 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     while (it2 != v2->edges.end()){
         if (((*it2)->vertexes[0] == v1 && (*it2)->vertexes[1]==v2) || ((*it2)->vertexes[0] == v2 && (*it2)->vertexes[1] == v1)){
             v2->edges.remove(*it2);
-            Graph<TV, TE>::nedge++;
+            Graph<TV, TE>::nedge--;
             break;
         }
         it2++;

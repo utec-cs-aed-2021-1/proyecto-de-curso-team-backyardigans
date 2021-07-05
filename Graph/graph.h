@@ -144,7 +144,21 @@ void Graph<TV, TE>::clear(){
 template<typename TV, typename TE>
 
 void Graph<TV, TE>::display(){
-  if ((this -> vertexes).size() == 0){ cout << "NOT FOUND"<<endl; } else { cout << endl; auto it = (this -> vertexes).begin(); while (it != (this -> vertexes).end()) { cout << "Number of edges: " << (it->second)->edges.size() <<" - " <<(it->second)->id << endl; auto edge_it = (it->second)->edges.begin(); while (edge_it != (it->second)->edges.end()) { cout << (it->second)->id <<" (" <<(it->second)->data << ")"; cout <<"---- " <<(*edge_it)->weight <<" ----"; cout << (*edge_it)->vertexes[1] -> id << " (" << (*edge_it)->vertexes[1] ->data <<")" <<endl; edge_it++; } it++; } cout << endl; } 
+  if ((this -> vertexes).size() == 0){ cout << "NOT FOUND"<<endl; }
+  else {
+      cout << endl; auto it = (this -> vertexes).begin();
+      while (it != (this -> vertexes).end())
+      {
+          cout << "Number of edges: " <<(it->second)->edges.size() <<" - " <<(it->second)->id << endl;
+          auto edge_it = (it->second)->edges.begin();
+          while (edge_it != (it->second)->edges.end()){
+              cout << (it->second)->id <<" (" <<(it->second)->data << ")";
+              cout <<"---- " <<(*edge_it)->weight <<" ----";
+              cout << (*edge_it)->vertexes[1] -> id << " (" << (*edge_it)->vertexes[1] ->data <<")" <<endl;
+              edge_it++;
+          } it++;
+      }
+      cout << endl; }
 }
 
 

@@ -8,9 +8,6 @@
 #include <cmath>
 
 template<typename TV, typename TE>
-class BFS;
-
-template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
 public:
     DirectedGraph(){}
@@ -60,15 +57,15 @@ bool DirectedGraph<TV, TE>::deleteVertex(string id){
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteEdge(string id, string id2){
-  if ((this -> vertexes).find(id)==(this -> vertexes).end() ||
-      (this -> vertexes).find(id2)==(this -> vertexes).end())
+    if ((this -> vertexes).find(id)==(this -> vertexes).end() || (this -> vertexes).find(id2)==(this -> vertexes).end()) return false;
+    auto v1 = (this -> vertexes)[id];
+    for (auto it = v1->edges.begin(); it != v1->edges.end();it++)
+        if ((*it)->vertexes[1]->id == id2 || (*it)->vertexes[0]->id == id2){
+            v1->edges.remove(*it);
+            (this->nedge)--;
+            return true;
+        }
     return false;
-  
-  auto v1 = (this -> vertexes)[id];
-  
-  for (auto it = v1->edges.begin(); it != v1->edges.end();it++)
-    if ((*it)->vertexes[1]->id == id2 || (*it)->vertexes[0]->id == id2){ v1->edges.remove(*it); (this -> nedge)--; return true; } return false; 
-  
 }
 
 template<typename TV, typename TE>
@@ -117,61 +114,41 @@ bool DirectedGraph<TV, TE>::findById(string id){
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::isStronglyConnected(){
-  if(this -> getNumberOfVertices() == 0)
-    return true;
-  auto it = (this -> vertexes).begin();
-  BFS<TV, TE> bfs(this, (*it).first);
-  DirectedGraph<TV, TE>* dg = bfs.apply();
+    if(this -> getNumberOfVertices() == 0)
+        return true;
+    auto it = (this -> vertexes).begin();
+    BFS<TV, TE> bfs(this, (*it).first);
+    DirectedGraph<TV, TE>* dg = bfs.apply();
 
-  //  If every node is not found
-  
-  if(dg -> getNumberOfVertices() != this -> getNumberOfVertices())
-    return false;
+    //  If every node is not found
 
-  DirectedGraph<TV, TE>* dg2 = this;
+    if(dg -> getNumberOfVertices() != this -> getNumberOfVertices())
+        return false;
 
-  cout << "Imprimiendo dg2" << endl;
-  dg2 -> display();
-  cout << "Finalizacion impresion dg2" << endl;
-  
-  for(auto& vertex: (dg2 -> vertexes)) {
-    // cout << "Iteracion" << endl;
-    // cout << vertex.first << endl;
-    // cout << vertex.second -> edges.size()  << endl;
-    for(auto& edge: vertex.second -> edges) {
-      // cout << "Antes" << endl;
-      // cout << edge -> vertexes[0] -> id << endl;
-      // cout << edge -> vertexes[1] -> id << endl;
-
-      auto v0 = edge -> vertexes[0];
-      auto v1 = edge -> vertexes[1];
-      auto weight = edge -> weight;
-      dg2 -> deleteEdge(v0-> id, v1-> id);
-      // dg2 -> createEdge(v1-> id, v0-> id, weight);
-            
-      // cout << "Despues" << endl;
-      // cout << edge -> vertexes[0] -> id << endl;
-      // cout << edge -> vertexes[1] -> id << endl;
+    DirectedGraph<TV, TE>* dg2 = this;
+    unordered_map<string, bool> map;
+    for(auto& vertex: (dg2 -> vertexes)){
+        map[vertex.first] = false;
     }
-  }
+    for(auto& vertex: (dg2 -> vertexes)) { // RECORRIENDO LOS VERTICES
+        for(auto edge = vertex.second->edges.begin(); edge != vertex.second->edges.end(); edge++) { // RECORRIENDO LA LISTA DE ARISTAS DE CADA VERTICE
+            auto v0 = (*edge) -> vertexes[0];
+            auto v1 = (*edge) -> vertexes[1];
+            if (map[v1->id]==false){
+                map[v1->id] = true;
+                dg2 -> deleteEdge(v0-> id, v1-> id); // BORRAMOS LA ARISTA
+                dg2 -> createEdge(v1-> id,v0-> id, (*edge) -> weight); // CREAMOS UNA ARISTA INVERTIDA
+            }
+        }
+    }
+    BFS<TV, TE> bfs2(dg2, (*it).first);
+    DirectedGraph<TV, TE>* dg3 = bfs2.apply();
 
-  cout << "Imprimiendo dg2" << endl;
-  dg2 -> display();
-  cout << "Finalizacion impresion dg2" << endl;
-  
-  BFS<TV, TE> bfs2(dg2, "A");
-  cout << "dg2.vertices:" << dg2 -> getNumberOfVertices() << endl;
-  DirectedGraph<TV, TE>* dg3 = bfs2.apply();
+    // If every node is found
+    if(dg3 -> getNumberOfVertices() == this -> getNumberOfVertices())
+        return true;
 
-  cout << "dg3.vertices:" << dg3 -> getNumberOfVertices() << endl
-       << "this.vertices: " << this -> getNumberOfVertices();
-
-  // If every node is found
-  if(dg -> getNumberOfVertices() == this -> getNumberOfVertices())
-    return true;
-  
-  return false;
+    return false;
 }
-
 
 #endif
