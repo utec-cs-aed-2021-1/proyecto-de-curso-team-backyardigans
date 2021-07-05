@@ -94,10 +94,10 @@ TEST_CASE( "Check directed graph is strongly connected", "[DirectedGraph][isStro
 
     REQUIRE( g.isStronglyConnected() == false );
   }
-  
+
   SECTION( "Directed graph is strongly connected" ) {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
-	    
+
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
     g.insertVertex("C", 3);
@@ -135,19 +135,4 @@ TEST_CASE( "Check directed graph is strongly connected", "[DirectedGraph][isStro
 
         REQUIRE( g.isStronglyConnected() == false );
     }
-    SECTION( "Directed graph is strongly connected2" ) {
-        DirectedGraph<double, int> g = DirectedGraph<double, int>();
-
-        g.insertVertex("A", 1);
-        g.insertVertex("B", 2);
-        g.insertVertex("C", 3);
-        g.insertVertex("D", 4);
-
-        g.createEdge("A", "B", 1);
-        g.createEdge("B", "C", 2);
-        g.createEdge("C", "D", 2);
-
-        REQUIRE( g.isStronglyConnected() == false);
-    }
-  
 }

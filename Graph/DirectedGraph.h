@@ -134,24 +134,32 @@ bool DirectedGraph<TV, TE>::isStronglyConnected(){
     for(auto& vertex: (dg2 -> vertexes)){
         map[vertex.first] = false;
     }
+    int count = 0;
+    dg2->display();
     for(auto& vertex: (dg2 -> vertexes)) { // RECORRIENDO LOS VERTICES
-        for(auto edge = vertex.second->edges.begin(); edge != vertex.second->edges.end(); edge++) { // RECORRIENDO LA LISTA DE ARISTAS DE CADA VERTICE
+        count = 0;
+        for(auto edge = vertex.second->edges.begin(); edge != vertex.second->edges.end(); edge++) {
+            if (count == vertex.second->edges.size()) break;
             auto v0 = (*edge) -> vertexes[0];
             auto v1 = (*edge) -> vertexes[1];
-            if (map[v1->id]==false){
-                map[v1->id] = true;
+            auto s0 = (*edge) -> vertexes[0]->id;
+            auto s1 = (*edge) -> vertexes[1]->id;
+            auto w = (*edge) -> weight;
+            if (map[s1]==false){
+                map[s1] = true;
                 dg2 -> deleteEdge(v0-> id, v1-> id); // BORRAMOS LA ARISTA
-                dg2 -> createEdge(v1-> id,v0-> id, (*edge) -> weight); // CREAMOS UNA ARISTA INVERTIDA
+                dg2 -> createEdge(s1, s0, w); // CREAMOS UNA ARISTA INVERTIDA
             }
+            count ++;
         }
     }
+    dg2->display();
     BFS<TV, TE> bfs2(dg2, (*it).first);
     DirectedGraph<TV, TE>* dg3 = bfs2.apply();
 
     // If every node is found
     if(dg3 -> getNumberOfVertices() == this -> getNumberOfVertices())
         return true;
-
     return false;
 }
 
