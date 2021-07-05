@@ -1,13 +1,65 @@
 # Algoritmos y Estructura de Datos
+
 ## Proyecto sobre Grafos
 --------
 
 ## Integrantes
+
 - Paulo Cuaresma (100%)
 - Edgar Chacon (100%)
 - Rodrigo Morales(100%)
 
 ----
+
+## Compilando las pruebas
+
+```
+$ cmake .
+$ cmake --build .
+```
+
+## Ejecutando las pruebbas
+
+Ejecutar las pruebas de la clase `DirectedGraph`.
+
+```
+$ ./Tester/tests "[DirectedGraph]"
+```
+
+```
+Filters: [DirectedGraph]
+===============================================================================
+All tests passed (6 assertions in 3 test cases)
+
+```
+
+Ejecutar las pruebas de la clase `UnDirectedGraph`.
+
+```
+$ Tester/tests "[UndirectedGraph]"
+```
+
+```
+Filters: [UndirectedGraph]
+
+Number of edges: 2 - E
+E (5)---- 2 ----B (2)
+E (5)---- 1 ----A (1)
+Number of edges: 3 - B
+B (2)---- 1 ----A (1)
+B (2)---- 2 ----C (3)
+B (2)---- 2 ----E (5)
+Number of edges: 1 - C
+C (3)---- 2 ----B (2)
+Number of edges: 2 - A
+A (1)---- 1 ----B (2)
+A (1)---- 1 ----E (5)
+
+===============================================================================
+All tests passed (8 assertions in 8 test cases)
+```
+
+## Indicaciones
 
 El proyecto del curso consiste en implementar una estructura de datos de grafo y un file parser. La estructura debe soportar los métodos y algoritmos descritos a continuacion:  
 

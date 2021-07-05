@@ -49,14 +49,18 @@ public:
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
-    if ((this -> vertexes).find(id1) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2) return false;
+    if ((this -> vertexes).find(id1) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2)
+        return false;
+    
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
     if (Graph<TV, TE>::findEdge(id1, id2)){
         auto it = v1->edges.begin();
         while (it != v1->edges.end()){
-            if ((*it)->vertexes[1]==v2)
+            if ((*it)->vertexes[1]==v2) {
                 (*it)->weight = w;
+                break;
+            }
             it++;
         }
     }
@@ -66,8 +70,9 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
         (this -> vertexes)[id1]->edges.push_back(edge);
         (this -> vertexes)[id2]->edges.push_back(edge_);
         Graph<TV, TE>::nedge++;
-        return true;
     }
+
+    return true;
 }
 
 template<typename TV, typename TE>
@@ -124,6 +129,7 @@ TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
             return (*it)->weight;
         it++;
     }
+    throw std::runtime_error("The edge hasn't been found");
 }
 
 template<typename TV, typename TE>

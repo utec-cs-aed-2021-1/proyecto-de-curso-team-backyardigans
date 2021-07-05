@@ -2,12 +2,12 @@
 #include <math.h>
 #include "UndirectedGraph.h"
 
-TEST_CASE( "No edges in Undirected" ) {
+TEST_CASE( "No edges in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
     REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
-TEST_CASE( "1 edge in Undirected" ) {
+TEST_CASE( "1 edge in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -18,7 +18,7 @@ TEST_CASE( "1 edge in Undirected" ) {
     REQUIRE( g.getNumberOfEdges() == 1 );
 }
 
-TEST_CASE( "create equal edges in Undirected " ) {
+TEST_CASE( "Create equal edges in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -30,7 +30,7 @@ TEST_CASE( "create equal edges in Undirected " ) {
     REQUIRE( g.getNumberOfEdges() == 1 );
 }
 
-TEST_CASE( " Delete vertex in Undirected" ) {
+TEST_CASE( "Delete vertex in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -53,7 +53,7 @@ TEST_CASE( " Delete vertex in Undirected" ) {
     REQUIRE( g.getNumberOfEdges() == 4 );
 }
 
-TEST_CASE( " Find  in Undirected" ) {
+TEST_CASE( "Find  in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -77,7 +77,7 @@ TEST_CASE( " Find  in Undirected" ) {
     g.display();
 }
 
-TEST_CASE( "Clear and empty in Undirected" ) {
+TEST_CASE( "Clear and empty in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -101,7 +101,7 @@ TEST_CASE( "Clear and empty in Undirected" ) {
 
 }
 
-TEST_CASE( "Is connected in Undirected" ) {
+TEST_CASE( "Is connected in Undirected", "[UndirectedGraph]" ) {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -125,7 +125,7 @@ TEST_CASE( "Is connected in Undirected" ) {
     REQUIRE( g.isConnected() == false );
 }
 
-TEST_CASE( "density in Undirected" ) {
+TEST_CASE( "density in Undirected" , "[UndirectedGraph]")  {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
