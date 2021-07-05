@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "graph.h"
+#include <vector>
 #include "Structs.h"
 #include "Algorithms/BFS.h"
 #include <cmath>
@@ -134,26 +135,26 @@ bool DirectedGraph<TV, TE>::isStronglyConnected(){
     for(auto& vertex: (dg2 -> vertexes)){
         map[vertex.first] = false;
     }
-    int count = 0;
-    dg2->display();
+    vector<pair<pair<string, string>,TE>> save_room;
     for(auto& vertex: (dg2 -> vertexes)) { // RECORRIENDO LOS VERTICES
-        count = 0;
         for(auto edge = vertex.second->edges.begin(); edge != vertex.second->edges.end(); edge++) {
-            if (count == vertex.second->edges.size()) break;
-            auto v0 = (*edge) -> vertexes[0];
-            auto v1 = (*edge) -> vertexes[1];
-            auto s0 = (*edge) -> vertexes[0]->id;
-            auto s1 = (*edge) -> vertexes[1]->id;
-            auto w = (*edge) -> weight;
-            if (map[s1]==false){
-                map[s1] = true;
-                dg2 -> deleteEdge(v0-> id, v1-> id); // BORRAMOS LA ARISTA
-                dg2 -> createEdge(s1, s0, w); // CREAMOS UNA ARISTA INVERTIDA
-            }
-            count ++;
+            auto v0 = (*edge)->vertexes[0]->id;
+            auto v1 = (*edge)->vertexes[1]->id;
+            auto peso = (*edge)->weight;
+            save_room.push_back({{v0, v1}, peso});
         }
     }
-    dg2->display();
+    for (auto it: save_room){
+        dg2 -> deleteEdge((it).first.first, (it).first.second);
+        dg2 -> createEdge((it).first.second, (it).first.first, (it).second);
+    }
+
+
+        /*if (map[s1]==false){
+            map[s0] = true;
+            dg2 -> deleteEdge(v0-> id, v1-> id); // BORRAMOS LA ARISTA
+            dg2 -> createEdge(s1, s0, w); // CREAMOS UNA ARISTA INVERTIDA
+        }*/
     BFS<TV, TE> bfs2(dg2, (*it).first);
     DirectedGraph<TV, TE>* dg3 = bfs2.apply();
 
