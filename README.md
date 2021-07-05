@@ -3,8 +3,8 @@
 --------
 
 ## Integrantes
-- Paulo Vladimir Castillo Cuaresma (GO GO LAPIZ, tiemblen cachimbas, la chala de Puno) (100%)
-- Edgar Chacon(el terror de la venecas, veneca q ve ,veneca q cae) (100%)
+- Paulo Cuaresma (100%)
+- Edgar Chacon (100%)
 - Rodrigo Morales(100%)
 
 ----
