@@ -42,15 +42,6 @@ public:
     
     bool isConnected();
 
-    /**
-     *
-     * @return true if the graph is strongly connected
-     * @return false if the graph isn't strongly connected
-     *
-     */
-
-    bool isStronglyConnected() throw() override{};
-
     void displayVertex(string id) override;
 
     bool findById(string id) override;

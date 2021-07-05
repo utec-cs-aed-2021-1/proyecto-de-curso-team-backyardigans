@@ -1,5 +1,7 @@
+
 #include "catch.hpp"
 #include "Algorithms/BFS.h"
+#include "UndirectedGraph.h"
 
 TEST_CASE( "A simple test for BFS" ) {
     SECTION( "Edges creation" ) {

@@ -1,8 +1,10 @@
-#include "graph.h"
-#include "UndirectedGraph.h"
+#pragma once
 #include "DirectedGraph.h"
 #include <queue>
 #include <unordered_map>
+
+template<typename TV, typename TE>
+class DirectedGraph;
 
 template<typename TV, typename TE>
 class BFS{

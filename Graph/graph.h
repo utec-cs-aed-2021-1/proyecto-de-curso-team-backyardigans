@@ -4,7 +4,7 @@
 #include <list>
 #include <vector>
 #include <unordered_map>
-#include <Structs.h>
+#include "Structs.h"
 
 template<typename TV, typename TE>
 class Graph{
@@ -24,6 +24,7 @@ public:
      *
      * @return The number of edges in the graph
      *
+
      */
     int getNumberOfEdges();
 
@@ -79,7 +80,6 @@ public:
     bool findEdge(string start, string end);
     virtual float density() = 0;
     virtual bool isDense(float threshold = 0.5) = 0;
-    virtual bool isStronglyConnected() throw() = 0;
     bool empty(); // es igual en ambas
     void clear(); // es igual para ambas
     virtual void displayVertex(string id)= 0;
@@ -142,27 +142,9 @@ void Graph<TV, TE>::clear(){
 }
 
 template<typename TV, typename TE>
+
 void Graph<TV, TE>::display(){
-    if ((this -> vertexes).size() == 0){
-        cout << "NOT FOUND"<<endl;
-    }
-    else {
-        cout << endl;
-        auto it = (this -> vertexes).begin();
-        while (it != (this -> vertexes).end()) {
-            cout << "Number of edges: " << (it->second)->edges.size() <<" -  " <<(it->second)->id << endl;
-            auto edge_it = (it->second)->edges.begin();
-            while (edge_it != (it->second)->edges.end()) {
-                cout << (it->second)->id <<" (" <<(it->second)->data << ")";
-                cout <<"---- " <<(*edge_it)->weight <<" ----";
-                auto data_ = (*edge_it)->vertexes[0] == it->second ? (*edge_it)->vertexes[1] : (*edge_it)->vertexes[0];
-                cout << data_->id << " (" << data_->data <<")" <<endl;
-                edge_it++;
-            }
-            it++;
-        }
-        cout << endl;
-    }
+  if ((this -> vertexes).size() == 0){ cout << "NOT FOUND"<<endl; } else { cout << endl; auto it = (this -> vertexes).begin(); while (it != (this -> vertexes).end()) { cout << "Number of edges: " << (it->second)->edges.size() <<" - " <<(it->second)->id << endl; auto edge_it = (it->second)->edges.begin(); while (edge_it != (it->second)->edges.end()) { cout << (it->second)->id <<" (" <<(it->second)->data << ")"; cout <<"---- " <<(*edge_it)->weight <<" ----"; cout << (*edge_it)->vertexes[1] -> id << " (" << (*edge_it)->vertexes[1] ->data <<")" <<endl; edge_it++; } it++; } cout << endl; } 
 }
 
 
