@@ -78,6 +78,21 @@ TEST_CASE( "A simple test for DirectedGraph", "[DirectedGraph]" ) {
 
             REQUIRE( g.isStronglyConnected() == false );
         }
+        SECTION( "Is Strongly Connected" ) {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("B", "C", 2);
+            g.createEdge("C", "D", 2);
+            g.createEdge("D", "A", 3);
+
+            REQUIRE( g.isStronglyConnected() == true);
+        }
 
         SECTION( "density" ) {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();
