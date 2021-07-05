@@ -3,22 +3,18 @@
 //
 
 #ifndef GRAPHS_PRIORITYQUEUE_H
-
 #define GRAPHS_PRIORITYQUEUE_H
 #include <iostream>
-#include <algorithm>
 #include <unordered_map>
-#include <stdexcept>
 
 using namespace std;
 
 template <typename T>
-class priority_
-{
+class priority_{
 private:
     int capacity = 10;
     int n_pairs = 0;
-    pair <T,string>* pairs = new pair <T,string>[capacity];;
+    pair <T,string>* pairs = new pair <T,string>[capacity];
     unordered_map<string , T> position;
     int Parent(int i){
         return (i - 1) / 2;
@@ -96,7 +92,7 @@ public:
     }
 
     bool is_empty(){
-        if(n_pairs==0) return true;
+        if (n_pairs==0) return true;
         return false;
     }
 

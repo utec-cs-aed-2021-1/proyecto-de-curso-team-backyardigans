@@ -4,7 +4,7 @@
 TEST_CASE( "A simple test for Prim" ) {
 
     SECTION("Grafo_1"){
-        UnDirectedGraph<char, int>g1;
+        UnDirectedGraph<double, int>g1;
         g1.insertVertex("A", 1);
         g1.insertVertex("B", 2);
         g1.insertVertex("C", 3);
@@ -18,14 +18,14 @@ TEST_CASE( "A simple test for Prim" ) {
         g1.createEdge("B", "F", 3);
         g1.createEdge("A", "E", 4);
         g1.createEdge("C", "E", 5);
-        Prim<char, int> prim(&g1, "A");
-        UnDirectedGraph<char, int> result = prim.apply();
+        Prim<double, int> prim(&g1, "A");
+        UnDirectedGraph<double, int> result = prim.apply();
         result.display();
 
     }
 
     SECTION("Grafo_2") {
-        UnDirectedGraph<char, int>g1;
+        UnDirectedGraph<double, int>g1;
         g1.insertVertex("A", 1);
         g1.insertVertex("B", 2);
         g1.insertVertex("C", 3);
@@ -43,8 +43,8 @@ TEST_CASE( "A simple test for Prim" ) {
         g1.createEdge("B", "C", 5);
         g1.createEdge("D", "C", 5);
 
-        Prim<char, int> prim(&g1, "F");
-        UnDirectedGraph<char, int> result = prim.apply();
+        Prim<double, int> prim(&g1, "F");
+        UnDirectedGraph<double, int> result = prim.apply();
         result.display();
 
 

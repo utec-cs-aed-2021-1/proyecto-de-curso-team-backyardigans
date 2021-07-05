@@ -25,13 +25,20 @@ DirectedGraph<TV, TE>* DFS<TV, TE>::apply(){
     unordered_map<string, bool> map;
     auto map1 = graph->getMap();
     stack_.push(map1[vertex]->id);
-    map[vertex] = true;
+    for(auto it=map1.begin();it!=map1.end();it++){
+        if(it->first!=vertex){
+            map[vertex] = true;
+        }
+        else{
+            map[it->first] = false;
+        }
+    }
     Rgraph->insertVertex(vertex, map1[vertex]->data);
     while(!stack_.empty()){
         string actual = stack_.top();
         auto it = map1[stack_.top()]->edges;
         for (auto itr = it.begin(); itr != it.end(); itr++){
-            if (map.find((*itr)->vertexes[1]->id) == map.end()){
+            if (map[(*itr)->vertexes[1]->id] == false){
                 Rgraph->insertVertex((*itr)->vertexes[1]->id, (*itr)->vertexes[1]->data);
                 map[(*itr)->vertexes[1]->id] = true;
                 stack_.push((*itr)->vertexes[1]->id);

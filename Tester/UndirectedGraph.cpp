@@ -9,7 +9,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
             REQUIRE( g.getNumberOfEdges() == 0 );
         }
-    
+
         SECTION( "1 edge" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
@@ -17,7 +17,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             g.insertVertex("B", 1);
 
             g.createEdge("A", "B", 1);
-            
+
             REQUIRE( g.getNumberOfEdges() == 1 );
         }
         SECTION( "create equal edges " ) {
@@ -74,6 +74,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             g.deleteVertex("D");
 
             REQUIRE( g.findById("D") == false);
+            g.display();
         }
         SECTION( "Clear and empty" ) {
             UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
@@ -141,7 +142,7 @@ TEST_CASE( "Inserting edges in an undirected graph", "[UnDirectedGraph]" ) {
             g.createEdge("D", "C", 2);
             g.createEdge("E", "D", 2);
 
-            REQUIRE( roundf(g.density()) == 0.7 );
+            REQUIRE(g.isDense(g.density()) == true);
         }
     }
 }

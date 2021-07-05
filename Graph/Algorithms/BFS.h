@@ -25,14 +25,21 @@ DirectedGraph<TV, TE>* BFS<TV, TE>::apply(){
     unordered_map<string, bool> map;
     auto map1 = graph->getMap();
     queue_.push(map1[vertex]->id);
-    map[vertex] = true;
+    for(auto it=map1.begin();it!=map1.end();it++){
+        if(it->first!=vertex){
+            map[vertex] = true;
+        }
+        else{
+            map[it->first] = false;
+        }
+    }
     Rgraph->insertVertex(vertex, map1[vertex]->data);
 
     while(!queue_.empty()){
         string actual = queue_.front();
         auto it = map1[queue_.front()]->edges;
         for (auto itr = it.begin(); itr != it.end(); itr++){
-            if (map.find((*itr)->vertexes[1]->id) == map.end()){
+            if (map[(*itr)->vertexes[1]->id] == false){
                 Rgraph->insertVertex((*itr)->vertexes[1]->id, (*itr)->vertexes[1]->data);
                 map[(*itr)->vertexes[1]->id] = true;
                 queue_.push((*itr)->vertexes[1]->id);

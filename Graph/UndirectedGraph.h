@@ -84,14 +84,15 @@ bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
     if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
     auto v1 = (this -> vertexes)[id];
     vector<string> vertices;
-    auto it = v1->edges.begin();while (it != v1->edges.end()){
+    auto it = v1->edges.begin();
+    while (it != v1->edges.end()){
         auto v2 = (*it)->vertexes[0] == v1? (*it)->vertexes[1] : (*it)->vertexes[0];
         auto it2 = v2->edges.begin();
-        while (*it != *it2) it2++;
+        while ((*it)->vertexes[0] != (*it2)->vertexes[1]) it2++;
         v2->edges.erase(it2);
-        Graph<TV, TE>::nedge++;
         it++;
     }
+    (this->nedge)-=(this->vertexes)[id]->edges.size();
     v1->edges.clear();
     (this -> vertexes).erase(id);
     return true;
