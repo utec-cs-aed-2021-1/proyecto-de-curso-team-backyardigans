@@ -23,15 +23,13 @@ public:
         vertex = std::move(vertex_);
     }
     UnDirectedGraph<TV, TE> apply(){
-        UnDirectedGraph<TV, TE> Ud_1;
+        UnDirectedGraph<TV, TE> gprim;
         priority_<TE> cola;
         unordered_map<string, pair<string, TE>> mp; // padres
         auto map1 = graph->getMap(); //vertices del grafo pasado
         for(auto it=map1.begin();it!=map1.end();it++){
-            Ud_1.insertVertex(it->first, map1[it->first]->data);
-            if(it->first!=vertex){
-                cola.push(it->first);
-            }
+            gprim.insertVertex(it->first, map1[it->first]->data);
+            if(it->first!=vertex) cola.push(it->first);
             else{
                 pair<TE,string> p = {0,vertex};
                 cola.push(p);
@@ -47,9 +45,7 @@ public:
                }
            }
         }
-        for(auto it=mp.begin();it!=mp.end();it++){
-            Ud_1.createEdge((*it).first, (*it).second.first, (*it).second.second);
-        }
-    return Ud_1;
+        for(auto it=mp.begin();it!=mp.end();it++) gprim.createEdge((*it).first, (*it).second.first, (*it).second.second);
+    return gprim;
     }
 };

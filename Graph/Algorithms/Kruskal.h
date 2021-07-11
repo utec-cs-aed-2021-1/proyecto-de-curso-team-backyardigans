@@ -16,7 +16,7 @@ public:
     }
 
     UnDirectedGraph<TV, TE> apply(){
-        UnDirectedGraph<TV, TE> Ud_1;
+        UnDirectedGraph<TV, TE> gkruskal;
         priority_<TE> cola;
         auto map1 = graph->getMap(); // map vert
         unordered_map<string, bool> map2;
@@ -26,7 +26,7 @@ public:
         for(auto it=map1.begin();it!=map1.end();it++){
             mapx[it->first]=aux++;
             v.push_back(it->first);
-            Ud_1.insertVertex(it->first,map1[it->first]->data);
+            gkruskal.insertVertex(it->first, map1[it->first]->data);
             for(auto ite = ((*it).second)->edges.begin();ite!=((*it).second)->edges.end();ite++) {
                 string iu1 = (*ite)->vertexes[0]->id;
                 string iu2 = (*ite)->vertexes[1]->id;
@@ -47,11 +47,11 @@ public:
             string b;
             if(d->Find(mapx[a+u1])!=d->Find(mapx[b+u2])){
                 d->Union(mapx[a+u1],mapx[b+u2]);
-                Ud_1.createEdge(a+u1,b+u2,cola.top().first);
+                gkruskal.createEdge(a + u1, b + u2, cola.top().first);
             }
             cola.pop();
         }
-        return Ud_1;
+        return gkruskal;
     }
 };
 
