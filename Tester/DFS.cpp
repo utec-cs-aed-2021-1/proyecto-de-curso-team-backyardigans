@@ -25,7 +25,7 @@ TEST_CASE( "DFS", "[DFS]" ) {
             
             DirectedGraph<double , int>* gr = dfs.apply();
             
-            cout << "BFS: "<<endl;
+            cout << "DFS: "<<endl;
             g1->display();
         }
         SECTION( "Example 2" ) {
@@ -43,7 +43,7 @@ TEST_CASE( "DFS", "[DFS]" ) {
             DFS<double ,int> dfs(g1, "C");
             DirectedGraph<double , int>* gr = dfs.apply();
             
-            cout << "BFS: "<<endl;
+            cout << "DFS: "<<endl;
             g1->display();
         }
     }
