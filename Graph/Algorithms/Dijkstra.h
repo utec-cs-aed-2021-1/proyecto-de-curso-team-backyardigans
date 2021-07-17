@@ -1,5 +1,7 @@
 #include "graph.h"
+#include "UndirectedGraph.h"
 #include "DirectedGraph.h"
+#include "helpclass/priorityqueue.h"
 template<typename TV, typename TE>
 class Dijkstra{
 protected:
@@ -11,25 +13,77 @@ public:
         graph = graph_;
         vertex = std::move(vertex_);
     }
-    DirectedGraph<TV, TE>* apply(){};
+    DirectedGraph<TV, TE> applyd();
+    UnDirectedGraph<TV, TE> applyu();
 };
-/*
 template<typename TV, typename TE>
-
-DirectedGraph<TV, TE>* Dijkstra<TV, TE>::apply(){
-    auto* Rgraph = new DirectedGraph<TV,TE>();
-    unordered_map<string, bool> visited;
-    auto map1 = graph->getMap(); //vertices del grafo pasado
-    for(auto it=map1.begin();it!=map1.end();it++){
-        if(it->first!=vertex){
-            pair<TE,string>p={INFINITY,it->first};
-            cola.push(p);
+DirectedGraph<TV, TE> Dijkstra<TV, TE>::applyd(){
+    DirectedGraph<TV, TE> gdijks;
+    priority_<TE> cola;
+    unordered_map<string, pair<string, TE>> parent;
+    unordered_map<string, int> distance;
+    auto mp = graph->getMap();
+    for(auto it=mp.begin(); it != mp.end(); it++){
+        gdijks.insertVertex(it->first, mp[it->first]->data);
+        if(it->first!=vertex) {
+            distance[it->first] = (int)INFINITY;
+            cola.push(it->first);
         }
         else{
+            distance[it->first] = 0;
             pair<TE,string> p = {0,vertex};
             cola.push(p);
         }
     }
+    while(!cola.is_empty()){
+        string min = cola.top().second;
+        cola.pop();
+        for(auto it=mp[min]->edges.begin(); it != mp[min]->edges.end(); it++){
+            if (distance[min] + (*it)->weight < distance[(*it)->vertexes[1]->id] || distance[(*it)->vertexes[1]->id] == INFINITY){
+                distance[(*it)->vertexes[1]->id] = distance[min] + (*it)->weight;
+                parent[(*it)->vertexes[1]->id] = {min, (*it)->weight};
+                cola.actualizar((*it)->vertexes[1]->id, (*it)->weight + distance[min]);
+            }
+        }
+    }
+    for(auto it=parent.begin();it!=parent.end();it++) {
+        gdijks.createEdge((*it).second.first, (*it).first, (*it).second.second);
+    }
+    return gdijks;
+}
 
-    return Rgraph;
-}*/
+template<typename TV, typename TE>
+UnDirectedGraph<TV, TE> Dijkstra<TV, TE>::applyu(){
+    UnDirectedGraph<TV, TE> gdijks;
+    priority_<TE> cola;
+    unordered_map<string, pair<string, TE>> parent;
+    unordered_map<string, int> distance;
+    auto mp = graph->getMap();
+    for(auto it=mp.begin(); it != mp.end(); it++){
+        gdijks.insertVertex(it->first, mp[it->first]->data);
+        if(it->first!=vertex) {
+            distance[it->first] = (int)INFINITY;
+            cola.push(it->first);
+        }
+        else{
+            distance[it->first] = 0;
+            pair<TE,string> p = {0,vertex};
+            cola.push(p);
+        }
+    }
+    while(!cola.is_empty()){
+        string min = cola.top().second;
+        cola.pop();
+        for(auto it=mp[min]->edges.begin(); it != mp[min]->edges.end(); it++){
+            if (distance[min] + (*it)->weight < distance[(*it)->vertexes[1]->id] || distance[(*it)->vertexes[1]->id] == INFINITY){
+                distance[(*it)->vertexes[1]->id] = distance[min] + (*it)->weight;
+                parent[(*it)->vertexes[1]->id] = {min, (*it)->weight};
+                cola.actualizar((*it)->vertexes[1]->id, (*it)->weight + distance[min]);
+            }
+        }
+    }
+    for(auto it=parent.begin();it!=parent.end();it++) {
+        gdijks.createEdge((*it).second.first, (*it).first, (*it).second.second);
+    }
+    return gdijks;
+}
