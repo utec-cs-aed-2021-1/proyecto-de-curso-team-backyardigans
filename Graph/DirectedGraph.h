@@ -24,6 +24,7 @@ public:
     bool deleteEdge(string id, string id2) override;
 
     TE &operator()(string start, string end) override;
+    TE weight_edge(string start, string end);
     float density() override;
     bool isDense(float threshold = 0.5) override;
     bool isStronglyConnected();
@@ -86,6 +87,21 @@ TE &DirectedGraph<TV, TE>::operator()(string start, string end){
     }
     throw std::runtime_error("The edge hasn't been found.");
 }
+
+template<typename TV, typename TE>
+TE DirectedGraph<TV, TE>:: weight_edge(string start, string end){
+    auto v1 = (this -> vertexes)[start];
+    auto v2 = (this -> vertexes)[end];
+    auto it = v1->edges.begin();
+    while (it != v1->edges.end()){
+        if ((*it)->vertexes[0]==v1 && (*it)->vertexes[1]==v2){
+            return (*it)->weight;
+        }
+        it++;
+    }
+    throw std::runtime_error("The edge hasn't been found.");
+}
+
 
 template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
