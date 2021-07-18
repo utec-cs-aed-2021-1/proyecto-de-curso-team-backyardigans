@@ -54,7 +54,6 @@ DirectedGraph<TV, TE>* Astar<TV, TE>::apply(){
                 parents[str]={actual,(*itr)->weight};
                 visited[str] = true;
                 sum[str] += (sum[actual] + (*itr)->weight);
-                cout << "str: "<< str << " sum: " << sum[   str] <<endl;
                 pq.push({(TE)heuristic[str] + sum[str] , str});
             }
         }
