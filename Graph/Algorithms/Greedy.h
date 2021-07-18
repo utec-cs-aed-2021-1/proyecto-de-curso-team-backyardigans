@@ -15,7 +15,6 @@ class DirectedGraph;
 
 
 template<typename TV, typename TE>
-
 class Greedy{
 protected:
     Graph<TV, TE>* graph;

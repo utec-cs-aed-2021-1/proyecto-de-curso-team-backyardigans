@@ -37,9 +37,6 @@ TEST_CASE( "GBFS", "[GBFS]" ) {
             cout << "Greedy: "<<endl;
             gr->display();
         }
-
-
     }
-
 }
 

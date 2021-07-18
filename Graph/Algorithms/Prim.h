@@ -1,5 +1,4 @@
 #include <utility>
-
 #include "graph.h"
 #include "UndirectedGraph.h"
 #include "helpclass/priorityqueue.h"
