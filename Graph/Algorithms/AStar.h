@@ -42,7 +42,6 @@ DirectedGraph<TV, TE>* Astar<TV, TE>::apply(){
     }
     pq.push({0,vertexi});
     Rgraph->insertVertex(vertexi, original_map[vertexi]->data);
-
     while(!pq.is_empty()){
         string actual = pq.top().second;
         if(actual==vertexf) break;
