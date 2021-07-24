@@ -6,9 +6,7 @@
 #include "graph.h"
 
 /**
- *
  * @brief Implementation of an undirected graph
- *
  */
 
 template<typename TV, typename TE>

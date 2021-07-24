@@ -11,6 +11,9 @@
 template<typename TV, typename TE>
 class BFS;
 
+/**
+ * @brief Implementation of a directed graph
+ */
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE>{
@@ -26,6 +29,14 @@ public:
     TE &operator()(string start, string end) override;
     float density() override;
     bool isDense(float threshold = 0.5) override;
+
+    /**
+     * @brief Check whether the graph is strongly connected or not.
+     *
+     * @return true if the graph is strongly connected
+     * @return false if the graph isn't strongly connected
+     */
+
     bool isStronglyConnected();
     void displayVertex(string id) override;
     bool findById(string id) override;
