@@ -11,8 +11,6 @@ int main() {
   boost::property_tree::read_json("Data/airports.json", pt);
   std::vector<Airport> airports;
 
-  std::string city;
-
   // Iterate through all airports
   for(auto& item : pt) {
     Airport a;
