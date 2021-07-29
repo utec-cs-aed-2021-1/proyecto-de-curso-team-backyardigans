@@ -5,9 +5,7 @@
 #include <stack>
 #include "graph.h"
 
-/**
- * @brief Implementation of an undirected graph
- */
+/// @brief Implementation of an undirected graph
 
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE>{
@@ -22,22 +20,8 @@ public:
 
     float density() override;
 
-    /**
-     *
-     * @return true if the graph is dense
-     * @return false if the graph isn't dense
-     *
-     */
-
     bool isDense(float threshold = 0.5) override;
 
-    /**
-     *
-     * @return true if the graph is connected
-     * @return false if the graph isn't connected
-     *
-     */
-    
     bool isConnected();
 
     void displayVertex(string id) override;
@@ -49,7 +33,6 @@ template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     if ((this -> vertexes).find(id1) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2)
         return false;
-    
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
     if (Graph<TV, TE>::findEdge(id1, id2)){
@@ -136,11 +119,17 @@ float UnDirectedGraph<TV, TE>::density() {
     return 2*(float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
 }
 
+/// @return true if the graph is dense
+/// @return false if the graph isn't dense
+
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
     if (density()>threshold) return true;
     return false;
 }
+
+/// @return true if the graph is connected
+/// @return false if the graph isn't connected
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isConnected() {
@@ -187,6 +176,5 @@ bool UnDirectedGraph<TV, TE>::findById(string id){
         return true;
     return false;
 }
-
 
 #endif
