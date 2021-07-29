@@ -44,7 +44,7 @@ TEST_CASE( "BFS", "[BFS]" ) {
             DirectedGraph<double , int>* gr = bfs.apply();
             
             cout << "BFS: "<<endl;
-            g1->display();
+            gr->display();
         }
 
     }

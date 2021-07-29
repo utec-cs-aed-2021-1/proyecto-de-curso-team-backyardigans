@@ -1,3 +1,9 @@
+//
+// Created by LENOVO on 17/07/2021.
+//
+
+#ifndef GRAPHS_GREEDY_H
+#define GRAPHS_GREEDY_H
 #include <utility>
 #include <list>
 #include "graph.h"
@@ -7,8 +13,9 @@
 template<typename TV, typename TE>
 class DirectedGraph;
 
+
 template<typename TV, typename TE>
-class Astar{
+class Greedy{
 protected:
     Graph<TV, TE>* graph;
     string vertexi;
@@ -16,8 +23,8 @@ protected:
     vector<pair<string, TE>>heuristica;
 
 public:
-    Astar();
-    Astar(Graph<TV, TE>* graph_, string vertexi_, string vertexf_,vector<pair<string, TE>>heuristica_){
+    Greedy();
+    Greedy(Graph<TV, TE>* graph_, string vertexi_, string vertexf_,vector<pair<string, TE>>heuristica_){
         graph=graph_;
         vertexi = std::move(vertexi_);
         vertexf = std::move(vertexf_);
@@ -27,37 +34,43 @@ public:
 };
 
 template<typename TV, typename TE>
-DirectedGraph<TV, TE>* Astar<TV, TE>::apply(){
+DirectedGraph<TV, TE>* Greedy<TV, TE>::apply(){
     auto* Rgraph = new DirectedGraph<TV,TE>();
     priority_<int> pq;
     unordered_map<string, bool> visited;
-    unordered_map<string, pair<string,TE>> parents;
+    unordered_map<string, pair<string,TE>>parents;
     unordered_map<string, int> heuristic;
-    unordered_map<string, TE> sum;
-    auto original_map = graph->getMap();
+
+    auto originalmap = graph->getMap();
     visited[vertexi]=true;
     for(int i=0;i<heuristica.size();i++){
-        sum[heuristica[i].first] = 0;
         heuristic[heuristica[i].first]=heuristica[i].second;
     }
     pq.push({0,vertexi});
-    Rgraph->insertVertex(vertexi, original_map[vertexi]->data);
+    Rgraph->insertVertex(vertexi, originalmap[vertexi]->data);
+
     while(!pq.is_empty()){
         string actual = pq.top().second;
         if(actual==vertexf) break;
         pq.pop();
-        auto it = original_map[actual]->edges;
+        auto it = originalmap[actual]->edges;
         for (auto itr = it.begin(); itr != it.end(); itr++){
             if (visited[(*itr)->vertexes[1]->id] == false){
-                string str = (*itr)->vertexes[1]->id;
-                parents[str]={actual,(*itr)->weight};
-                visited[str] = true;
-                sum[str] += (sum[actual] + (*itr)->weight);
-                pq.push({(TE)heuristic[str] + sum[str] , str});
+                parents[(*itr)->vertexes[1]->id]={actual,(*itr)->weight};
+                visited[(*itr)->vertexes[1]->id] = true;
+                pq.push({heuristic[(*itr)->vertexes[1]->id],(*itr)->vertexes[1]->id});
+
             }
+
         }
-        Rgraph->insertVertex(pq.top().second, original_map[pq.top().second]->data);
+        Rgraph->insertVertex(pq.top().second,originalmap[pq.top().second]->data);
         Rgraph->createEdge(parents[pq.top().second].first, pq.top().second, parents[pq.top().second].second);
     }
     return Rgraph;
 }
+
+
+
+
+
+#endif //GRAPHS_GREEDY_H
