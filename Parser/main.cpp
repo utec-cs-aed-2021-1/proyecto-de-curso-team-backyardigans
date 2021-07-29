@@ -53,7 +53,7 @@ int main() {
 	   || value == "GVNP"
 	   || value == "GVSF") {
 	  well_formatted_airport = false;
-	  continue;
+	  break;
 	}
 
 	a.latitude = std::stod(value);
