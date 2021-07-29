@@ -9,13 +9,11 @@
 #include "DirectedGraph.h"
 #include "UndirectedGraph.h"
 
-/**
- * @brief Parser for JSON files containing airports information
- *
- * @note The data can be queried from this class as an undirected
- * graph, by using the method uGraphMake, and as a directed graph, by
- * using the method dGraphMake.
- */
+/// @brief Parser for JSON files containing airports information
+///
+/// @note The data can be queried from this class as an undirected
+/// graph, by using the method uGraphMake, and as a directed graph, by
+/// using the method dGraphMake.
 
 class Parser {
 private:
@@ -23,29 +21,23 @@ private:
   std::vector<Airport> data;
 public:
 
-  /**
-   * @brief Class constructor
-   *
-   * @param[in] json_file_name Name of the file from which the data is to be
-   * loaded
-   */
+  /// @brief Class constructor
+  ///
+  /// @param[in] json_file_name Name of the file from which the data is to be
+  /// loaded
 
   Parser(const std::string& p_json_file_name): json_file_name (p_json_file_name) {
     // TODO: Check that the file exists
     // TODO: Check that the file is readable
   }
 
-  /**
-   * @brief Free the needed memory for loading the JSON file.
-   */
+  /// @brief Free the needed memory for loading the JSON file.
 
   void aclear() {
     data.clear();
   }
 
-  /**
-   * @brief Load data from json_file_name and store the data in data.
-   */
+  /// @brief Load data from json_file_name and store the data in data.
 
   void readJSON() {
     boost::property_tree::ptree pt;
@@ -121,35 +113,29 @@ public:
     }
   }
 
-  /**
-   * @brief Load the previously loaded data into an undirected graph
-   *
-   * @param[in] tempGraph The undirected graph in which the data will
-   * be loaded. This graph need to be empty. Otherwise, an exception
-   * is thrown.
-   */
+  /// @brief Load the previously loaded data into an undirected graph
+  ///
+  /// @param[in] tempGraph The undirected graph in which the data will
+  /// be loaded. This graph need to be empty. Otherwise, an exception
+  /// is thrown.
 
   void uGraphMake(UnDirectedGraph<string, double> &tempGraph) {
     // TODO: Throw an exception when the graph is not empty.
   }
 
-  /**
-   * @brief Load the previously loaded data into a directed graph
-   *
-   * @param[in] tempGraph The directed graph in which the data will be
-   * loaded. This graph need to be empty. Otherwise, an exception is thrown.
-   */
+  /// @brief Load the previously loaded data into a directed graph
+  ///
+  /// @param[in] tempGraph The directed graph in which the data will be
+  /// loaded. This graph need to be empty. Otherwise, an exception is thrown.
 
   void dGraphMake(DirectedGraph<string, double> &tempGraph) {
     // TODO: Throw an exception when the graph is not empty.
   }
 
-  /**
-   * @brief Display all the laoded data
-   *
-   * @note This function has been created to help users determine
-   * whether the data was correctly loaded or not.
-   */
+  /// @brief Display all the laoded data
+  ///
+  /// @note This function has been created to help users determine
+  /// whether the data was correctly loaded or not.
 
   void showLoadedData() {
     for(auto x: data) {
