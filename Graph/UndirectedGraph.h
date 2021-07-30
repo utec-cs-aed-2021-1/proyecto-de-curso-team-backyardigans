@@ -31,13 +31,26 @@ public:
 
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
-    if ((this -> vertexes).find(id1) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2)
+
+    // If any of the vertices doesn't exist or the ids are the same,
+    // then return false.
+
+    if ((this -> vertexes).find(id1) == (this -> vertexes).end()
+        || (this -> vertexes).find(id2) == (this -> vertexes).end()
+        || id1 == id2)
         return false;
+
+    // Find the vertices in order to update or create the edge and
+    // store the modification in the array of edges of those vertices.
+
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
-    if (Graph<TV, TE>::findEdge(id1, id2)){
+
+    // If the edge already exists, then update the weight.
+
+    if (Graph<TV, TE>::findEdge(id1, id2)) {
         auto it = v1->edges.begin();
-        while (it != v1->edges.end()){
+        while (it != v1->edges.end()) {
             if ((*it)->vertexes[1]==v2) {
                 (*it)->weight = w;
                 break;
@@ -45,7 +58,10 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
             it++;
         }
     }
-    else{
+
+    // If the vertex doesn't exist, then create it.
+
+    else {
         auto edge = new Edge<TV, TE>(v1, v2, w);
         auto edge_ = new Edge<TV, TE>(v2, v1, w);
         (this -> vertexes)[id1]->edges.push_back(edge);
