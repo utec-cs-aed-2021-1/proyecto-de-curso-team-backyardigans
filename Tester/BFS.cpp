@@ -8,7 +8,7 @@ TEST_CASE("BFS::apply") {
 
         SECTION("Scenario 1") {
 
-            Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
+            Graph<double, int>* g1 = new UndirectedGraph<double, int>();
 
             g1->insertVertex("A", 1);
             g1->insertVertex("B", 1);
@@ -33,7 +33,7 @@ TEST_CASE("BFS::apply") {
         }
 
         SECTION("Escenario 2") {
-            Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
+            Graph<double, int>* g1 = new UndirectedGraph<double, int>();
 
             g1->insertVertex("A", 1);
             g1->insertVertex("B", 1);

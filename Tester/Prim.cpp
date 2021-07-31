@@ -6,7 +6,7 @@ TEST_CASE("Prim") {
     SECTION("Simple scenarios") {
 
         SECTION("Scenario 1"){
-            UnDirectedGraph<double, int>g1;
+            UndirectedGraph<double, int>g1;
 
             g1.insertVertex("A", 1);
             g1.insertVertex("B", 2);
@@ -24,13 +24,13 @@ TEST_CASE("Prim") {
             g1.createEdge("C", "E", 5);
 
             Prim<double, int> prim(&g1, "A");
-            UnDirectedGraph<double, int> result = prim.apply();
+            UndirectedGraph<double, int> result = prim.apply();
 
             result.display();
         }
 
         SECTION("Scenario 2") {
-            UnDirectedGraph<double, int> g1;
+            UndirectedGraph<double, int> g1;
 
             g1.insertVertex("A", 1);
             g1.insertVertex("B", 2);
@@ -52,7 +52,7 @@ TEST_CASE("Prim") {
 
             Prim<double, int> prim(&g1, "F");
 
-            UnDirectedGraph<double, int> result = prim.apply();
+            UndirectedGraph<double, int> result = prim.apply();
             result.display();
         }
     }

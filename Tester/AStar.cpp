@@ -7,7 +7,7 @@ TEST_CASE("Astar::apply") {
     SECTION("Simple scenarios") {
 
         SECTION("Scenario 1") {
-            Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
+            Graph<double, int>* g1 = new UndirectedGraph<double, int>();
 
             g1 -> insertVertex("AR", 1);
             g1 -> insertVertex("BUC", 1);

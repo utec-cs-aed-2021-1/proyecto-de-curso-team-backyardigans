@@ -6,7 +6,7 @@ TEST_CASE("Dijkstra::apply") {
     SECTION("Simple scenarios"){
 
         SECTION("Scenario 1"){
-            Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
+            Graph<double, int>* g1 = new UndirectedGraph<double, int>();
 
             g1->insertVertex("0", 0);
             g1->insertVertex("1", 1);
@@ -36,7 +36,7 @@ TEST_CASE("Dijkstra::apply") {
         }
 
         SECTION("Escenario 2"){
-            Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
+            Graph<double, int>* g1 = new UndirectedGraph<double, int>();
 
             g1->insertVertex("0", 0);
             g1->insertVertex("1", 1);
@@ -59,7 +59,7 @@ TEST_CASE("Dijkstra::apply") {
             Dijkstra<double ,int> dijs(g1, "6");
 
 
-            UnDirectedGraph<double , int> gr = dijs.applyu();
+            UndirectedGraph<double , int> gr = dijs.applyu();
 
             cout << "Dijkstra: "<<endl;
             gr.display();

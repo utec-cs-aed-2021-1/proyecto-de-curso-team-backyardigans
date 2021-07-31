@@ -6,7 +6,7 @@ TEST_CASE("Kruskal::apply") {
     SECTION("Simple scenarios") {
 
         SECTION("Scenario 1") {
-            UnDirectedGraph<double, int>g;
+            UndirectedGraph<double, int>g;
             g.insertVertex("A", 1);
             g.insertVertex("B", 2);
             g.insertVertex("C", 3);
@@ -18,12 +18,12 @@ TEST_CASE("Kruskal::apply") {
             g.createEdge("D", "A", 3);
 
             Kruskal<double, int> kruskal(&g);
-            UnDirectedGraph<double, int> result = kruskal.apply();
+            UndirectedGraph<double, int> result = kruskal.apply();
             result.display();
 
         }
         SECTION("Scenario 2") {
-            UnDirectedGraph<double, int>g;
+            UndirectedGraph<double, int>g;
 
             g.insertVertex("A", 1);
             g.insertVertex("B", 2);
@@ -41,7 +41,7 @@ TEST_CASE("Kruskal::apply") {
             g.createEdge("D", "F", 3);
 
             Kruskal<double, int> kruskal(&g);
-            UnDirectedGraph<double, int> result = kruskal.apply();
+            UndirectedGraph<double, int> result = kruskal.apply();
             result.display();
 
         }

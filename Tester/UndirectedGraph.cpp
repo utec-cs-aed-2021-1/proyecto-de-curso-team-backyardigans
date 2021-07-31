@@ -7,7 +7,7 @@ TEST_CASE("UndirectedGraph (constructor)") {
     SECTION("Special scenarios") {
 
         SECTION("An empty undirected graph") {
-            UnDirectedGraph<double, int> ug = UnDirectedGraph<double, int>();
+            UndirectedGraph<double, int> ug = UndirectedGraph<double, int>();
             REQUIRE( ug.getNumberOfVertices() == 0 );
             REQUIRE( ug.getNumberOfEdges() == 0 );
         }
@@ -15,12 +15,12 @@ TEST_CASE("UndirectedGraph (constructor)") {
 }
 
 TEST_CASE("UndirectedGraph::getNumberOfEdges") {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
     REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
 TEST_CASE("UndirectedGraph::createEdge") {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     SECTION("A graph with a single vertex") {
         g.insertVertex("A", 1);
@@ -43,7 +43,7 @@ TEST_CASE("UndirectedGraph::createEdge") {
 }
 
 TEST_CASE("UndirectedGraph::deleteVertex") {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
@@ -65,7 +65,7 @@ TEST_CASE("UndirectedGraph::deleteVertex") {
 }
 
 TEST_CASE("UndirectedGraph::findById") {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
@@ -89,7 +89,7 @@ TEST_CASE("UndirectedGraph::findById") {
 }
 
 TEST_CASE("UndirectedGraph::empty") {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
@@ -116,7 +116,7 @@ TEST_CASE("UndirectedGraph::isConnected") {
     SECTION("must return false") {
 
         SECTION("Escenario 1") {
-            UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+            UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
             g.insertVertex("B", 2);
@@ -146,7 +146,7 @@ TEST_CASE("UndirectedGraph::isDense")  {
     SECTION("must return true") {
 
         SECTION("Escenario 1") {
-            UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+            UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
             g.insertVertex("B", 2);

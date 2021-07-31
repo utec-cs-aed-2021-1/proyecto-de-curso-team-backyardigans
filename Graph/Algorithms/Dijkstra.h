@@ -14,7 +14,7 @@ public:
         vertex = std::move(vertex_);
     }
     DirectedGraph<TV, TE> applyd();
-    UnDirectedGraph<TV, TE> applyu();
+    UndirectedGraph<TV, TE> applyu();
 };
 template<typename TV, typename TE>
 DirectedGraph<TV, TE> Dijkstra<TV, TE>::applyd(){
@@ -53,8 +53,8 @@ DirectedGraph<TV, TE> Dijkstra<TV, TE>::applyd(){
 }
 
 template<typename TV, typename TE>
-UnDirectedGraph<TV, TE> Dijkstra<TV, TE>::applyu(){
-    UnDirectedGraph<TV, TE> gdijks;
+UndirectedGraph<TV, TE> Dijkstra<TV, TE>::applyu(){
+    UndirectedGraph<TV, TE> gdijks;
     priority_<TE> cola;
     unordered_map<string, pair<string, TE>> parent;
     unordered_map<string, int> distance;

@@ -15,7 +15,7 @@ TEST_CASE("Graph::insertVertex") {
             }
 
             SECTION("Undirected graph") {
-                UnDirectedGraph<double, int> ug = UnDirectedGraph<double, int>();
+                UndirectedGraph<double, int> ug = UndirectedGraph<double, int>();
                 ug.insertVertex("A", 1);
                 REQUIRE( ug.getNumberOfVertices() == 1 );
             }
@@ -36,7 +36,7 @@ TEST_CASE("Graph::insertVertex") {
             }
 
             SECTION("Undirected graph") {
-                UnDirectedGraph<double, int> ug = UnDirectedGraph<double, int>();
+                UndirectedGraph<double, int> ug = UndirectedGraph<double, int>();
 
                 for(char i='a'; i<='z'; ++i)
                     ug.insertVertex(std::string(1, i), 10);
