@@ -10,7 +10,7 @@ TEST_CASE("UndirectedGraph::getNumberOfEdges") {
 TEST_CASE("UndirectedGraph::createEdge") {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
 
-    SECTION( "A graph with a single vertex" ) {
+    SECTION("A graph with a single vertex") {
         g.insertVertex("A", 1);
         g.insertVertex("B", 1);
 
@@ -19,7 +19,7 @@ TEST_CASE("UndirectedGraph::createEdge") {
         REQUIRE( g.getNumberOfEdges() == 1 );
     }
 
-    SECTION( "A graph with a single vertex which was added multiple times" ) {
+    SECTION("A graph with a single vertex which was added multiple times") {
         g.insertVertex("A", 1);
         g.insertVertex("B", 1);
 

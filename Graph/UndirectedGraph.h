@@ -32,8 +32,8 @@ public:
 template<typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
 
-    // If any of the vertices doesn't exist or the ids are the same,
-    // then return false.
+    // If any of the vertices, with the given ids, doesn't exist or
+    // the ids are the same, then return false.
 
     if ((this -> vertexes).find(id1) == (this -> vertexes).end()
         || (this -> vertexes).find(id2) == (this -> vertexes).end()

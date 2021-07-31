@@ -40,10 +40,34 @@ public:
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
-    if ((this -> vertexes).find(id1)==(this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id1 == id2)
+
+    // If any of the vertices, with the given ids, doesn't exist or
+    // the ids are the same, then return false.
+
+    if ((this -> vertexes).find(id1)==(this -> vertexes).end()
+        || (this -> vertexes).find(id2) == (this -> vertexes).end()
+        || id1 == id2)
         return false;
+
+    // Get the pointer to the vertices
+
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
+
+    // If an edge between the vertices exist, update the weight.
+
+    auto it = v1->edges.begin();
+
+    while (it != v1 -> edges.end()) {
+        if ((*it) -> vertexes[1] == v2) {
+            (*it) -> weight = w;
+            return true;
+        }
+        it++;
+    }
+
+    // If an edge between the vertices doesn't exist, create it.
+
     auto edge = new Edge<TV, TE>(v1, v2, w);
     (this -> vertexes)[id1]->edges.push_back(edge);
     Graph<TV, TE>::nedge++;

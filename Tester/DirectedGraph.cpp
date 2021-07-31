@@ -1,12 +1,12 @@
 #include "catch.hpp"
 #include "DirectedGraph.h"
 
-TEST_CASE( "DirectedGraph::getNumberOfEdges" ) {
+TEST_CASE("DirectedGraph::getNumberOfEdges") {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
     REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
-TEST_CASE( "DirectedGraph::deleteVertex" ) {
+TEST_CASE("DirectedGraph::deleteVertex") {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -23,7 +23,7 @@ TEST_CASE( "DirectedGraph::deleteVertex" ) {
     REQUIRE( g.getNumberOfEdges() == 2 );
 }
 
-TEST_CASE( "DirectedGraph::findById" ) {
+TEST_CASE("DirectedGraph::findById") {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -41,7 +41,7 @@ TEST_CASE( "DirectedGraph::findById" ) {
     REQUIRE( g.findById("D") == false);
 }
 
-TEST_CASE( "DirectedGraph::clear" ) {
+TEST_CASE("DirectedGraph::clear") {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -60,8 +60,51 @@ TEST_CASE( "DirectedGraph::clear" ) {
     REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
+TEST_CASE("DirectedGraph::createEdge") {
 
-TEST_CASE( "DirectedGraph::isDense" ) {
+    SECTION("Simple escenarios") {
+
+        SECTION("1 edge") {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+
+            g.createEdge("A", "B", 1);
+
+            REQUIRE(g.getNumberOfEdges() == 1);
+        }
+
+        SECTION("2 edges") {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("B", "A", 1);
+
+            REQUIRE(g.getNumberOfEdges() == 2);
+        }
+    }
+
+    SECTION("Special cases") {
+
+        SECTION("Insert the same edge must not increase the number of edges") {
+            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("A", "B", 1);
+
+            REQUIRE(g.getNumberOfEdges() == 1);
+        }
+    }
+}
+
+TEST_CASE("DirectedGraph::isDense") {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
@@ -78,11 +121,11 @@ TEST_CASE( "DirectedGraph::isDense" ) {
 }
 
 
-TEST_CASE( "DirectedGraph::isStronglyConnected" ) {
+TEST_CASE("DirectedGraph::isStronglyConnected") {
 
-    SECTION( "must return false" ) {
+    SECTION("must return false") {
 
-        SECTION( "Escenario 1" ) {
+        SECTION("Escenario 1") {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -98,7 +141,7 @@ TEST_CASE( "DirectedGraph::isStronglyConnected" ) {
             REQUIRE( g.isStronglyConnected() == false );
         }
 
-        SECTION( "Escenario 2" ) {
+        SECTION("Escenario 2") {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -124,9 +167,9 @@ TEST_CASE( "DirectedGraph::isStronglyConnected" ) {
         }
     }
 
-    SECTION( "must return true" ) {
+    SECTION("must return true") {
 
-        SECTION( "Escenario 1" ) {
+        SECTION("Escenario 1") {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
