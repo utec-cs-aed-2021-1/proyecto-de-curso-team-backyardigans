@@ -3,7 +3,7 @@
 
 TEST_CASE("DirectedGraph::getNumberOfEdges") {
     DirectedGraph<double, int> g = DirectedGraph<double, int>();
-    REQUIRE( g.getNumberOfEdges() == 0 );
+    REQUIRE(g.getNumberOfEdges() == 0);
 }
 
 TEST_CASE("DirectedGraph::deleteVertex") {
@@ -19,8 +19,8 @@ TEST_CASE("DirectedGraph::deleteVertex") {
     g.createEdge("D", "C", 2);
     g.createEdge("D", "A", 3);
 
-    REQUIRE( g.deleteVertex("D") == true );
-    REQUIRE( g.getNumberOfEdges() == 2 );
+    REQUIRE(g.deleteVertex("D") == true);
+    REQUIRE(g.getNumberOfEdges() == 2);
 }
 
 TEST_CASE("DirectedGraph::findById") {
@@ -38,7 +38,7 @@ TEST_CASE("DirectedGraph::findById") {
 
     g.deleteVertex("D");
 
-    REQUIRE( g.findById("D") == false);
+    REQUIRE(g.findById("D") == false);
 }
 
 TEST_CASE("DirectedGraph::clear") {
@@ -56,8 +56,8 @@ TEST_CASE("DirectedGraph::clear") {
 
     g.clear();
 
-    REQUIRE( g.empty() == true );
-    REQUIRE( g.getNumberOfEdges() == 0 );
+    REQUIRE(g.empty() == true);
+    REQUIRE(g.getNumberOfEdges() == 0);
 }
 
 TEST_CASE("DirectedGraph::createEdge") {
@@ -88,9 +88,9 @@ TEST_CASE("DirectedGraph::createEdge") {
         }
     }
 
-    SECTION("Special cases") {
+    SECTION("Special scenarios") {
 
-        SECTION("Insert the same edge must not increase the number of edges") {
+        SECTION("Insert existing edge") {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
             g.insertVertex("A", 1);
@@ -105,84 +105,95 @@ TEST_CASE("DirectedGraph::createEdge") {
 }
 
 TEST_CASE("DirectedGraph::isDense") {
-    DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-    g.insertVertex("A", 1);
-    g.insertVertex("B", 2);
-    g.insertVertex("C", 3);
-    g.insertVertex("D", 4);
+    SECTION("Simple scenarios") {
 
-    g.createEdge("A", "B", 1);
-    g.createEdge("C", "A", 2);
-    g.createEdge("D", "C", 2);
-    g.createEdge("D", "A", 3);
+        SECTION("must return true") {
 
-    REQUIRE( g.isDense(0.33)  == true);
+            SECTION("Scenario 1") {
+                DirectedGraph<double, int> g = DirectedGraph<double, int>();
+
+                g.insertVertex("A", 1);
+                g.insertVertex("B", 2);
+                g.insertVertex("C", 3);
+                g.insertVertex("D", 4);
+
+                g.createEdge("A", "B", 1);
+                g.createEdge("C", "A", 2);
+                g.createEdge("D", "C", 2);
+                g.createEdge("D", "A", 3);
+
+                REQUIRE(g.isDense(0.33)  == true);
+            }
+        }
+    }
 }
-
 
 TEST_CASE("DirectedGraph::isStronglyConnected") {
 
-    SECTION("must return false") {
+    SECTION("Simple scenarios") {
 
-        SECTION("Escenario 1") {
-            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+        SECTION("must return true") {
 
-            g.insertVertex("A", 1);
-            g.insertVertex("B", 2);
-            g.insertVertex("C", 3);
-            g.insertVertex("D", 4);
+            SECTION("Scenario 1") {
+                DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-            g.createEdge("A", "B", 1);
-            g.createEdge("C", "A", 2);
-            g.createEdge("D", "C", 2);
-            g.createEdge("D", "A", 3);
+                g.insertVertex("A", 1);
+                g.insertVertex("B", 2);
+                g.insertVertex("C", 3);
+                g.insertVertex("D", 4);
 
-            REQUIRE( g.isStronglyConnected() == false );
+                g.createEdge("A", "B", 1);
+                g.createEdge("B", "C", 2);
+                g.createEdge("C", "D", 2);
+                g.createEdge("D", "A", 3);
+
+                REQUIRE(g.isStronglyConnected() == true);
+            }
         }
 
-        SECTION("Escenario 2") {
-            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+        SECTION("must return false") {
 
-            g.insertVertex("A", 1);
-            g.insertVertex("B", 2);
-            g.insertVertex("C", 3);
-            g.insertVertex("D", 4);
-            g.insertVertex("E", 5);
-            g.insertVertex("F", 6);
+            SECTION("Scenario 1") {
+                DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-            g.createEdge("A", "B", 1);
-            g.createEdge("A", "F", 2);
-            g.createEdge("A", "C", 2);
-            g.createEdge("F", "B", 3);
-            g.createEdge("F", "C", 1);
-            g.createEdge("B", "C", 2);
-            g.createEdge("E", "B", 2);
-            g.createEdge("E", "C", 3);
-            g.createEdge("F", "E", 1);
-            g.createEdge("E", "D", 2);
-            g.createEdge("D", "C", 2);
+                g.insertVertex("A", 1);
+                g.insertVertex("B", 2);
+                g.insertVertex("C", 3);
+                g.insertVertex("D", 4);
 
-            REQUIRE( g.isStronglyConnected() == false );
-        }
-    }
+                g.createEdge("A", "B", 1);
+                g.createEdge("C", "A", 2);
+                g.createEdge("D", "C", 2);
+                g.createEdge("D", "A", 3);
 
-    SECTION("must return true") {
+                REQUIRE(g.isStronglyConnected() == false);
+            }
 
-        SECTION("Escenario 1") {
-            DirectedGraph<double, int> g = DirectedGraph<double, int>();
+            SECTION("Scenario 2") {
+                DirectedGraph<double, int> g = DirectedGraph<double, int>();
 
-            g.insertVertex("A", 1);
-            g.insertVertex("B", 2);
-            g.insertVertex("C", 3);
-            g.insertVertex("D", 4);
+                g.insertVertex("A", 1);
+                g.insertVertex("B", 2);
+                g.insertVertex("C", 3);
+                g.insertVertex("D", 4);
+                g.insertVertex("E", 5);
+                g.insertVertex("F", 6);
 
-            g.createEdge("A", "B", 1);
-            g.createEdge("B", "C", 2);
-            g.createEdge("C", "D", 2);
-            g.createEdge("D", "A", 3);
+                g.createEdge("A", "B", 1);
+                g.createEdge("A", "F", 2);
+                g.createEdge("A", "C", 2);
+                g.createEdge("F", "B", 3);
+                g.createEdge("F", "C", 1);
+                g.createEdge("B", "C", 2);
+                g.createEdge("E", "B", 2);
+                g.createEdge("E", "C", 3);
+                g.createEdge("F", "E", 1);
+                g.createEdge("E", "D", 2);
+                g.createEdge("D", "C", 2);
 
-            REQUIRE( g.isStronglyConnected() == true);
+                REQUIRE(g.isStronglyConnected() == false);
+            }
         }
     }
 }
