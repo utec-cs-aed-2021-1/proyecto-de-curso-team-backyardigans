@@ -6,6 +6,9 @@
 #include "graph.h"
 
 /// @brief Implementation of an undirected graph
+///
+/// @tparam TV type of the data stored in each vertex
+/// @tparam TE type for the weight of the edges
 
 template<typename TV, typename TE>
 class UndirectedGraph : public Graph<TV, TE>{

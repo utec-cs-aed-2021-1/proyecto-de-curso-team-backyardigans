@@ -7,6 +7,9 @@
 #include "Structs.h"
 
 /// @brief Implementation of a graph
+///
+/// @tparam TV type of the data stored in each vertex
+/// @tparam TE type for the weight of the edges
 
 template<typename TV, typename TE>
 class Graph{
@@ -129,6 +132,9 @@ unordered_map<string, Vertex<TV, TE>*> Graph<TV, TE>::getMap() {
 
 /// @brief Add a new vertex to the graph
 ///
+/// @param[in] id The identifier for the vertex in the whole graph
+/// @param[in] vertex The data stored in the vertex.
+///
 /// @warning The vertex will not be added if there already exists a
 /// vertex with the same id as the one being inserted.
 ///
@@ -189,23 +195,29 @@ void Graph<TV, TE>::clear(){
 /// @brief Display the whole graph
 
 template<typename TV, typename TE>
-void Graph<TV, TE>::display(){
-  if ((this -> vertexes).size() == 0){ cout << "NOT FOUND"<<endl; }
-  else {
-      cout << endl; auto it = (this -> vertexes).begin();
-      while (it != (this -> vertexes).end())
-      {
-          cout << "Number of edges: " <<(it->second)->edges.size() <<" - " <<(it->second)->id << endl;
-          auto edge_it = (it->second)->edges.begin();
-          while (edge_it != (it->second)->edges.end()){
-              cout << (it->second)->id <<" (" <<(it->second)->data << ")";
-              cout <<"---- " <<(*edge_it)->weight <<" ----";
-              cout << (*edge_it)->vertexes[1] -> id << " (" << (*edge_it)->vertexes[1] ->data <<")" <<endl;
-              edge_it++;
-          } it++;
-      }
-      cout << endl; }
-}
+void Graph<TV, TE>::display() {
+    if (empty())
+        cout << "The graph is empty.";
 
+    // Iterate through all vertices.
+
+    auto it = (this -> vertexes).begin();
+
+    while (it != (this -> vertexes).end()) {
+        cout << "Vertex: " << it -> second -> id << endl
+             << "Number of edges: " << it -> second -> edges.size() << endl;
+
+        // Print all the edges having the vertex as the starting point.
+
+        auto edge_it = (it -> second) -> edges.begin();
+        while (edge_it != (it -> second) -> edges.end()) {
+            cout << "((id: " << (it -> second) -> id <<") (data: " <<(it -> second) -> data << "))"
+                 << " - " << (*edge_it) -> weight <<" - "
+                 << "((id: " << (*edge_it) -> vertexes[1] -> id << ") (data: " << (*edge_it)->vertexes[1] ->data << "))" <<endl;
+            edge_it++;
+        }
+        it++;
+    }
+}
 
 #endif

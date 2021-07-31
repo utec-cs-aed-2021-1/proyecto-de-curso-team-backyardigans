@@ -14,6 +14,8 @@ template<typename TV, typename TE>
 class Graph;
 
 /// @brief Implementation of an edge for a graph
+/// @tparam TE The weight of the edges
+/// @tparam TV The data stored in each vertex
 
 template<typename TV, typename TE>
 struct Edge {
@@ -37,6 +39,8 @@ struct Edge {
 };
 
 /// @brief Implementation of a vertex for a graph
+///
+/// @tparam TV
 
 template<typename TV, typename TE>
 struct Vertex {
@@ -55,6 +59,10 @@ struct Vertex {
     Vertex()= default;
 
     /// @brief Constructor
+    ///
+    /// @param[in] data_ The data stored in the vertex
+    ///
+    /// @param[in] id_ The identifier of the vertex in the whole graph
 
     explicit Vertex(TV data_, string id_){
         data = std::move(data_);
