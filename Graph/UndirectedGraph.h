@@ -8,7 +8,7 @@
 /// @brief Implementation of an undirected graph
 
 template<typename TV, typename TE>
-class UnDirectedGraph : public Graph<TV, TE>{
+class UndirectedGraph : public Graph<TV, TE>{
 public:
     bool createEdge(string id1, string id2, TE w) override;
 
@@ -30,10 +30,10 @@ public:
 };
 
 template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
+bool UndirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
 
-    // If any of the vertices doesn't exist or the ids are the same,
-    // then return false.
+    // If any of the vertices, with the given ids, doesn't exist or
+    // the ids are the same, then return false.
 
     if ((this -> vertexes).find(id1) == (this -> vertexes).end()
         || (this -> vertexes).find(id2) == (this -> vertexes).end()
@@ -46,34 +46,32 @@ bool UnDirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
 
-    // If the edge already exists, then update the weight.
+    // If the edge already exists, update the weight and exit the
+    // function.
 
-    if (Graph<TV, TE>::findEdge(id1, id2)) {
-        auto it = v1->edges.begin();
-        while (it != v1->edges.end()) {
-            if ((*it)->vertexes[1]==v2) {
-                (*it)->weight = w;
-                break;
-            }
-            it++;
+    auto it = v1 -> edges.begin();
+    while (it != v1 -> edges.end()) {
+        if ((*it) -> vertexes[1] == v2) {
+            (*it) -> weight = w;
+            return true;
         }
+        it++;
     }
 
-    // If the vertex doesn't exist, then create it.
+    // If the vertex doesn't exist, create it.
 
-    else {
-        auto edge = new Edge<TV, TE>(v1, v2, w);
-        auto edge_ = new Edge<TV, TE>(v2, v1, w);
-        (this -> vertexes)[id1]->edges.push_back(edge);
-        (this -> vertexes)[id2]->edges.push_back(edge_);
-        Graph<TV, TE>::nedge++;
-    }
+    auto edge = new Edge<TV, TE>(v1, v2, w);
+    auto edge_ = new Edge<TV, TE>(v2, v1, w);
 
+    v1 -> edges.push_back(edge);
+    v2 -> edges.push_back(edge_);
+
+    this -> nedge++;
     return true;
 }
 
 template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
+bool UndirectedGraph<TV, TE>::deleteVertex(string id){
     if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
     auto v1 = (this -> vertexes)[id];
     vector<string> vertices;
@@ -92,7 +90,7 @@ bool UnDirectedGraph<TV, TE>::deleteVertex(string id){
 }
 
 template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
+bool UndirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     if ((this -> vertexes).find(id) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id == id2) return false;
     auto v1 = (this -> vertexes)[id];
     auto v2 = (this -> vertexes)[id2];
@@ -117,7 +115,7 @@ bool UnDirectedGraph<TV, TE>::deleteEdge(string id, string id2){
     return true;
 }
 template<typename TV, typename TE>
-TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
+TE &UndirectedGraph<TV, TE>::operator()(string start, string end){
     auto v1 = (this -> vertexes)[start];
     auto v2 = (this -> vertexes)[end];
     auto it = v1->edges.begin();
@@ -130,7 +128,7 @@ TE &UnDirectedGraph<TV, TE>::operator()(string start, string end){
 }
 
 template<typename TV, typename TE>
-float UnDirectedGraph<TV, TE>::density() {
+float UndirectedGraph<TV, TE>::density() {
     float s_v = (this -> vertexes).size();
     return 2*(float)Graph<TV, TE>::nedge/((s_v)*(s_v-1));
 }
@@ -139,7 +137,7 @@ float UnDirectedGraph<TV, TE>::density() {
 /// @return false if the graph isn't dense
 
 template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
+bool UndirectedGraph<TV, TE>::isDense(float threshold) {
     if (density()>threshold) return true;
     return false;
 }
@@ -148,7 +146,7 @@ bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
 /// @return false if the graph isn't connected
 
 template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::isConnected() {
+bool UndirectedGraph<TV, TE>::isConnected() {
     //Hacer recorrido DFS O BFS, con un size
     stack<string> stack_;
     int aux = 0;
@@ -176,7 +174,7 @@ bool UnDirectedGraph<TV, TE>::isConnected() {
 
 
 template<typename TV, typename TE>
-void UnDirectedGraph<TV, TE>::displayVertex(string id) {
+void UndirectedGraph<TV, TE>::displayVertex(string id) {
     if ((this -> vertexes).find(id) != (this -> vertexes).end()){
         cout <<id<<": " <<(this -> vertexes)[id]->data<<endl;
         for (auto it = (this->vertexes)[id]->edges.begin(); it != (this->vertexes)[id]->edges.end();it++){
@@ -187,7 +185,7 @@ void UnDirectedGraph<TV, TE>::displayVertex(string id) {
 }
 
 template<typename TV, typename TE>
-bool UnDirectedGraph<TV, TE>::findById(string id){
+bool UndirectedGraph<TV, TE>::findById(string id){
     if ((this -> vertexes).find(id) != (this -> vertexes).end())
         return true;
     return false;

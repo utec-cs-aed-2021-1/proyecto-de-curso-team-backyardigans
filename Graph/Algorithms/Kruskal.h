@@ -8,15 +8,15 @@ class Kruskal{
 
 protected:
 
-    UnDirectedGraph<TV, TE>* graph;
+    UndirectedGraph<TV, TE>* graph;
 public:
     Kruskal(){};
-    Kruskal(UnDirectedGraph<TV, TE>* graph_ ){
+    Kruskal(UndirectedGraph<TV, TE>* graph_ ){
         graph = graph_;
     }
 
-    UnDirectedGraph<TV, TE> apply(){
-        UnDirectedGraph<TV, TE> gkruskal;
+    UndirectedGraph<TV, TE> apply(){
+        UndirectedGraph<TV, TE> gkruskal;
         priority_<TE> cola;
         auto map1 = graph->getMap(); // map vert
         unordered_map<string, bool> map2;

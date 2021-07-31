@@ -2,15 +2,27 @@
 #include <math.h>
 #include "UndirectedGraph.h"
 
-TEST_CASE( "UndirectedGraph::getNumberOfEdges", "[UndirectedGraph][getNumberOfEdges]" ) {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph (constructor)") {
+
+    SECTION("Special scenarios") {
+
+        SECTION("An empty undirected graph") {
+            UndirectedGraph<double, int> ug = UndirectedGraph<double, int>();
+            REQUIRE( ug.getNumberOfVertices() == 0 );
+            REQUIRE( ug.getNumberOfEdges() == 0 );
+        }
+    }
+}
+
+TEST_CASE("UndirectedGraph::getNumberOfEdges") {
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
     REQUIRE( g.getNumberOfEdges() == 0 );
 }
 
-TEST_CASE( "UndirectedGraph::createEdge", "[UndirectedGraph][createEdge]" ) {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph::createEdge") {
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
-    SECTION( "A graph with a single vertex" ) {
+    SECTION("A graph with a single vertex") {
         g.insertVertex("A", 1);
         g.insertVertex("B", 1);
 
@@ -19,7 +31,7 @@ TEST_CASE( "UndirectedGraph::createEdge", "[UndirectedGraph][createEdge]" ) {
         REQUIRE( g.getNumberOfEdges() == 1 );
     }
 
-    SECTION( "A graph with a single vertex which was added multiple times" ) {
+    SECTION("A graph with a single vertex which was added multiple times") {
         g.insertVertex("A", 1);
         g.insertVertex("B", 1);
 
@@ -30,8 +42,8 @@ TEST_CASE( "UndirectedGraph::createEdge", "[UndirectedGraph][createEdge]" ) {
     }
 }
 
-TEST_CASE( "UndirectedGraph::deleteVertex", "[UndirectedGraph][deleteVertex]" ) {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph::deleteVertex") {
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
@@ -52,8 +64,8 @@ TEST_CASE( "UndirectedGraph::deleteVertex", "[UndirectedGraph][deleteVertex]" ) 
     REQUIRE( g.getNumberOfEdges() == 4 );
 }
 
-TEST_CASE( "UndirectedGraph::findById", "[UndirectedGraph][findById]" ) {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph::findById") {
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
@@ -76,8 +88,8 @@ TEST_CASE( "UndirectedGraph::findById", "[UndirectedGraph][findById]" ) {
     g.display();
 }
 
-TEST_CASE( "UndirectedGraph::empty", "[UndirectedGraph][empty]" ) {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph::empty") {
+    UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
     g.insertVertex("A", 1);
     g.insertVertex("B", 2);
@@ -99,47 +111,58 @@ TEST_CASE( "UndirectedGraph::empty", "[UndirectedGraph][empty]" ) {
     REQUIRE( g.empty() == true );
 }
 
-TEST_CASE( "UndirectedGraph::isConnected", "[UndirectedGraph][isConnected]" ) {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph::isConnected") {
 
-    g.insertVertex("A", 1);
-    g.insertVertex("B", 2);
-    g.insertVertex("C", 3);
-    g.insertVertex("D", 4);
-    g.insertVertex("E", 5);
+    SECTION("must return false") {
 
+        SECTION("Escenario 1") {
+            UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
-    g.createEdge("A", "B", 1);
-    g.createEdge("B", "C", 2);
-    g.createEdge("B", "E", 2);
-    g.createEdge("B", "D", 3);
-    g.createEdge("A", "E", 1);
-    g.createEdge("D", "C", 2);
-    g.createEdge("E", "D", 2);
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
+            g.insertVertex("E", 5);
 
-    g.deleteEdge("A","B");
-    g.deleteEdge("A","E");
+            g.createEdge("A", "B", 1);
+            g.createEdge("B", "C", 2);
+            g.createEdge("B", "E", 2);
+            g.createEdge("B", "D", 3);
+            g.createEdge("A", "E", 1);
+            g.createEdge("D", "C", 2);
+            g.createEdge("E", "D", 2);
 
-    REQUIRE( g.isConnected() == false );
+            g.deleteEdge("A","B");
+            g.deleteEdge("A","E");
+
+            REQUIRE( g.isConnected() == false );
+
+        }
+    }
 }
 
-TEST_CASE( "UndirectedGraph::isDense" , "[UndirectedGraph][isDense]")  {
-    UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
+TEST_CASE("UndirectedGraph::isDense")  {
 
-    g.insertVertex("A", 1);
-    g.insertVertex("B", 2);
-    g.insertVertex("C", 3);
-    g.insertVertex("D", 4);
-    g.insertVertex("E", 5);
+    SECTION("must return true") {
 
+        SECTION("Escenario 1") {
+            UndirectedGraph<double, int> g = UndirectedGraph<double, int>();
 
-    g.createEdge("A", "B", 1);
-    g.createEdge("B", "C", 2);
-    g.createEdge("B", "E", 2);
-    g.createEdge("B", "D", 3);
-    g.createEdge("A", "E", 1);
-    g.createEdge("D", "C", 2);
-    g.createEdge("E", "D", 2);
-    REQUIRE(g.isDense() == true);
+            g.insertVertex("A", 1);
+            g.insertVertex("B", 2);
+            g.insertVertex("C", 3);
+            g.insertVertex("D", 4);
+            g.insertVertex("E", 5);
+
+            g.createEdge("A", "B", 1);
+            g.createEdge("B", "C", 2);
+            g.createEdge("B", "E", 2);
+            g.createEdge("B", "D", 3);
+            g.createEdge("A", "E", 1);
+            g.createEdge("D", "C", 2);
+            g.createEdge("E", "D", 2);
+
+            REQUIRE(g.isDense() == true);
+        }
+    }
 }
-

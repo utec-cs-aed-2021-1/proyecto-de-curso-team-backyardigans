@@ -13,29 +13,21 @@ struct Vertex;
 template<typename TV, typename TE>
 class Graph;
 
-/**
- * @brief Implementation of an edge for a graph
- */
+/// @brief Implementation of an edge for a graph
 
 template<typename TV, typename TE>
 struct Edge {
 
-    /**
-     * @brief The vertices that are incident to this edge
-     */
+    /// @brief The vertices that are incident to this edge
 
     Vertex<TV, TE>* vertexes[2];
 
-    /**
-     * @brief The weight for this edge
-     */
+    /// @brief The weight for this edge
 
     TE weight;
     Edge()= default;
 
-    /**
-     * @brief Constructor
-     */
+    /// @brief Constructor
 
     explicit Edge(Vertex<TV, TE>* v1, Vertex<TV, TE>* v2, TE weight_){
         vertexes[0] = v1;
@@ -44,35 +36,25 @@ struct Edge {
     }
 };
 
-/**
- * @brief Implementation of a vertex for a graph
- */
+/// @brief Implementation of a vertex for a graph
 
 template<typename TV, typename TE>
 struct Vertex {
 
-    /**
-     * @brief The data for this vertex
-     */
+    /// @brief The data for this vertex
 
     TV data;
 
-    /**
-     * @brief The identifier for this vertex
-     */
+    /// @brief The identifier for this vertex
 
     string id;
 
-    /**
-     * @brief The set of edges that are incident to this vertex
-     */
+    /// @brief The set of edges that are incident to this vertex
 
     std::list<Edge<TV, TE>*> edges;
     Vertex()= default;
 
-    /**
-     * @brief Constructor
-     */
+    /// @brief Constructor
 
     explicit Vertex(TV data_, string id_){
         data = std::move(data_);

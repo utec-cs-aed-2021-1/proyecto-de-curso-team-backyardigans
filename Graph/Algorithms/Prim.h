@@ -8,21 +8,21 @@ class Prim{
 
 protected:
 
-    UnDirectedGraph<TV, TE>* graph;
+    UndirectedGraph<TV, TE>* graph;
     string vertex;
 
 public:
 
-    Prim(UnDirectedGraph<TV, TE>* graph_,string vertex_){
+    Prim(UndirectedGraph<TV, TE>* graph_,string vertex_){
         graph = graph_;
         vertex = std::move(vertex_);
     }
-    Prim(const UnDirectedGraph<TV, TE>* graph_, string vertex_) {
+    Prim(const UndirectedGraph<TV, TE>* graph_, string vertex_) {
         graph = graph_;
         vertex = std::move(vertex_);
     }
-    UnDirectedGraph<TV, TE> apply(){
-        UnDirectedGraph<TV, TE> gprim;
+    UndirectedGraph<TV, TE> apply(){
+        UndirectedGraph<TV, TE> gprim;
         priority_<TE> cola;
         unordered_map<string, pair<string, TE>> mp; // padres
         auto map1 = graph->getMap(); //vertices del grafo pasado
