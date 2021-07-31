@@ -6,7 +6,7 @@ TEST_CASE( "DFS", "[DFS]" ) {
         SECTION( "Example 1" ) {
             Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
             
-            g1->insertVertex("A", 1);""
+            g1->insertVertex("A", 1);
             g1->insertVertex("B", 1);
             g1->insertVertex("C", 1);
             g1->insertVertex("D", 1);

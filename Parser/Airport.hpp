@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "Utilities.hpp"
 
 class Airport {
 public:
@@ -11,12 +12,12 @@ public:
   using t_iata_faa = std::string;
   using t_icao = std::string;
   using t_id = std::string;
-  using t_latitude = std::string;
+  using t_latitude = double;
   using t_longitude = double;
   using t_timezone = std::string;
   using t_dst = std::string;
   using t_destinations = std::vector<int>;
-  
+
   t_city city;
   t_dbtz dbtz;
   t_name name;
@@ -34,6 +35,9 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& os, const Airport& a) {
-  os << a.city;
+  os << "Airport ID: " << a.id << std::endl
+     << "Longitude: " << a.longitude << std::endl
+     << "Latitude: " << a.latitude << std::endl
+     << "Destinations: " << std::endl << a.destinations;
   return os;
 };
