@@ -58,7 +58,8 @@ bool UndirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
         it++;
     }
 
-    // If the vertex doesn't exist, create it.
+    // If the edge doesn't exist, create it and store the edge in the
+    // array of edges of the vertices which are incident to the edge.
 
     auto edge = new Edge<TV, TE>(v1, v2, w);
     auto edge_ = new Edge<TV, TE>(v2, v1, w);
@@ -71,31 +72,44 @@ bool UndirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
 }
 
 template<typename TV, typename TE>
-bool UndirectedGraph<TV, TE>::deleteVertex(string id){
-    if ((this -> vertexes).find(id)==(this -> vertexes).end()) return false;
+bool UndirectedGraph<TV, TE>::deleteVertex(string id) {
+    // If the vertex with the given id doesn't exist, return false.
+    if ((this -> vertexes).find(id) == (this -> vertexes).end())
+        return false;
+
     auto v1 = (this -> vertexes)[id];
-    vector<string> vertices;
-    auto it = v1->edges.begin();
-    while (it != v1->edges.end()){
-        auto v2 = (*it)->vertexes[0] == v1? (*it)->vertexes[1] : (*it)->vertexes[0];
-        auto it2 = v2->edges.begin();
-        while ((*it)->vertexes[0] != (*it2)->vertexes[1]) it2++;
-        v2->edges.erase(it2);
+
+    auto it = v1 -> edges.begin();
+    while (it != v1 -> edges.end()) {
+        auto v2 = (*it) -> vertexes[0] == v1 ? (*it) -> vertexes[1] : (*it) -> vertexes[0];
+        auto it2 = v2 -> edges.begin();
+
+        while ((*it) -> vertexes[0] != (*it2) -> vertexes[1])
+            it2++;
+
+        v2 -> edges.erase(it2);
+
         it++;
     }
-    (this->nedge)-=(this->vertexes)[id]->edges.size();
-    v1->edges.clear();
+
+    (this -> nedge) -= (this->vertexes)[id] -> edges.size();
+    v1 -> edges.clear();
     (this -> vertexes).erase(id);
     return true;
 }
 
 template<typename TV, typename TE>
 bool UndirectedGraph<TV, TE>::deleteEdge(string id, string id2){
-    if ((this -> vertexes).find(id) == (this -> vertexes).end() || (this -> vertexes).find(id2) == (this -> vertexes).end() || id == id2) return false;
+    if ((this -> vertexes).find(id) == (this -> vertexes).end()
+        || (this -> vertexes).find(id2) == (this -> vertexes).end()
+        || id == id2)
+        return false;
+
     auto v1 = (this -> vertexes)[id];
     auto v2 = (this -> vertexes)[id2];
     auto it = v1->edges.begin();
     auto it2 = v2->edges.begin();
+
     while (it != v1->edges.end()){
         if (((*it)->vertexes[0] == v1 && (*it)->vertexes[1]==v2) || ((*it)->vertexes[0] == v2 && (*it)->vertexes[1] == v1)){
             v1->edges.remove(*it);
