@@ -54,9 +54,10 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     auto v1 = (this -> vertexes)[id1];
     auto v2 = (this -> vertexes)[id2];
 
-    // If an edge between the vertices exist, update the weight.
+    // If an edge between the vertices exist, update the weight and
+    // exit the function
 
-    auto it = v1->edges.begin();
+    auto it = v1 -> edges.begin();
 
     while (it != v1 -> edges.end()) {
         if ((*it) -> vertexes[1] == v2) {
@@ -69,8 +70,8 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w){
     // If an edge between the vertices doesn't exist, create it.
 
     auto edge = new Edge<TV, TE>(v1, v2, w);
-    (this -> vertexes)[id1]->edges.push_back(edge);
-    Graph<TV, TE>::nedge++;
+    v1 -> edges.push_back(edge);
+    this -> nedge++;
     return true;
 }
 
