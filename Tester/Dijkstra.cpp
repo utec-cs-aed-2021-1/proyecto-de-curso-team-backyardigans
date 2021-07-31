@@ -1,9 +1,11 @@
 #include "catch.hpp"
 #include "Algorithms/Dijkstra.h"
 
-TEST_CASE( "Dijkstra" , "[Dijkstra]" ) {
-    SECTION("Minimal Work Examples of Dijkstra"){
-        SECTION("Example 1"){
+TEST_CASE("Dijkstra::apply") {
+
+    SECTION("Simple scenarios"){
+
+        SECTION("Scenario 1"){
             Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
 
             g1->insertVertex("0", 0);
@@ -32,7 +34,8 @@ TEST_CASE( "Dijkstra" , "[Dijkstra]" ) {
             cout << "Dijkstra: "<<endl;
             //  gr.display();
         }
-        SECTION("Example 2"){
+
+        SECTION("Escenario 2"){
             Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
 
             g1->insertVertex("0", 0);

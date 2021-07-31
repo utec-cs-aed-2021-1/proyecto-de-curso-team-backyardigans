@@ -62,7 +62,7 @@ TEST_CASE("DirectedGraph::clear") {
 
 TEST_CASE("DirectedGraph::createEdge") {
 
-    SECTION("Simple escenarios") {
+    SECTION("Simple scenarios") {
 
         SECTION("1 edge") {
             DirectedGraph<double, int> g = DirectedGraph<double, int>();

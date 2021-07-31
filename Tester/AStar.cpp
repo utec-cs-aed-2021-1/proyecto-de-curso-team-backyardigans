@@ -2,11 +2,11 @@
 #include "Algorithms/AStar.h"
 #include "UndirectedGraph.h"
 
-TEST_CASE("Astar") {
+TEST_CASE("Astar::apply") {
 
-    SECTION( "Simple escenarios" ) {
+    SECTION("Simple scenarios") {
 
-        SECTION( "Escenario 1" ) {
+        SECTION("Scenario 1") {
             Graph<double, int>* g1 = new UnDirectedGraph<double, int>();
 
             g1 -> insertVertex("AR", 1);

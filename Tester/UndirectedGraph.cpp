@@ -2,6 +2,18 @@
 #include <math.h>
 #include "UndirectedGraph.h"
 
+TEST_CASE("UndirectedGraph (constructor)") {
+
+    SECTION("Special scenarios") {
+
+        SECTION("An empty undirected graph") {
+            UnDirectedGraph<double, int> ug = UnDirectedGraph<double, int>();
+            REQUIRE( ug.getNumberOfVertices() == 0 );
+            REQUIRE( ug.getNumberOfEdges() == 0 );
+        }
+    }
+}
+
 TEST_CASE("UndirectedGraph::getNumberOfEdges") {
     UnDirectedGraph<double, int> g = UnDirectedGraph<double, int>();
     REQUIRE( g.getNumberOfEdges() == 0 );
