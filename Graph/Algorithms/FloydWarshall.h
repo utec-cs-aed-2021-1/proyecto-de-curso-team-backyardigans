@@ -36,7 +36,7 @@ DirectedGraph<TV,TE> FloydWarshall<TV, TE>::applyd(){
     for (int i=1; i<=V; i++){
         gfloyd.insertVertex((*it).first, (*it).second->data);
         recognize[i] = (*it).first;
-        cout <<"value_original: "<<(*it).first  << "matrix_value: "<<i << endl;
+        cout <<"value_original: "<<(*it).first  << " -matrix_value: "<<i << endl;
         it++;
     }
     for (int i = 0; i <= V; i++){
@@ -84,6 +84,13 @@ DirectedGraph<TV,TE> FloydWarshall<TV, TE>::applyd(){
                 }
             }
         }
+    }
+    cout << "matrix_dist" << endl;
+    for (int i = 1; i <= V; i++){
+        for (int j = 1; j <= V; j++){
+            cout <<dist[i][j] << " ";
+        }
+        cout << endl;
     }
     cout << "matrix_rec" << endl;
     for (int i = 1; i <= V; i++){
