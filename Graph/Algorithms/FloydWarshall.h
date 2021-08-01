@@ -6,7 +6,7 @@
 #define GRAPHS_FLOYDWARSHALL_H
 #include "DirectedGraph.h"
 #include "helpclass/priorityqueue.h"
-
+#define MAX_INFINITY 99999
 
 template<typename TV, typename TE>
 class DirectedGraph;
@@ -29,7 +29,7 @@ DirectedGraph<TV,TE> FloydWarshall<TV, TE>::applyd(){
     unordered_map<int, string> recognize;
     auto original_map = graph->getMap();
     auto V = graph->getNumberOfVertices();
-    vector<vector<double>> dist;
+    vector<vector<TE>> dist;
     vector<vector<int>> recorr;
     unordered_map<string, bool> connected;
     auto it = original_map.begin();
@@ -40,7 +40,7 @@ DirectedGraph<TV,TE> FloydWarshall<TV, TE>::applyd(){
         it++;
     }
     for (int i = 0; i <= V; i++){
-        vector<double> d;
+        vector<TE> d;
         vector<int> r;
         for (int j = 0; j <= V; j++){
             if (i==j) {
@@ -48,7 +48,7 @@ DirectedGraph<TV,TE> FloydWarshall<TV, TE>::applyd(){
                 r.push_back(0);
             }
             else {
-                d.push_back(INFINITY);
+                d.push_back(MAX_INFINITY);
                 r.push_back(j);
             }
         }
@@ -67,7 +67,7 @@ DirectedGraph<TV,TE> FloydWarshall<TV, TE>::applyd(){
     for (int k=1; k<=V; k++){
         for (int i=1; i<=V; i++){
             for (int j=1; j<=V; j++){
-                if (dist[i][k] != INFINITY && dist[k][j] != INFINITY) {
+                if (dist[i][k] != MAX_INFINITY && dist[k][j] != MAX_INFINITY) {
                     if (dist[i][j] > dist[i][k] + dist[k][j]) {
                         recorr[i][j] = k;
                         dist[i][j] = dist[i][k] + dist[k][j];
