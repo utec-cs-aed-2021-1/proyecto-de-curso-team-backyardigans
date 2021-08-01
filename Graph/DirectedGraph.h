@@ -196,8 +196,6 @@ bool DirectedGraph<TV, TE>::isStronglyConnected(){
         dg2 -> deleteEdge((it).first.first, (it).first.second);
         dg2 -> createEdge((it).first.second, (it).first.first, (it).second);
     }
-
-
         /*if (map[s1]==false){
             map[s0] = true;
             dg2 -> deleteEdge(v0-> id, v1-> id); // BORRAMOS LA ARISTA

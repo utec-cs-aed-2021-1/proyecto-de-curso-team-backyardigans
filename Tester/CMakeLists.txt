@@ -1,16 +1,8 @@
 set(TARGET_NAME tests)
 
 set(UNIT_TEST_LIST
-  main
-  Graph
-  UndirectedGraph
-  DirectedGraph
-  AStar
-  BFS
-  DFS
-  Dijkstra
-  Kruskal
-  Prim
+        main
+        FloydWarshall
   )
 
 foreach(NAME IN LISTS UNIT_TEST_LIST)
