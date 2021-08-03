@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/foreach.hpp>
@@ -18,7 +19,7 @@
 class Parser {
 private:
   std::string json_file_name;
-  std::vector<Airport> data;
+  std::map<Airport::t_id, Airport> data;
 public:
 
   /// @brief Class constructor
@@ -109,8 +110,25 @@ public:
       }
 
       if(well_formatted_airport)
-	data.push_back(a);
+	data[a.id] = a;
     }
+  }
+
+  /// @brief Get the manhattan distance between two airports
+  ///
+  /// @param[in] longitude1 The longitude of the first airport
+  /// @param[in] latitude1 The latitude of the first airport
+  /// @param[in] longitude2 The longitude of the second airport
+  /// @param[in] latitude2 The latitude of the second airport
+  ///
+  /// @return The manhattan distance between two airports.
+
+  double manhattanDistance(const double& latitude1,
+			 const double& longitude1,
+			 const double& latitude2,
+			 const double& longitude2) {
+    return abs(latitude1 - latitude2) +
+      abs(longitude1 - longitude2);
   }
 
   /// @brief Load the previously loaded data into an undirected graph
@@ -139,18 +157,23 @@ public:
     // Create the vertices in the graph
 
     for(auto airport: data)
-      tempGraph.insertVertex(airport.id, airport);
+      tempGraph.insertVertex(airport.second.id, airport.second);
 
     // Create the edges
 
     for(auto airport: data) {
-      Airport::t_id id = airport.id;
-
-      for(auto destination: airport.destinations) {
-	tempGraph.createEdge(id, destination, 1);
+      for(auto destination: airport.second.destinations) {
+	Airport::t_id airport1_id = airport.first;
+	Airport::t_id airport2_id = destination;
+	double manhattan = manhattanDistance(airport.second.latitude,
+					     airport.second.longitude,
+					     data[destination].latitude,
+					     data[destination].longitude);
+	tempGraph.createEdge(airport1_id, airport2_id, manhattan);
       }
     }
   }
+
 
   /// @brief Load the previously loaded data into a directed graph
   ///
@@ -177,15 +200,19 @@ public:
     // Create the vertices in the graph
 
     for(auto airport: data)
-      tempGraph.insertVertex(airport.id, airport);
+      tempGraph.insertVertex(airport.second.id, airport.second);
 
     // Create the edges
 
     for(auto airport: data) {
-      Airport::t_id id = airport.id;
-
-      for(auto destination: airport.destinations) {
-	tempGraph.createEdge(id, destination, 1);
+      for(auto destination: airport.second.destinations) {
+	Airport::t_id airport1_id = airport.first;
+	Airport::t_id airport2_id = destination;
+	double manhattan = manhattanDistance(airport.second.latitude,
+					     airport.second.longitude,
+					     data[destination].latitude,
+					     data[destination].longitude);
+	tempGraph.createEdge(airport1_id, airport2_id, manhattan);
       }
     }
   }
@@ -198,7 +225,7 @@ public:
   void showLoadedData() {
     for(auto x: data) {
       // Print each airport
-      cout << x << endl;
+      cout << x.second << endl;
     }
   }
 
