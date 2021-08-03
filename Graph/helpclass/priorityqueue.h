@@ -12,10 +12,10 @@ private:
     int n_pairs = 0;
     pair <T,string>* pairs = new pair <T,string>[capacity];
     unordered_map<string , T> position;
+    //Position se usa para poder optimizar el find y []
     int Parent(int i){
         return (i - 1) / 2;
     }
-
     int Left(int i){
         return (2 * i + 1);
     }
