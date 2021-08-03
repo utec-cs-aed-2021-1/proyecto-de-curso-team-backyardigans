@@ -16,7 +16,8 @@ public:
   using t_longitude = double;
   using t_timezone = std::string;
   using t_dst = std::string;
-  using t_destinations = std::vector<int>;
+  using t_destination = std::string;
+  using t_destinations = std::vector<t_destination>;
 
   t_city city;
   t_dbtz dbtz;
@@ -35,9 +36,12 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& os, const Airport& a) {
-  os << "Airport ID: " << a.id << std::endl
-     << "Longitude: " << a.longitude << std::endl
-     << "Latitude: " << a.latitude << std::endl
-     << "Destinations: " << std::endl << a.destinations;
+  os << "(Airport "
+     << "(ID: " << a.id << ")"
+     << " "
+     << "(Longitude: " << a.longitude << ")"
+     << " "
+     << "(Latitude: " << a.latitude << ")"
+     << ")";
   return os;
 };

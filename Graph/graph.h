@@ -176,7 +176,7 @@ bool Graph<TV, TE>::findEdge(string start, string end) {
 
 template<typename TV, typename TE>
 bool Graph<TV, TE>::empty() {
-    return (this -> vertexes).size()==0;
+    return (this -> vertexes).size() == 0;
 }
 
 /// @brief Free all used memory by the graph

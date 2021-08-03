@@ -33,7 +33,7 @@ public:
 
   /// @brief Free the needed memory for loading the JSON file.
 
-  void aclear() {
+  void clear() {
     data.clear();
   }
 
@@ -100,7 +100,7 @@ public:
 
 	else if(prop.first == "destinations") {
 	  BOOST_FOREACH (boost::property_tree::ptree::value_type& val, prop.second) {
-	    int destination = val.second.get_value<int>();
+	    Airport::t_destination destination = val.second.get_value<Airport::t_destination>();
 	    a.destinations.push_back(destination);
 	  }
 	}
@@ -119,8 +119,37 @@ public:
   /// be loaded. This graph need to be empty. Otherwise, an exception
   /// is thrown.
 
-  void uGraphMake(UnDirectedGraph<string, double> &tempGraph) {
+  void uGraphMake(UndirectedGraph<Airport, double> &tempGraph) {
     // TODO: Throw an exception when the graph is not empty.
+
+    // Error if the data hasn't been loaded
+
+    if(data.empty()) {
+      throw std::runtime_error("The data hasn't been loaded. Use the readJSON() method before.");
+      return;
+    }
+
+    // Error if the graph is not empty
+
+    if(! tempGraph.empty()) {
+      throw std::runtime_error("The provided graph is not empty.");
+      return;
+    }
+
+    // Create the vertices in the graph
+
+    for(auto airport: data)
+      tempGraph.insertVertex(airport.id, airport);
+
+    // Create the edges
+
+    for(auto airport: data) {
+      Airport::t_id id = airport.id;
+
+      for(auto destination: airport.destinations) {
+	tempGraph.createEdge(id, destination, 1);
+      }
+    }
   }
 
   /// @brief Load the previously loaded data into a directed graph
@@ -128,8 +157,37 @@ public:
   /// @param[in] tempGraph The directed graph in which the data will be
   /// loaded. This graph need to be empty. Otherwise, an exception is thrown.
 
-  void dGraphMake(DirectedGraph<string, double> &tempGraph) {
+  void dGraphMake(DirectedGraph<Airport, double> &tempGraph) {
     // TODO: Throw an exception when the graph is not empty.
+
+    // Error if the data hasn't been loaded
+
+    if(data.empty()) {
+      throw std::runtime_error("The data hasn't been loaded. Use the readJSON() method before.");
+      return;
+    }
+
+    // Error if the graph is not empty
+
+    if(! tempGraph.empty()) {
+      throw std::runtime_error("The provided graph is not empty.");
+      return;
+    }
+
+    // Create the vertices in the graph
+
+    for(auto airport: data)
+      tempGraph.insertVertex(airport.id, airport);
+
+    // Create the edges
+
+    for(auto airport: data) {
+      Airport::t_id id = airport.id;
+
+      for(auto destination: airport.destinations) {
+	tempGraph.createEdge(id, destination, 1);
+      }
+    }
   }
 
   /// @brief Display all the laoded data
