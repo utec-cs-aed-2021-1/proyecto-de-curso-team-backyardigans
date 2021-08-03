@@ -12,6 +12,8 @@
 
 Este repositorio contiene el proyecto parcial y final para el curso CS2100 enseñado en UTEC en el periodo 2021-1.
 
+Escribimos pruebas unitarias con la librería Catch2. Utilizamos Doxygen para documentar nuestro código y utilizamos la librería Boost para leer los datos del archivo JSON.
+
 * Integrantes
 
 |-----------------+-------------------|
