@@ -1,8 +1,3 @@
-:PROPERTIES:
-:HEADER-ARGS+: :dir (progn default-directory)
-:HEADER-ARGS+: :exports results
-:END:
-
 * Tabla de contenidos                                                   :TOC:
 - [[#introducción][Introducción]]
 - [[#integrantes][Integrantes]]
@@ -115,7 +110,7 @@ cmake --build .
 
 Ejecutar las pruebas de la clase =DirectedGraph=.
 
-#+HEADER: :export results
+#+HEADER: :exports results
 #+begin_src dash
 ./Tester/tests "DirectedGraph::*"
 #+end_src
@@ -131,7 +126,7 @@ All tests passed (13 assertions in 7 test cases)
 Ejecutar las pruebas de la clase =UndirectedGraph=.
 
 
-#+HEADER: :export results
+#+HEADER: :exports results
 #+begin_src bash
 ./Tester/tests "UndirectedGraph::*"
 #+end_src
