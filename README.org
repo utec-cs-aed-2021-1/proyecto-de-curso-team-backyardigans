@@ -2,6 +2,16 @@
 :HEADER-ARGS+: :dir (progn default-directory)
 :END:
 
+* Tabla de contenidos                                                   :TOC:
+- [[#introducción][Introducción]]
+- [[#integrantes][Integrantes]]
+- [[#convenciones][Convenciones]]
+  - [[#lenguaje-principal][Lenguaje principal]]
+  - [[#nombre-de-las-clases][Nombre de las clases]]
+  - [[#documentación][Documentación]]
+- [[#comandos-útiles][Comandos útiles]]
+  - [[#pruebas-unitarias][Pruebas unitarias]]
+
 * Introducción
 
 Este repositorio contiene el proyecto parcial y final para el curso CS2100 enseñado en UTEC en el periodo 2021-1.
