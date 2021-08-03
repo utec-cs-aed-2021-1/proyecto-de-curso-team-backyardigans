@@ -1,7 +1,3 @@
-//
-// Created by LENOVO on 31/07/2021.
-//
-
 #ifndef GRAPHS_BELLMANFORD_H
 #define GRAPHS_BELLMANFORD_H
 

@@ -1,6 +1,3 @@
-//
-// Created by EDGAR on 18/07/2021.
-//
 #include "catch.hpp"
 #include "Algorithms/FloydWarshall.h"
 

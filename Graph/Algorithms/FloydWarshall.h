@@ -1,7 +1,3 @@
-//
-// Created by EDGAR on 18/07/2021.
-//
-
 #ifndef GRAPHS_FLOYDWARSHALL_H
 #define GRAPHS_FLOYDWARSHALL_H
 #include "DirectedGraph.h"

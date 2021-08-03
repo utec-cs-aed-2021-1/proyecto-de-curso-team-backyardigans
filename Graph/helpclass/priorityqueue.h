@@ -1,7 +1,3 @@
-//
-// Created by LENOVO on 3/07/2021.
-//
-
 #ifndef GRAPHS_PRIORITYQUEUE_H
 #define GRAPHS_PRIORITYQUEUE_H
 #include <iostream>

@@ -1,7 +1,3 @@
-//
-// Created by LENOVO on 3/07/2021.
-//
-
 #ifndef GRAPHS_DSARRAY_H
 #define GRAPHS_DSARRAY_H
 #include <vector>

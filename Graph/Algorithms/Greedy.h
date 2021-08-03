@@ -1,7 +1,3 @@
-//
-// Created by LENOVO on 17/07/2021.
-//
-
 #ifndef GRAPHS_GREEDY_H
 #define GRAPHS_GREEDY_H
 #include <utility>

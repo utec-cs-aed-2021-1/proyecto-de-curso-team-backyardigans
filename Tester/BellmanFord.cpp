@@ -1,7 +1,3 @@
-//
-// Created by LENOVO on 31/07/2021.
-//
-
 #include "catch.hpp"
 #include "Algorithms/BellmanFord.h"
 TEST_CASE("BellmanFord::applyd") {
