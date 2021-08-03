@@ -1,0 +1,132 @@
+:PROPERTIES:
+:HEADER-ARGS+: :dir (progn default-directory)
+:END:
+
+* Introducción
+
+Este repositorio contiene el proyecto parcial y final para el curso CS2100 enseñado en UTEC en el periodo 2021-1.
+
+* Integrantes
+
+|-----------------+-------------------|
+| Nombre          | Participación (%) |
+|-----------------+-------------------|
+| Paulo Cuaresma  |              100  |
+| Edgar Chacon    |              100  |
+| Rodrigo Morales |              100  |
+|-----------------+-------------------|
+
+* Convenciones
+
+** Lenguaje principal
+
+El lenguaje principal utilizado debe ser el inglés. Este lenguaje debe ser utilizado para nombrar las clases, escribir la documentación y escribir el mensaje de los /commits/.
+
+** Nombre de las clases
+
+#+begin_src cpp
+class Airport {};
+class DirectedGraph {};
+class UndirectedGraph {};
+#+end_src
+
+** Documentación
+
+*** Delimitador
+
+Usar =///=.
+
+#+begin_src cpp
+/// @brief Get the country of the airport
+///
+/// @note The name of the country is not shortened
+
+std::string Airport::get_country() {
+  return this -> country;
+}
+#+end_src
+
+*** Ubicación de la documentación: ¿implementación o definición?
+
+La documentación debe ser escrita arriba de las implementaciones en vez de las definiciones.
+
+Esta convención se hace porque cuando uno lee la implementación, es porque quiere obtener mayor información sobre la función. En cambio, si uno lee la definición, es más probable que solo quiere obtener información superficial sobre ella.
+
+Es *correcto* hacer
+
+#+begin_src cpp
+class Airpot() {
+...
+public:
+  void get_country();
+}
+
+/// @brief Get the country of the airport
+
+void Airport::get_country() {
+  return this -> country;
+}
+#+end_src
+
+Es *incorrecto* hacer
+
+#+begin_src cpp
+class Airpot() {
+...
+public:
+  /// @brief Get the country of the airport
+  void get_country();
+}
+
+void Airport::get_country() {
+  return this -> country;
+}
+#+end_src
+
+*** Documentación en clases abstractas
+
+La documentación debe ser ubicada en la clase abstracto. Si es necesario añadir documentación adicional en la clase hija, entonces simplemente debe ser añadida.
+
+* Comandos útiles
+
+** Pruebas unitarias
+
+*** Compilación de las pruebas
+
+Ir al directorio raíz del proyecto.
+
+#+begin_src dash
+cmake .
+cmake --build .
+#+end_src
+
+*** Ejecución de las pruebas
+
+Ejecutar las pruebas de la clase =DirectedGraph=.
+
+#+begin_src dash
+./Tester/tests "DirectedGraph::*"
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Filters: DirectedGraph::*
+===============================================================================
+All tests passed (13 assertions in 7 test cases)
+
+#+end_example
+
+Ejecutar las pruebas de la clase =UndirectedGraph=.
+
+
+#+begin_src bash
+./Tester/tests "UndirectedGraph::*"
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Filters: UndirectedGraph::*
+===============================================================================
+All tests passed (9 assertions in 7 test cases)
+
+#+end_example
