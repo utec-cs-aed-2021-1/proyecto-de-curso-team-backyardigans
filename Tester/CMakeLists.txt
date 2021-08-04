@@ -11,6 +11,7 @@ set(UNIT_TEST_LIST
   Kruskal
   Prim
   FloydWarshall
+  BellmanFord
   )
 
 foreach(NAME IN LISTS UNIT_TEST_LIST)
