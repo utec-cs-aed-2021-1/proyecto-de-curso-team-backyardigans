@@ -2,6 +2,7 @@
 #include "UndirectedGraph.h"
 #include "DirectedGraph.h"
 #include "helpclass/priorityqueue.h"
+//Funciona para Directed y Undirected
 template<typename TV, typename TE>
 class Dijkstra{
 protected:
