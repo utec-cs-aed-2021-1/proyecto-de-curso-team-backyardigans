@@ -14,6 +14,8 @@ Este repositorio contiene el proyecto parcial y final para el curso CS2100 ense�
 
 Escribimos pruebas unitarias con la librería Catch2. Utilizamos Doxygen para documentar nuestro código y utilizamos la librería Boost para leer los datos del archivo JSON.
 
+Todos los algoritmos devuelve un grafo, algunos ademas de ello imprimen una tabla
+
 * Integrantes
 
 |-----------------+-------------------|
