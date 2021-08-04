@@ -141,6 +141,8 @@ All tests passed (9 assertions in 7 test cases)
 
 #+end_example
 
+Tambien se puede elegir que TEST se quieren compilar editando el Tester/CMakeLists.txt
+
 *** Compilación del parser
 
 #+begin_src bash
