@@ -1,13 +1,17 @@
 # Algoritmos y Estructura de Datos
+
 ## Proyecto sobre Grafos
 --------
 
 ## Integrantes
-- 
-- 
-- 
+
+- Paulo Cuaresma (100%)
+- Edgar Chacon (100%)
+- Rodrigo Morales(100%)
 
 ----
+
+## Indicaciones
 
 El proyecto del curso consiste en implementar una estructura de datos de grafo y un file parser. La estructura debe soportar los métodos y algoritmos descritos a continuacion:  
 
